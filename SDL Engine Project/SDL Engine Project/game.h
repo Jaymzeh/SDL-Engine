@@ -2,8 +2,8 @@
 #include <iostream>
 #include "gamestate.h"
 
-#include "SDL2-2.0.3\include\SDL.h"
-#include "SDL2-2.0.3\include\SDL_opengl.h"
+#include "SDL2-2.0.3-15\include\SDL.h"
+#include "SDL2-2.0.3-15\include\SDL_opengl.h"
 
 class Game{
 public:

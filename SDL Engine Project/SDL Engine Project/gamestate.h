@@ -1,7 +1,7 @@
 #ifndef GAME_STATE
 #define GAME_STATE
 
-#include "SDL2-2.0.3\include\SDL.h"
+#include "SDL2-2.0.3-15\include\SDL.h"
 
 // GameState needs to refer to the Game object which needs to
 // refer to GameState objects, which creates a circular dependency

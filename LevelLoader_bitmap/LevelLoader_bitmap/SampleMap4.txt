@@ -1,0 +1,12 @@
+abba   aaaa
+abba   abba
+abbaaaaabba
+abbbbbbbbba
+abbbbbbbbba
+aaaaabbaaaa
+    abba   
+    abba   
+    abba   
+aaaaabba   
+abbbbbba   
+aaaaaaaa   

@@ -93,5 +93,7 @@ void Map::loadMapTiles(){
 void Map::render(){
 	for (int i = 0; i < tile.size(); i++){
 		tile[i]->render(bitmap);
+		if (tile[i]->getID() == 0)
+			tile[i]->getBox().render();
 	}
 }

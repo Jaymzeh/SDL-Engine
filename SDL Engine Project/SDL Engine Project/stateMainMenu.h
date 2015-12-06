@@ -1,4 +1,5 @@
 #ifndef STATE_MAIN_MENU
+#define STATE_MAIN_MENU
 
 #include "gamestate.h"
 #include "map.h"

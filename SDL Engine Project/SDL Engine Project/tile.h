@@ -4,6 +4,7 @@
 #include <iostream>
 #include "freeglut\glut.h"
 #include "vector2.h"
+#include "boundingBox.h"
 #include "aniSprite.h"
 
 using std::cout;
@@ -15,43 +16,53 @@ public:
 	virtual float getWidth() = 0;
 	virtual float getHeight() = 0;
 	virtual void render(Bitmap* bitmap) = 0;
+	virtual BoundingBox getBox() = 0;
+	virtual int getID() = 0;
 	virtual ~BaseTile(){};
 };
 
-class Tile :public BaseTile{
+class Tile :public BaseTile {
 private:
 	Vector2 position;
 public:
 
-	Tile(){
+	Tile() {
 		width = 1;
 		height = 1;
+		ID = 0;
 	}
-	Tile(float dx, float dy){
+	Tile(float dx, float dy) {
 		position.x = dx;
 		position.y = dy;
 		width = 1;
 		height = 1;
+		bBox.setBox(position.x, position.y, width, height);
+		ID = 0;
 	}
-	Tile(float dx, float dy, float dw, float dh){
+	Tile(float dx, float dy, float dw, float dh) {
 		position.x = dx;
 		position.y = dy;
 		width = dw;
 		height = dh;
+		bBox.setBox(position.x, position.y, width, height);
+		ID = 0;
 	}
 
-	Tile(float dx, float dy, 
-		float dw, float dh, int tileID){
+	Tile(float dx, float dy,
+		float dw, float dh, int tileID) {
 		position.x = dx;
 		position.y = dy;
 		width = dw;
 		height = dh;
 		ID = tileID;
+		bBox.setBox(position.x, position.y, width, height);
 	}
 
-	Vector2 getPosition(){ return position; }
-	float getWidth(){ return width; }
-	float getHeight(){ return height; }
+	Vector2 getPosition() { return position; }
+	BoundingBox getBox() { return bBox; }
+	float getWidth() { return width; }
+	float getHeight() { return height; }
+	int getID() { return ID; }
 	void render(Bitmap* sprite){
 
 		if (sprite){
@@ -81,6 +92,7 @@ public:
 protected:
 	float width;
 	float height;
+	BoundingBox bBox;
 	int ID;
 };
 
@@ -93,7 +105,9 @@ public:
 	Vector2 getPosition(){ return tile->getPosition(); }
 	float getWidth(){ return tile->getWidth(); }
 	float getHeight(){ return tile->getHeight(); }
+	int getID() { return tile->getID(); }
 	void render(Bitmap *bitmap){ tile->render(bitmap); }
+	BoundingBox getBox() { return tile->getBox(); }
 	~TileDecorator(){ delete tile; }
 
 };
@@ -104,17 +118,21 @@ public:
 	Vector2 getPosition(){ return TileDecorator::getPosition(); }
 	float getWidth(){ return TileDecorator::getWidth(); }
 	float getHeight(){ return TileDecorator::getHeight(); }
+	int getID() { return TileDecorator::getID(); }
 	void render(Bitmap *bitmap){ TileDecorator::render(bitmap); }
+	BoundingBox getBox() { return TileDecorator::getBox(); }
 	~GroundTile(){ cout << "Deleting GroundTile" << endl; }
 };
 
 class WallTile :public TileDecorator{
 public:
-	WallTile(BaseTile *t) : TileDecorator(t){};
+	WallTile(BaseTile *t) : TileDecorator(t) { };
 	Vector2 getPosition(){ return TileDecorator::getPosition(); }
 	float getWidth(){ return TileDecorator::getWidth(); }
 	float getHeight(){ return TileDecorator::getHeight(); }
+	int getID() { return TileDecorator::getID(); }
 	void render(Bitmap *bitmap){ TileDecorator::render(bitmap); }
+	BoundingBox getBox() { return TileDecorator::getBox(); }
 	~WallTile(){ cout << "Deleting WallTile" << endl; }
 };
 
@@ -124,7 +142,9 @@ public:
 	Vector2 getPosition(){ return TileDecorator::getPosition(); }
 	float getWidth(){ return TileDecorator::getWidth(); }
 	float getHeight(){ return TileDecorator::getHeight(); }
+	int getID() { return TileDecorator::getID(); }
 	void render(Bitmap *bitmap){ TileDecorator::render(bitmap); }
+	BoundingBox getBox() { return TileDecorator::getBox(); }
 	~DoorTile(){ cout << "Deleting DoorTile" << endl; }
 };
 #endif

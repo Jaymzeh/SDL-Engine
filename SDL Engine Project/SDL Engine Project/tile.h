@@ -88,6 +88,14 @@ public:
 		}
 
 	}
+
+	void move(float dx, float dy) {
+		
+		bBox.setBox(position.x = +dx, position.y = +dy, width, height);
+		position.x += dx;
+		position.y += dy;
+	}
+
 	~Tile(){ cout << "Deleting tile" << endl; }
 protected:
 	float width;

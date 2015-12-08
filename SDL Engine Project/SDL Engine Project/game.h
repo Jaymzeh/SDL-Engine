@@ -1,4 +1,8 @@
 #ifndef GAME
+
+#define WINDOWWIDTH 1024
+#define WINDOWHEIGHT 768
+
 #include <iostream>
 #include "gamestate.h"
 

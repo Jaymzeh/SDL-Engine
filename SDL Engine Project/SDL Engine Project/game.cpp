@@ -30,15 +30,18 @@ void Game::setupRC(){
 
 	window = SDL_CreateWindow("Group 3 Engine Prototype",
 		SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
-		800, 600, SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE);
+		WINDOWWIDTH, WINDOWHEIGHT, SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE);
 	if (!window)
 		exitFatalError("Unable to create window");
 	
-	
-
 	glContext = SDL_GL_CreateContext(window);
 
-	gluOrtho2D(0, 400, 0, 300);
+	int left = -WINDOWWIDTH / 2;
+	int right = WINDOWWIDTH / 2;
+	int top = WINDOWHEIGHT / 2;
+	int bottom = -WINDOWHEIGHT / 2;
+
+	gluOrtho2D(left, right, bottom, top);
 
 	//SDL_GL_SetSwapInterval(1);
 }

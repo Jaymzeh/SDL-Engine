@@ -18,10 +18,11 @@ void StateMainMenu::draw(SDL_Window* window) {
 	glColor3f(1, 0, 0);
 	glBegin(GL_LINE_LOOP);
 	glVertex2f(0, 0);
-	glVertex2f(800, 0);
-	glVertex2f(800, 600);
-	glVertex2f(0, 600);
+	glVertex2f(1024, 0);
+	glVertex2f(1024, 768);
+	glVertex2f(0, 768);
 	glEnd();
+
 
 
 	glPointSize(10);
@@ -29,14 +30,18 @@ void StateMainMenu::draw(SDL_Window* window) {
 	glVertex2f(0, 0);
 	glEnd();
 
+	glBegin(GL_POINTS);
+	glVertex2f(1024, 768);
+	glEnd();
+
 	SDL_GL_SwapWindow(window);
 
 }//draw
 void StateMainMenu::init(Game& context) {
-	
+
 }//init
 void StateMainMenu::enter() {
-	map = new Map("map.txt", 0, 600);
+	map = new Map("map.txt", 0, 768);
 	map->setBitmap("BlockSpriteBitmap2.bmp");
 	map->setTileSize(32);
 	map->loadMapTiles();

@@ -36,10 +36,10 @@ void Game::setupRC(){
 	
 	glContext = SDL_GL_CreateContext(window);
 
-	int left = -WINDOWWIDTH / 2;
-	int right = WINDOWWIDTH / 2;
-	int top = WINDOWHEIGHT / 2;
-	int bottom = -WINDOWHEIGHT / 2;
+	int left = 0;
+	int right = left + WINDOWWIDTH;
+	int top = WINDOWHEIGHT;
+	int bottom = top -WINDOWHEIGHT;
 
 	gluOrtho2D(left, right, bottom, top);
 

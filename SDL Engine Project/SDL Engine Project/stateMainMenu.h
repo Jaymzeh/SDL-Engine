@@ -3,6 +3,7 @@
 
 #include "gamestate.h"
 #include "map.h"
+#include "player.h"
 
 class StateMainMenu : public GameState {
 public:
@@ -17,6 +18,8 @@ public:
 
 private:
 	Map* map = NULL;
+	Player* player;
+	vector<BoundingBox> mapBoxes;
 };
 
 #endif

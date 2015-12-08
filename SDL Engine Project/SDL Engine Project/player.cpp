@@ -18,16 +18,20 @@ void Player::move(float dx, float dy) {
 		if (dy < 0)
 			direction = 2;
 
-	sprite[0]->move(dx, dy);
+	/*sprite[0]->move(dx, dy);
 	sprite[1]->move(dx, dy);
-	sprite[2]->move(dx, dy);
+	sprite[2]->move(dx, dy);*/
+
+	oldPosition = position;
+
 	position.x += dx;
 	position.y += dy;
+	box.setBox(position.x, position.y, 32, 32);
 }
 
 void Player::draw() {
 	
-	switch (direction) {
+	/*switch (direction) {
 	case 0:
 		currentSprite = sprite[0];
 		break;
@@ -49,6 +53,14 @@ void Player::draw() {
 		frames = 0;
 	}
 
-	currentSprite->draw();
+	currentSprite->draw();*/
 
+	glColor3f(1, 0, 0);
+	glBegin(GL_POLYGON);
+	glVertex2f(position.x, position.y);
+	glVertex2f(position.x + 32, position.y);
+	glVertex2f(position.x + 32, position.y + 32);
+	glVertex2f(position.x, position.y + 32);
+	glEnd();
+	box.render();
 }

@@ -32,6 +32,15 @@ public:
 	void setTileSize(float size){ tileSize = size; }
 	float getTileSize(){ return tileSize; }
 
+	vector<BoundingBox> getBoxes(){
+		vector<BoundingBox> boxes;
+		for (int i = 0; i < tile.size(); i++) {
+			if (tile[i]->getID() == 0)
+				boxes.push_back(tile[i]->getBox());
+		}
+		return boxes;
+	}
+
 	void loadMapFile(char* filePath);
 	void loadMapTiles();
 	void render();

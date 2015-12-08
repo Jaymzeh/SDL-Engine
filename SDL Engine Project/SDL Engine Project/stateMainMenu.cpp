@@ -1,8 +1,9 @@
 #include "stateMainMenu.h"
 
 
-StateMainMenu::StateMainMenu() {
 
+StateMainMenu::StateMainMenu() {
+	
 }//constructor
 StateMainMenu::~StateMainMenu() {
 
@@ -34,17 +35,23 @@ void StateMainMenu::draw(SDL_Window* window) {
 	glVertex2f(1024, 768);
 	glEnd();
 
+	player->draw();
+
 	SDL_GL_SwapWindow(window);
 
 }//draw
 void StateMainMenu::init(Game& context) {
-
+	map = new Map("map.txt", 0, 768);
 }//init
 void StateMainMenu::enter() {
-	map = new Map("map.txt", 0, 768);
+	
 	map->setBitmap("BlockSpriteBitmap2.bmp");
 	map->setTileSize(32);
 	map->loadMapTiles();
+	mapBoxes = map->getBoxes();
+
+	player = new Player(64, 702);
+
 }//enter
 void StateMainMenu::exit() {
 
@@ -52,30 +59,36 @@ void StateMainMenu::exit() {
 
 void StateMainMenu::handleSDLEvent(SDL_Event const& sdlEvent, Game& context) {
 
-	if (sdlEvent.type == SDL_KEYDOWN)
-	{
-		switch (sdlEvent.key.keysym.sym)
-		{
+	if (sdlEvent.type == SDL_KEYDOWN){
+		switch (sdlEvent.key.keysym.sym){
 
 		case SDLK_a:
-			glTranslated(10, 0, 0);
+			//glTranslatef(10, 0, 0);
+			player->move(-2, 0);
 			break;
 
 		case SDLK_d:
-			glTranslated(-10, 0, 0);
+			//glTranslatef(-10, 0, 0);
+			player->move(2, 0);
 			break;
 
 		case SDLK_w:
-			glTranslated(0, -10, 0);
+			//glTranslatef(0, -10, 0);
+			player->move(0, 2);
 			break;
 
 		case SDLK_s:
-			glTranslated(0, 10, 0);
+			//glTranslatef(0, 10, 0);
+			player->move(0, -2);
 			break;
-
-
 		default:
 			break;
+		}
+
+		for (int i = 0; i < mapBoxes.size(); i++) {
+			if (player->getBox().intersects(mapBoxes[i])) {
+					player->setPosition(player->getOldPosition());
+			}
 		}
 	}
 

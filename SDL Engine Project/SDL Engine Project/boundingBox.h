@@ -9,7 +9,6 @@ class BoundingBox{
 public:
 
 	void setBox(float dx, float dy, float dw, float dh){
-		std::cout << "Creating BoundingBox at (" << dx << ", " << dy << ")" << std::endl;
 		position.setPoint(dx, dy);
 		w = dw;
 		h = dh;

@@ -106,6 +106,7 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="map.txt" />
+    <Text Include="map2.txt" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="playerDown.bmp" />

@@ -24,6 +24,7 @@ private:
 	static int instances;
 
 	HSAMPLE musicSample;
+	HSAMPLE sample;
 	HCHANNEL musicChannel, sfxChannel;
 
 	void setupRC();

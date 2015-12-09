@@ -38,9 +38,9 @@ void Game::setupRC(){
 	glContext = SDL_GL_CreateContext(window);
 
 	int left = 0;
-	int right = left + WINDOWWIDTH/4;
+	int right = left + WINDOWWIDTH;
 	int top = WINDOWHEIGHT;
-	int bottom = top -WINDOWHEIGHT/4;
+	int bottom = top -WINDOWHEIGHT;
 
 	gluOrtho2D(left, right, bottom, top);
 
@@ -50,11 +50,14 @@ void Game::setupRC(){
 
 	BASS_Init(-1, 44100, 0, 0, NULL);
 	musicSample = BASS_SampleLoad(false, "Build_That_Wall.mp3",0,0,1, BASS_SAMPLE_MONO);
+	sample = BASS_SampleLoad(false, "edubble.mp3", 0, 0, 1, BASS_SAMPLE_MONO);
 	musicChannel = BASS_SampleGetChannel(musicSample, FALSE);
+	sfxChannel = BASS_SampleGetChannel(sample, FALSE);
 }
 
 void Game::init(){
 	BASS_ChannelPlay(musicChannel, FALSE);
+	BASS_ChannelPlay(sfxChannel, FALSE);
 
 	testLevelState = new StateTestLevel();
 	testLevelState->init(*this);
@@ -79,7 +82,7 @@ void Game::run(){
 				currentState->handleSDLEvent(sdlEvent, *this);
 
 		}
-		//currentState->update(); // this is the place to put a call to the game update function
+		//currentState->update();
 		currentState->draw(window);
 	}
 }

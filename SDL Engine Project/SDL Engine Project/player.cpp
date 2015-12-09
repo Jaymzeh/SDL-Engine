@@ -79,5 +79,5 @@ void Player::draw() {
 
 	currentSprite->draw();
 
-	//box.render();
+	box.render();
 }

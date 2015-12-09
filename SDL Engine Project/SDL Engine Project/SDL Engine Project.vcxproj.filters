@@ -82,6 +82,9 @@
     <Text Include="map.txt">
       <Filter>Resource Files</Filter>
     </Text>
+    <Text Include="map2.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <Image Include="playerDown.bmp">

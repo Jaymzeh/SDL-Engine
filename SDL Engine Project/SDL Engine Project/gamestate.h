@@ -13,8 +13,6 @@ public:
 	virtual void update(Game& context) = 0;
 	virtual void enter() = 0;
 	virtual void exit() = 0;
-	// Not using update function yet
-	// virtual void update(void) = 0
 	virtual void handleSDLEvent(SDL_Event const& sdlEvent, Game& context) = 0;
 };
 

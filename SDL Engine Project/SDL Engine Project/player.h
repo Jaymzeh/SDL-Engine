@@ -12,13 +12,13 @@ class Player {
 public:
 	Player(float dx, float dy);
 
+	void LoadSprites(Bitmap *bitmap[], int c[], int r[]);
 	Vector2 getPosition() { return position; }
-	void setPosition(Vector2 newPos) {
-		position = newPos;
-		box.setBox(position.x, position.y, 32, 32);
-	}
+	void setPosition(Vector2 newPos);
 	Vector2 getOldPosition() { return oldPosition; }
 	BoundingBox getBox() { return box; }
+
+	void setSprite(int i, AniSprite* newSprite) { sprite[i] = newSprite; }
 
 	//void updateInput(sdlk)
 

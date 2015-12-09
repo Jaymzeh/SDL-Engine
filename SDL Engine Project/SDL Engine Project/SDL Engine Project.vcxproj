@@ -104,6 +104,11 @@
   <ItemGroup>
     <Text Include="map.txt" />
   </ItemGroup>
+  <ItemGroup>
+    <Image Include="playerDown.bmp" />
+    <Image Include="playerSide.bmp" />
+    <Image Include="playerUp.bmp" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

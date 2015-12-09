@@ -1,7 +1,15 @@
 #include "player.h"
+#include <iostream>
 
 Player::Player(float dx, float dy) {
 	position.setPoint(dx, dy);
+}
+
+void Player::LoadSprites(Bitmap *bitmap[], int c[], int r[]) {
+	for (int i = 0; i < 3; i++) {
+		sprite[i] = new AniSprite(position.x, position.y, bitmap[i], c[i], r[i]);
+		std::cout << sprite[i] << std::endl;
+	}
 }
 
 void Player::move(float dx, float dy) {
@@ -18,9 +26,9 @@ void Player::move(float dx, float dy) {
 		if (dy < 0)
 			direction = 2;
 
-	/*sprite[0]->move(dx, dy);
+	sprite[0]->move(dx, dy);
 	sprite[1]->move(dx, dy);
-	sprite[2]->move(dx, dy);*/
+	sprite[2]->move(dx, dy);
 
 	oldPosition = position;
 
@@ -29,9 +37,16 @@ void Player::move(float dx, float dy) {
 	box.setBox(position.x, position.y, 32, 32);
 }
 
+void Player::setPosition(Vector2 newPos) {
+	position = newPos;
+	for (int i = 0; i < 3; i++)
+		sprite[i]->moveTo(position.x, position.y);
+	box.setBox(position.x, position.y, 32, 32);
+}
+
 void Player::draw() {
 	
-	/*switch (direction) {
+	switch (direction) {
 	case 0:
 		currentSprite = sprite[0];
 		break;
@@ -53,8 +68,7 @@ void Player::draw() {
 		frames = 0;
 	}
 
-	currentSprite->draw();*/
-
+	
 	glColor3f(1, 0, 0);
 	glBegin(GL_POLYGON);
 	glVertex2f(position.x, position.y);
@@ -62,5 +76,8 @@ void Player::draw() {
 	glVertex2f(position.x + 32, position.y + 32);
 	glVertex2f(position.x, position.y + 32);
 	glEnd();
+
+	//currentSprite->draw();
+
 	box.render();
 }

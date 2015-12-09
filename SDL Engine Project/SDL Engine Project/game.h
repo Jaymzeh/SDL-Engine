@@ -3,7 +3,6 @@
 #define WINDOWWIDTH 1024
 #define WINDOWHEIGHT 768
 
-#include <iostream>
 #include "gamestate.h"
 
 #include "SDL2-2.0.3-15\include\SDL.h"
@@ -16,6 +15,8 @@ public:
 
 	void init();
 	void run();
+
+	//bool keysHeld[323] = { false };
 private:
 	SDL_Window* window;
 	SDL_GLContext glContext;
@@ -26,6 +27,6 @@ private:
 	void setState(GameState* newState);
 	GameState* currentState;
 	GameState* mainMenuState;
-	GameState* testLevelState;
+	//GameState* testLevelState;
 };
 #endif

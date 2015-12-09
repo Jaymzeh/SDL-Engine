@@ -74,4 +74,15 @@
       <Filter>Resource Files</Filter>
     </Text>
   </ItemGroup>
+  <ItemGroup>
+    <Image Include="playerDown.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="playerSide.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="playerUp.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+  </ItemGroup>
 </Project>

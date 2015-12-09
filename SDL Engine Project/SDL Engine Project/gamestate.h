@@ -3,6 +3,8 @@
 
 #include "SDL2-2.0.3-15\include\SDL.h"
 
+//#include "game.h"
+
 // GameState needs to refer to the Game object which needs to
 // refer to GameState objects, which creates a circular dependency
 // and causes problems with #includes 
@@ -25,7 +27,7 @@ public:
 	virtual void exit() = 0;
 	// Not using update function yet
 	// virtual void update(void) = 0
-	virtual void handleSDLEvent(SDL_Event const &sdlEvent, Game &context) = 0;
+	virtual void handleSDLEvent(SDL_Event const& sdlEvent, Game& context) = 0;
 };
 
 #endif

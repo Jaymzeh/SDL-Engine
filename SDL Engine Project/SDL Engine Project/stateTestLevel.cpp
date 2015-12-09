@@ -72,22 +72,22 @@ void StateTestLevel::handleSDLEvent(SDL_Event const& sdlEvent, Game& context) {
 
 		case SDLK_a:
 			player->move(-2, 0);
-			glTranslatef(2, 0,0);
+			glTranslatef(2, 0, 0);
 			break;
 
 		case SDLK_d:
 			player->move(2, 0);
-			glTranslatef(-2, 0,0);
+			glTranslatef(-2, 0, 0);
 			break;
 
 		case SDLK_w:
 			player->move(0, 2);
-			glTranslatef(0, -2,0);
+			glTranslatef(0, -2, 0);
 			break;
 
 		case SDLK_s:
 			player->move(0, -2);
-			glTranslatef(0, 2,0);
+			glTranslatef(0, 2, 0);
 			break;
 		default:
 			break;

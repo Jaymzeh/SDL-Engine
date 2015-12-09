@@ -59,7 +59,7 @@
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>SDL2.lib;SDL2main.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;Bass.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -88,6 +88,7 @@
     <ClCompile Include="map.cpp" />
     <ClCompile Include="player.cpp" />
     <ClCompile Include="stateMainMenu.cpp" />
+    <ClCompile Include="stateTestLevel.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="aniSprite.h" />
@@ -98,6 +99,7 @@
     <ClInclude Include="map.h" />
     <ClInclude Include="player.h" />
     <ClInclude Include="stateMainMenu.h" />
+    <ClInclude Include="stateTestLevel.h" />
     <ClInclude Include="tile.h" />
     <ClInclude Include="vector2.h" />
   </ItemGroup>
@@ -108,6 +110,10 @@
     <Image Include="playerDown.bmp" />
     <Image Include="playerSide.bmp" />
     <Image Include="playerUp.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="Build_That_Wall.mp3" />
+    <Media Include="edubble.mp3" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

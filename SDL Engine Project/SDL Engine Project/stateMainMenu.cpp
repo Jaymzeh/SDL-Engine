@@ -13,59 +13,16 @@ void StateMainMenu::draw(SDL_Window* window) {
 	
 	glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT);
-	//glViewport(0, 0, 800, 800);
-	map->render();
 
-	//glColor3f(1, 0, 0);
-	//glBegin(GL_LINE_LOOP);
-	//glVertex2f(0, 0);
-	//glVertex2f(1024, 0);
-	//glVertex2f(1024, 768);
-	//glVertex2f(0, 768);
-	//glEnd();
-
-
-
-	//glPointSize(10);
-	//glBegin(GL_POINTS);
-	//glVertex2f(0, 0);
-	//glEnd();
-
-	//glBegin(GL_POINTS);
-	//glVertex2f(1024, 768);
-	//glEnd();
-
-	player->draw();
-
-	
 	SDL_GL_SwapWindow(window);
-	
-
 }//draw
 void StateMainMenu::init(Game& context) {
-	map = new Map("map.txt", 0, 768);
-
-	
-
-	//player->LoadSprites(tempBitmap, tempC, tempR);
-
 
 }//init
+void StateMainMenu::update(Game& context) {
+
+}//update
 void StateMainMenu::enter() {
-
-	map->setBitmap("BlockSpriteBitmap2.bmp");
-	map->setTileSize(32);
-	map->loadMapTiles();
-	mapBoxes = map->getBoxes();
-
-	player = new Player(64, 702);
-
-	player->setSprite(0, new AniSprite(player->getPosition().x,
-		player->getPosition().y, "playerUp.bmp", 3, 1));
-	player->setSprite(1, new AniSprite(player->getPosition().x,
-		player->getPosition().y, "playerSide.bmp", 3, 1));
-	player->setSprite(2, new AniSprite(player->getPosition().x,
-		player->getPosition().y, "playerDown.bmp", 3, 1));
 
 }//enter
 void StateMainMenu::exit() {
@@ -77,52 +34,8 @@ void StateMainMenu::handleSDLEvent(SDL_Event const& sdlEvent, Game& context) {
 	if (sdlEvent.type == SDL_KEYDOWN){
 		switch (sdlEvent.key.keysym.sym){
 
-		case SDLK_a:
-			//glTranslatef(10, 0, 0);
-			player->move(-2, 0);
-			break;
-
-		case SDLK_d:
-			//glTranslatef(-10, 0, 0);
-			player->move(2, 0);
-			break;
-
-		case SDLK_w:
-			//glTranslatef(0, -10, 0);
-			player->move(0, 2);
-			break;
-
-		case SDLK_s:
-			//glTranslatef(0, 10, 0);
-			player->move(0, -2);
-			break;
 		default:
 			break;
-		}
-
-//	if (sdlEvent.type == SDL_KEYDOWN)  //If Key is pressed down mark key as "pressed"
-//	{
-//		context.keysHeld[sdlEvent.key.keysym.sym] = 
-//true;
-//	}
-//	if (sdlEvent.type == SDL_KEYUP)
-//	{
-//		context.keysHeld[sdlEvent.key.keysym.sym] = false;
-//	}//Unmark "pressed" keys if they are up
-//
-//	if(context.keysHeld[SDLK_a])
-//		player->move(-2, 0);
-//	if (context.keysHeld[SDLK_d])
-//		player->move(2, 0);
-//	if (context.keysHeld[SDLK_w])
-//		player->move(0, 2);
-//	if (context.keysHeld[SDLK_s])
-//		player->move(0, -2);
-
-		for (int i = 0; i < mapBoxes.size(); i++) {
-			if (player->getBox().intersects(mapBoxes[i])) {
-					player->setPosition(player->getOldPosition());
-			}
 		}
 	}
 

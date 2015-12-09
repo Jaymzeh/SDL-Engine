@@ -1,5 +1,6 @@
 #include "game.h"
 #include "stateMainMenu.h"
+#include "stateTestLevel.h"
 
 void exitFatalError(char *message)
 {
@@ -37,22 +38,30 @@ void Game::setupRC(){
 	glContext = SDL_GL_CreateContext(window);
 
 	int left = 0;
-	int right = left + WINDOWWIDTH/8;
+	int right = left + WINDOWWIDTH/4;
 	int top = WINDOWHEIGHT;
-	int bottom = top -WINDOWHEIGHT/8;
+	int bottom = top -WINDOWHEIGHT/4;
 
 	gluOrtho2D(left, right, bottom, top);
 
-	//SDL_GL_SetSwapInterval(1);
+	SDL_GL_SetSwapInterval(1);
+
+	//Audio
+
+	BASS_Init(-1, 44100, 0, 0, NULL);
+	musicSample = BASS_SampleLoad(false, "Build_That_Wall.mp3",0,0,1, BASS_SAMPLE_MONO);
+	musicChannel = BASS_SampleGetChannel(musicSample, FALSE);
 }
 
 void Game::init(){
 
-	mainMenuState = new StateMainMenu();
-	mainMenuState->init(*this);
+	BASS_ChannelPlay(musicChannel, FALSE);
+
+	testLevelState = new StateTestLevel();
+	testLevelState->init(*this);
 
 
-	currentState = mainMenuState;
+	currentState = testLevelState;
 	currentState->enter();
 
 	glClearColor(0, 0, 0, 0);

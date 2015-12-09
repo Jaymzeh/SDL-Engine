@@ -74,6 +74,9 @@
     <ClInclude Include="stateTestLevel.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="bass.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="map.txt">
@@ -92,7 +95,11 @@
     </Image>
   </ItemGroup>
   <ItemGroup>
-    <Media Include="edubble.mp3" />
-    <Media Include="Build_That_Wall.mp3" />
+    <Media Include="edubble.mp3">
+      <Filter>Resource Files</Filter>
+    </Media>
+    <Media Include="Build_That_Wall.mp3">
+      <Filter>Resource Files</Filter>
+    </Media>
   </ItemGroup>
 </Project>

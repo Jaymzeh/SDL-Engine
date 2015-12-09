@@ -92,6 +92,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="aniSprite.h" />
+    <ClInclude Include="bass.h" />
     <ClInclude Include="bitmap.h" />
     <ClInclude Include="boundingBox.h" />
     <ClInclude Include="game.h" />

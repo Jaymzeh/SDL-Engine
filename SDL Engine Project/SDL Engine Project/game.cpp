@@ -31,7 +31,7 @@ void Game::setupRC(){
 
 	window = SDL_CreateWindow("Group 3 Engine Prototype",
 		SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
-		WINDOWWIDTH, WINDOWHEIGHT, SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE | GLUT_DOUBLE);
+		WINDOWWIDTH, WINDOWHEIGHT, SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE);
 	if (!window)
 		exitFatalError("Unable to create window");
 	
@@ -54,12 +54,10 @@ void Game::setupRC(){
 }
 
 void Game::init(){
-
 	BASS_ChannelPlay(musicChannel, FALSE);
 
 	testLevelState = new StateTestLevel();
 	testLevelState->init(*this);
-
 
 	currentState = testLevelState;
 	currentState->enter();

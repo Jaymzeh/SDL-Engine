@@ -69,14 +69,14 @@ void Map::loadMapTiles(){
 			break;
 		case 'b':
 			cout << "Corridor tile added - (" << xPos << ", " << yPos << ")" << endl;
-			tile.push_back(new GroundTile(new Tile(xPos, yPos, tileSize, tileSize, 1)));
+			tile.push_back(new GroundTile(new Tile(xPos, yPos, tileSize, tileSize, 5)));
 			rowLength++;
 			xPos += tileSize;
 			break;
 
 		case 'c':
 			cout << "Corridor tile added - (" << xPos << ", " << yPos << ")" << endl;
-			tile.push_back(new DoorTile(new Tile(xPos, yPos, tileSize, tileSize, 2)));
+			tile.push_back(new DoorTile(new Tile(xPos, yPos, tileSize, tileSize, 5)));
 			rowLength++;
 			xPos += tileSize;
 			break;
@@ -93,7 +93,7 @@ void Map::loadMapTiles(){
 void Map::render(){
 	for (int i = 0; i < tile.size(); i++){
 		tile[i]->render(bitmap);
-		if (tile[i]->getID() == 0)
-			tile[i]->getBox().render();
+		//if (tile[i]->getID() == 0)
+			//tile[i]->getBox().render();
 	}
 }

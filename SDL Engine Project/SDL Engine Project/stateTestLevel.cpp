@@ -11,7 +11,7 @@ StateTestLevel::~StateTestLevel() {
 
 void StateTestLevel::draw(SDL_Window* window) {
 
-	glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
+	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT);
 	//glViewport(0, 0, 800, 800);
 	map->render();
@@ -23,14 +23,10 @@ void StateTestLevel::draw(SDL_Window* window) {
 	//glVertex2f(1024, 768);
 	//glVertex2f(0, 768);
 	//glEnd();
-
-
-
 	//glPointSize(10);
 	//glBegin(GL_POINTS);
 	//glVertex2f(0, 0);
 	//glEnd();
-
 	//glBegin(GL_POINTS);
 	//glVertex2f(1024, 768);
 	//glEnd();
@@ -39,8 +35,6 @@ void StateTestLevel::draw(SDL_Window* window) {
 
 
 	SDL_GL_SwapWindow(window);
-
-
 }//draw
 void StateTestLevel::init(Game& context) {
 	map = new Map("map.txt", 0, 768);
@@ -60,11 +54,11 @@ void StateTestLevel::enter() {
 	player = new Player(64, 702);
 
 	player->setSprite(0, new AniSprite(player->getPosition().x,
-		player->getPosition().y, "playerUp.bmp", 3, 1));
+		player->getPosition().y, "BlackMage_up.bmp", 3, 1));
 	player->setSprite(1, new AniSprite(player->getPosition().x,
-		player->getPosition().y, "playerSide.bmp", 3, 1));
+		player->getPosition().y, "BlackMage_right.bmp", 3, 1));
 	player->setSprite(2, new AniSprite(player->getPosition().x,
-		player->getPosition().y, "playerDown.bmp", 3, 1));
+		player->getPosition().y, "BlackMage_down.bmp", 3, 1));
 
 }//enter
 void StateTestLevel::exit() {
@@ -78,18 +72,22 @@ void StateTestLevel::handleSDLEvent(SDL_Event const& sdlEvent, Game& context) {
 
 		case SDLK_a:
 			player->move(-2, 0);
+			glTranslatef(2, 0,0);
 			break;
 
 		case SDLK_d:
 			player->move(2, 0);
+			glTranslatef(-2, 0,0);
 			break;
 
 		case SDLK_w:
 			player->move(0, 2);
+			glTranslatef(0, -2,0);
 			break;
 
 		case SDLK_s:
 			player->move(0, -2);
+			glTranslatef(0, 2,0);
 			break;
 		default:
 			break;

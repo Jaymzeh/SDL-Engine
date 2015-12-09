@@ -69,15 +69,15 @@ void Player::draw() {
 	}
 
 	
-	glColor3f(1, 0, 0);
+	/*glColor3f(1, 0, 0);
 	glBegin(GL_POLYGON);
 	glVertex2f(position.x, position.y);
 	glVertex2f(position.x + 32, position.y);
 	glVertex2f(position.x + 32, position.y + 32);
 	glVertex2f(position.x, position.y + 32);
-	glEnd();
+	glEnd();*/
 
-	//currentSprite->draw();
+	currentSprite->draw();
 
-	box.render();
+	//box.render();
 }

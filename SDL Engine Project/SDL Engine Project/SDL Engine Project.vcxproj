@@ -87,8 +87,9 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="map.cpp" />
     <ClCompile Include="player.cpp" />
+    <ClCompile Include="stateLevelTwo.cpp" />
     <ClCompile Include="stateMainMenu.cpp" />
-    <ClCompile Include="stateTestLevel.cpp" />
+    <ClCompile Include="stateLevelOne.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="aniSprite.h" />
@@ -99,8 +100,9 @@
     <ClInclude Include="gamestate.h" />
     <ClInclude Include="map.h" />
     <ClInclude Include="player.h" />
+    <ClInclude Include="stateLevelTwo.h" />
     <ClInclude Include="stateMainMenu.h" />
-    <ClInclude Include="stateTestLevel.h" />
+    <ClInclude Include="stateLevelOne.h" />
     <ClInclude Include="tile.h" />
     <ClInclude Include="vector2.h" />
   </ItemGroup>

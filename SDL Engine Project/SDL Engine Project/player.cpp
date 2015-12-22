@@ -1,8 +1,17 @@
 #include "player.h"
 #include <iostream>
+#include "SDL2-2.0.3-15\include\SDL.h"
 
 Player::Player(float dx, float dy) {
 	position.setPoint(dx, dy);
+	
+	//glPopMatrix();
+	
+	int width = 256;
+	int height = 256;
+	int left = (position.x + 16) - (width / 2);
+	int top =(position.y+16) + (height / 2);
+	//glOrtho(left, left + width, top - height, top, 0, 1);
 }
 
 void Player::LoadSprites(Bitmap *bitmap[], int c[], int r[]) {
@@ -26,15 +35,24 @@ void Player::move(float dx, float dy) {
 		if (dy < 0)
 			direction = 2;
 
+	if (dx != 0 && dy != 0)
+		moving = true;
+	else
+		moving = false;
+
 	sprite[0]->move(dx, dy);
 	sprite[1]->move(dx, dy);
 	sprite[2]->move(dx, dy);
 
 	oldPosition = position;
-
 	position.x += dx;
 	position.y += dy;
 	box.setBox(position.x, position.y, 32, 32);
+
+}
+
+void Player::moveBack() {
+	setPosition(oldPosition);
 }
 
 void Player::setPosition(Vector2 newPos) {
@@ -62,20 +80,14 @@ void Player::draw() {
 		currentSprite->setDrawmode(DrawMode::FLIPCELL);
 		break;
 	}
-
-	if (frames++ >= FRAME_STEP) {
-		currentSprite->nextCell();
-		frames = 0;
+	if (moving) {
+		if (frames++ >= FRAME_STEP) {
+			currentSprite->nextCell();
+			frames = 0;
+		}
 	}
-
-	
-	/*glColor3f(1, 0, 0);
-	glBegin(GL_POLYGON);
-	glVertex2f(position.x, position.y);
-	glVertex2f(position.x + 32, position.y);
-	glVertex2f(position.x + 32, position.y + 32);
-	glVertex2f(position.x, position.y + 32);
-	glEnd();*/
+	else
+		frames = 0;
 
 	currentSprite->draw();
 

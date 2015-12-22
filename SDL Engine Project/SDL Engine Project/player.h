@@ -23,6 +23,7 @@ public:
 	//void updateInput(sdlk)
 
 	void move(float dx, float dy);
+	void moveBack();
 	void draw();
 
 private:
@@ -35,6 +36,7 @@ private:
 
 	Vector2 position, oldPosition;
 	int health;
+	bool moving = false;
 };
 
 #endif

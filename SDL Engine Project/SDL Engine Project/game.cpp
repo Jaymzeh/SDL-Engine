@@ -1,6 +1,7 @@
 #include "game.h"
 #include "stateMainMenu.h"
-#include "stateTestLevel.h"
+#include "stateLevelOne.h"
+#include "stateLevelTwo.h"
 
 void exitFatalError(char *message)
 {
@@ -37,12 +38,15 @@ void Game::setupRC(){
 	
 	glContext = SDL_GL_CreateContext(window);
 
-	int left = 0;
-	int right = left + WINDOWWIDTH;
-	int top = WINDOWHEIGHT;
-	int bottom = top -WINDOWHEIGHT;
-
-	gluOrtho2D(left, right, bottom, top);
+	//glMatrixMode(GL_PROJECTION);
+	//glLoadIdentity();
+	//int left = 0;
+	//int right = left + WINDOWWIDTH;
+	//int top = WINDOWHEIGHT;
+	//int bottom = top -WINDOWHEIGHT;
+	////glPushMatrix();
+	////gluOrtho2D(left, right, bottom, top);
+	//gluOrtho2D(left, right, bottom, top);
 
 	SDL_GL_SetSwapInterval(1);
 
@@ -56,13 +60,16 @@ void Game::setupRC(){
 }
 
 void Game::init(){
-	BASS_ChannelPlay(musicChannel, FALSE);
-	BASS_ChannelPlay(sfxChannel, FALSE);
+	//BASS_ChannelPlay(musicChannel, FALSE);
+	//BASS_ChannelPlay(sfxChannel, FALSE);
 
-	testLevelState = new StateTestLevel();
-	testLevelState->init(*this);
+	levelOneState = new StateLevelOne();
+	levelOneState->init(*this);
 
-	currentState = testLevelState;
+	levelTwoState = new StateLevelTwo();
+	levelTwoState->init(*this);
+
+	currentState = levelOneState;
 	currentState->enter();
 
 	glClearColor(0, 0, 0, 0);
@@ -91,4 +98,16 @@ void Game::setState(GameState* newState){
 	currentState->exit();
 	currentState = newState;
 	currentState->enter();
+	glPushMatrix();
+}
+
+GameState* Game::getMainMenuState() {
+	return mainMenuState;
+}
+
+GameState* Game::getLevelOne() {
+	return levelOneState;
+}
+GameState* Game::getLevelTwo() {
+	return levelOneState;
 }

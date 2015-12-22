@@ -32,6 +32,9 @@ void Map::loadMapFile(char* filePath){
 
 		file.close();
 	}
+	else {
+		cout << "File '" << filePath << "' could not be loaded" << endl;
+	}
 	
 }
 

@@ -2,6 +2,8 @@
 
 #define WINDOWWIDTH 1024
 #define WINDOWHEIGHT 768
+#define VIEWWIDTH 256
+#define VIEWHEIGHT 256
 
 #include "gamestate.h"
 #include "bass.h"
@@ -16,6 +18,11 @@ public:
 	void init();
 	void run();
 
+	void setState(GameState* newState);
+	GameState* getMainMenuState();
+	GameState* getLevelOne();
+	GameState* getLevelTwo();
+
 	//bool keysHeld[323] = { false };
 private:
 	SDL_Window* window;
@@ -28,9 +35,10 @@ private:
 	HCHANNEL musicChannel, sfxChannel;
 
 	void setupRC();
-	void setState(GameState* newState);
+	
 	GameState* currentState;
 	GameState* mainMenuState;
-	GameState* testLevelState;
+	GameState* levelOneState;
+	GameState* levelTwoState;
 };
 #endif

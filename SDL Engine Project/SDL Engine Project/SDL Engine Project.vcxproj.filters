@@ -36,7 +36,10 @@
     <ClCompile Include="player.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="stateTestLevel.cpp">
+    <ClCompile Include="stateLevelOne.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="stateLevelTwo.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -71,10 +74,13 @@
     <ClInclude Include="player.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="stateTestLevel.h">
+    <ClInclude Include="bass.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="bass.h">
+    <ClInclude Include="stateLevelOne.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="stateLevelTwo.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

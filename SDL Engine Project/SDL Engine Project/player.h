@@ -3,37 +3,39 @@
 
 #define FRAME_STEP 10
 
-#include "SDL2-2.0.3-15\include\SDL.h"
 #include "aniSprite.h"
 #include "vector2.h"
 #include "boundingBox.h"
+#include "SDL2-2.0.3-15\include\SDL.h"
 
 class Player {
 public:
-	Player(float dx, float dy);	
-	Vector2 getPosition() { return position; }
-	void setPosition(Vector2 newPos);
-	Vector2 getOldPosition() { return oldPosition; }
-	BoundingBox getBox() { return box; }
+	Player(float dx, float dy, float charSize);
 
-	void setSprite(int i, AniSprite* newSprite) { sprite[i] = newSprite; }
-
-	//void updateInput(sdlk)
-
+	void setSprite(int i, AniSprite* newSprite);
 	void move(float dx, float dy);
 	void moveBack();
+	void handleInputX(const Uint8* keystate);
+	void handleInputY(const Uint8* keystate);
+	void setPosition(Vector2 newPos);
+	void setPosition(float dx, float dy);
+
 	void render();
 
+	BoundingBox getBox() { return bBox; }
+	Vector2 getPosition() { return position; }
+	Vector2 getOldPosition() { return oldPosition; }
+
+	~Player();
 private:
+	int health;
+	float width, height;
+	float moveSpeed = 1;
+	BoundingBox bBox;
+	Vector2 position, oldPosition;
 	AniSprite* sprite[3];
 	AniSprite* currentSprite;
-	int direction = 0;
+	int direction;
 	int frames = 0;
-
-	BoundingBox box;
-
-	Vector2 position, oldPosition;
-	int health;
 };
-
 #endif

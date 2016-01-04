@@ -12,8 +12,6 @@ Base abstract class for characters
 class BaseCharacter {
 public:
 
-	virtual Vector2 getPosition() = 0;
-	virtual Vector2 getOldPosition() = 0;
 	virtual void setSprite(int i, AniSprite* newSprite) = 0;
 	virtual void move(float dx, float dy) = 0;
 	virtual void moveBack() = 0;
@@ -21,8 +19,10 @@ public:
 	virtual void setPosition(float dx, float dy) = 0;
 	virtual void render() = 0;
 	virtual BoundingBox getBox() = 0;
+	virtual Vector2 getPosition() = 0;
+	virtual Vector2 getOldPosition() = 0;
+	virtual ~BaseCharacter() {};
 };
-
 
 class Character : public BaseCharacter {
 private:
@@ -35,7 +35,7 @@ public:
 	Character(float dx, float dy, float charSize) {
 		position.setPoint(dx, dy);
 		width = height = charSize;
-		bBox.setBox(position.x, position.y, 32, 32);
+		bBox.setBox(position.x, position.y, width, height);
 	}
 	
 	void setSprite(int i, AniSprite* newSprite) {
@@ -60,7 +60,7 @@ public:
 		oldPosition = position;
 		position.x += dx;
 		position.y += dy;
-		bBox.setBox(position.x, position.y, 32, 32);
+		bBox.setBox(position.x, position.y, width, height);
 	}
 	void moveBack() {
 		setPosition(oldPosition);
@@ -70,7 +70,7 @@ public:
 		position = newPos;
 		for (int i = 0; i < ARRAYSIZE(sprite); i++)
 			sprite[i]->moveTo(position.x, position.y);
-		bBox.setBox(position.x, position.y, 32, 32);
+		bBox.setBox(position.x, position.y, width, height);
 	}
 	void setPosition(float dx, float dy){
 		position.setPoint(dx,dy);
@@ -123,6 +123,8 @@ protected:
 	BoundingBox bBox;
 };
 
+
+
 class CharacterDecorator :public BaseCharacter {
 private:
 	BaseCharacter* character;
@@ -132,12 +134,33 @@ public:
 	void setSprite(int i, AniSprite* newSprite) { character->setSprite(i, newSprite); }
 	void move(float dx, float dy) { character->move(dx, dy); };
 	void moveBack() { character->moveBack(); }
+	void setPosition(Vector2 newPos) { character->setPosition(newPos); }
+	void setPosition(float dx, float dy) { character->setPosition(dx, dy); }
 	void render() { character->render(); }
 	BoundingBox getBox() { return character->getBox(); }
 	Vector2 getPosition() { return character->getPosition(); }
 	Vector2 getOldPosition() { return character->getOldPosition(); }
 	~CharacterDecorator() { delete character; }
 };
+
+
+
+class Enemy : public CharacterDecorator {
+public:
+	Enemy(BaseCharacter* c) :CharacterDecorator(c) {};
+	void setSprite(int i, AniSprite* newSprite) { CharacterDecorator::setSprite(i, newSprite); };
+	void move(float dx, float dy) { CharacterDecorator::move(dx, dy); }
+	void moveBack() { CharacterDecorator::moveBack(); }
+	void setPosition(Vector2 newPos) { CharacterDecorator::setPosition(newPos); }
+ void setPosition(float dx, float dy) { CharacterDecorator::setPosition(dx,dy); }
+	void render() { CharacterDecorator::render(); }
+	BoundingBox getBox() { return CharacterDecorator::getBox(); }
+	Vector2 getPosition() { return CharacterDecorator::getPosition(); }
+	Vector2 getOldPosition() { return CharacterDecorator::getOldPosition(); }
+	~Enemy() {};
+};
+
+
 
 #endif
 

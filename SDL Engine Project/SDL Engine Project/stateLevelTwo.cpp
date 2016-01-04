@@ -47,14 +47,14 @@ void StateLevelTwo::enter() {
 	map->loadMapTiles();
 	mapBoxes = map->getBoxes();
 
-	player = new Player(64, 702);
+	/*player = new Player(64, 702);
 
 	player->setSprite(0, new AniSprite(player->getPosition().x,
 		player->getPosition().y, "BlackMage_up.bmp", 3, 1));
 	player->setSprite(1, new AniSprite(player->getPosition().x,
 		player->getPosition().y, "BlackMage_right.bmp", 3, 1));
 	player->setSprite(2, new AniSprite(player->getPosition().x,
-		player->getPosition().y, "BlackMage_down.bmp", 3, 1));
+		player->getPosition().y, "BlackMage_down.bmp", 3, 1));*/
 
 }//enter
 void StateLevelTwo::exit() {

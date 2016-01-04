@@ -3,8 +3,8 @@
 
 #include "gamestate.h"
 #include "map.h"
-#include "player.h"
 #include "character.h"
+#include "player.h"
 
 class StateLevelOne : public GameState {
 public:
@@ -23,7 +23,7 @@ private:
 	const Uint8* keystate = SDL_GetKeyboardState(NULL);
 
 	Map* map = NULL;
-	BaseCharacter* player;
+	Player* player;
 	vector<BaseCharacter*> character;
 	vector<BoundingBox> mapBoxes;
 };

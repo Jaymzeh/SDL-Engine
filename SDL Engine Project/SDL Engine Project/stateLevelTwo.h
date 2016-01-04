@@ -1,5 +1,5 @@
-#ifndef STATE_LEVEL_TWO
-#define STATE_LEVEL_TWO
+#ifndef STATE_LEVEL_TWO_H
+#define STATE_LEVEL_TWO_H
 
 #include "gamestate.h"
 #include "map.h"

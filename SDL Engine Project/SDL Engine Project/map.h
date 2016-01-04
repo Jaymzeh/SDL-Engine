@@ -1,5 +1,5 @@
-#ifndef MAP
-#define MAP
+#ifndef MAP_H
+#define MAP_H
 
 #include <iostream>
 #include <fstream>
@@ -44,6 +44,7 @@ public:
 	void loadMapFile(char* filePath);
 	void loadMapTiles();
 	void render();
+	void renderDebug();
 
 	~Map() {
 		cout << "Deleting map" << endl;

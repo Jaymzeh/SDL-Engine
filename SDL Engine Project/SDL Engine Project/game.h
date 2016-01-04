@@ -1,4 +1,5 @@
-#ifndef GAME
+#ifndef GAME_H
+#define GAME_H
 
 #define WINDOWWIDTH 1024
 #define WINDOWHEIGHT 768
@@ -18,17 +19,19 @@ public:
 	void init();
 	void run();
 
+	void setShowDebug(bool show) { showDebug = true; }
+
 	void setState(GameState* newState);
 	GameState* getMainMenuState();
 	GameState* getLevelOne();
 	GameState* getLevelTwo();
 
-	//bool keysHeld[323] = { false };
 private:
 	SDL_Window* window;
 	SDL_GLContext glContext;
 
 	static int instances;
+	static bool showDebug;
 
 	HSAMPLE musicSample;
 	HSAMPLE sample;

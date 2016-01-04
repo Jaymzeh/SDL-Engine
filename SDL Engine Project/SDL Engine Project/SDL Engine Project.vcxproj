@@ -96,6 +96,7 @@
     <ClInclude Include="bass.h" />
     <ClInclude Include="bitmap.h" />
     <ClInclude Include="boundingBox.h" />
+    <ClInclude Include="character.h" />
     <ClInclude Include="game.h" />
     <ClInclude Include="gamestate.h" />
     <ClInclude Include="map.h" />
@@ -109,11 +110,6 @@
   <ItemGroup>
     <Text Include="map.txt" />
     <Text Include="map2.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="playerDown.bmp" />
-    <Image Include="playerSide.bmp" />
-    <Image Include="playerUp.bmp" />
   </ItemGroup>
   <ItemGroup>
     <Media Include="Build_That_Wall.mp3" />

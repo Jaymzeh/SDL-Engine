@@ -74,7 +74,7 @@ public:
 			int currentCol = ID % ncols;
 			int currentRow = ID / ncols;
 			
-			int cellX = width*currentCol;
+			int cellX = width * currentCol;
 			int cellY = height * currentRow;
 			sprite->drawAt(position.x, position.y, cellX, cellY, width, height);
 		}

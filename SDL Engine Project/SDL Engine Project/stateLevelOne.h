@@ -1,9 +1,10 @@
-#ifndef STATE_LEVEL_ONE
-#define STATE_LEVEL_ONE
+#ifndef STATE_LEVEL_ONE_H
+#define STATE_LEVEL_ONE_H
 
 #include "gamestate.h"
 #include "map.h"
 #include "player.h"
+#include "character.h"
 
 class StateLevelOne : public GameState {
 public:
@@ -18,8 +19,12 @@ public:
 	void exit();
 
 private:
+
+	const Uint8* keystate = SDL_GetKeyboardState(NULL);
+
 	Map* map = NULL;
-	Player* player;
+	BaseCharacter* player;
+	vector<BaseCharacter*> character;
 	vector<BoundingBox> mapBoxes;
 };
 

@@ -2,25 +2,22 @@
 #include <iostream>
 #include "SDL2-2.0.3-15\include\SDL.h"
 
+/*
+Initializes Player class
+
+@param dx - initial X position
+@param dy - initial Y position
+*/
 Player::Player(float dx, float dy) {
 	position.setPoint(dx, dy);
-	
-	//glPopMatrix();
-	
-	int width = 256;
-	int height = 256;
-	int left = (position.x + 16) - (width / 2);
-	int top =(position.y+16) + (height / 2);
-	//glOrtho(left, left + width, top - height, top, 0, 1);
 }
 
-void Player::LoadSprites(Bitmap *bitmap[], int c[], int r[]) {
-	for (int i = 0; i < 3; i++) {
-		sprite[i] = new AniSprite(position.x, position.y, bitmap[i], c[i], r[i]);
-		std::cout << sprite[i] << std::endl;
-	}
-}
+/*
+Move the player
 
+@param dx - Amount to move the player on the X axis
+@param dy - Amount to move the player on the Y axis
+*/
 void Player::move(float dx, float dy) {
 
 	if (dx > 0)
@@ -35,14 +32,8 @@ void Player::move(float dx, float dy) {
 		if (dy < 0)
 			direction = 2;
 
-	if (dx != 0 && dy != 0)
-		moving = true;
-	else
-		moving = false;
-
-	sprite[0]->move(dx, dy);
-	sprite[1]->move(dx, dy);
-	sprite[2]->move(dx, dy);
+	for (int i = 0; i < ARRAYSIZE(sprite); i++)
+		sprite[i]->move(dx, dy);
 
 	oldPosition = position;
 	position.x += dx;
@@ -51,18 +42,29 @@ void Player::move(float dx, float dy) {
 
 }
 
+/*
+Move the player back to the last known position
+*/
 void Player::moveBack() {
 	setPosition(oldPosition);
 }
 
+/*
+Set the player's position at a specific location
+
+@param newPos - The new position to place the player
+*/
 void Player::setPosition(Vector2 newPos) {
 	position = newPos;
-	for (int i = 0; i < 3; i++)
+	for (int i = 0; i < ARRAYSIZE(sprite); i++)
 		sprite[i]->moveTo(position.x, position.y);
 	box.setBox(position.x, position.y, 32, 32);
 }
 
-void Player::draw() {
+/*
+Draw the player at the player's position
+*/
+void Player::render() {
 	
 	switch (direction) {
 	case 0:
@@ -80,14 +82,11 @@ void Player::draw() {
 		currentSprite->setDrawmode(DrawMode::FLIPCELL);
 		break;
 	}
-	if (moving) {
-		if (frames++ >= FRAME_STEP) {
-			currentSprite->nextCell();
-			frames = 0;
-		}
-	}
-	else
+
+	if (frames++ >= FRAME_STEP) {
+		currentSprite->nextCell();
 		frames = 0;
+	}
 
 	currentSprite->draw();
 

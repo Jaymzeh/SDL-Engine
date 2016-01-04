@@ -1,12 +1,13 @@
 #include "stateLevelOne.h"
-
 #include "game.h"
 
 StateLevelOne::StateLevelOne() {
-
+	
 }//constructor
 StateLevelOne::~StateLevelOne() {
-
+	delete player;
+	delete map;
+	delete keystate;
 }//destructor
 
 void StateLevelOne::draw(SDL_Window* window) {
@@ -41,8 +42,11 @@ void StateLevelOne::draw(SDL_Window* window) {
 	glVertex2f(1024, 768);
 	glEnd();
 
-	player->draw();
+	player->render();
 
+	for (int i = 0; i < character.size(); i++) {
+		character[i]->render();
+	}
 
 	SDL_GL_SwapWindow(window);
 }//draw
@@ -50,16 +54,44 @@ void StateLevelOne::init(Game& context) {
 	
 }//init
 void StateLevelOne::update(Game& context) {
+	int playerSpeed = 1;
+
+	if (keystate[SDL_SCANCODE_A])
+		player->move(-playerSpeed, 0);
+	else
+		if (keystate[SDL_SCANCODE_D])
+			player->move(playerSpeed, 0);
+		
+	
+	
+
+	for (int i = 0; i < mapBoxes.size(); i++) {
+		if (player->getBox().intersects(mapBoxes[i])) {
+			player->moveBack();
+		}
+	}
+
+	if (keystate[SDL_SCANCODE_W])
+		player->move(0, playerSpeed);
+	else
+		if (keystate[SDL_SCANCODE_S])
+			player->move(0, -playerSpeed);
+
+	for (int i = 0; i < mapBoxes.size(); i++) {
+		if (player->getBox().intersects(mapBoxes[i])) {
+			player->moveBack();
+		}
+	}
 
 }//update
 void StateLevelOne::enter() {
-	map = new Map("map.txt", 0, 768);
+	map = new Map("\map.txt", 0, 768);
 	map->setBitmap("BlockSpriteBitmap2.bmp");
 	map->setTileSize(32);
 	map->loadMapTiles();
 	mapBoxes = map->getBoxes();
 
-	player = new Player(64, 702);
+	player = new Character(64, 702, 32);
 
 	player->setSprite(0, new AniSprite(player->getPosition().x,
 		player->getPosition().y, "BlackMage_up.bmp", 3, 1));
@@ -71,28 +103,15 @@ void StateLevelOne::enter() {
 }//enter
 void StateLevelOne::exit() {
 	cout << "Exiting Level One State" << endl;
+	
 }//exit
 
 void StateLevelOne::handleSDLEvent(SDL_Event const& sdlEvent, Game& context) {
+	
+	
 
 	if (sdlEvent.type == SDL_KEYDOWN) {
 		switch (sdlEvent.key.keysym.sym) {
-
-		case SDLK_a:
-			player->move(-2, 0);
-			break;
-
-		case SDLK_d:
-			player->move(2, 0);
-			break;
-
-		case SDLK_w:
-			player->move(0, 2);
-			break;
-
-		case SDLK_s:
-			player->move(0, -2);
-			break;
 
 		case SDLK_RETURN: case SDLK_RETURN2:
 			context.setState(context.getLevelTwo());
@@ -102,12 +121,9 @@ void StateLevelOne::handleSDLEvent(SDL_Event const& sdlEvent, Game& context) {
 			break;
 		}
 
-
-		for (int i = 0; i < mapBoxes.size(); i++) {
-			if (player->getBox().intersects(mapBoxes[i])) {
-				player->moveBack();
-			}
-		}
+		
 	}
+	
+	
 
 }//handleSDLEvent

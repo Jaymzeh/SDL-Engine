@@ -10,9 +10,7 @@
 
 class Player {
 public:
-	Player(float dx, float dy);
-
-	void LoadSprites(Bitmap *bitmap[], int c[], int r[]);
+	Player(float dx, float dy);	
 	Vector2 getPosition() { return position; }
 	void setPosition(Vector2 newPos);
 	Vector2 getOldPosition() { return oldPosition; }
@@ -24,7 +22,7 @@ public:
 
 	void move(float dx, float dy);
 	void moveBack();
-	void draw();
+	void render();
 
 private:
 	AniSprite* sprite[3];
@@ -36,7 +34,6 @@ private:
 
 	Vector2 position, oldPosition;
 	int health;
-	bool moving = false;
 };
 
 #endif

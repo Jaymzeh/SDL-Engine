@@ -38,20 +38,9 @@ void Game::setupRC(){
 	
 	glContext = SDL_GL_CreateContext(window);
 
-	//glMatrixMode(GL_PROJECTION);
-	//glLoadIdentity();
-	//int left = 0;
-	//int right = left + WINDOWWIDTH;
-	//int top = WINDOWHEIGHT;
-	//int bottom = top -WINDOWHEIGHT;
-	////glPushMatrix();
-	////gluOrtho2D(left, right, bottom, top);
-	//gluOrtho2D(left, right, bottom, top);
-
 	SDL_GL_SetSwapInterval(1);
 
 	//Audio
-
 	BASS_Init(-1, 44100, 0, 0, NULL);
 	musicSample = BASS_SampleLoad(false, "Build_That_Wall.mp3",0,0,1, BASS_SAMPLE_MONO);
 	sample = BASS_SampleLoad(false, "edubble.mp3", 0, 0, 1, BASS_SAMPLE_MONO);
@@ -89,7 +78,7 @@ void Game::run(){
 				currentState->handleSDLEvent(sdlEvent, *this);
 
 		}
-		//currentState->update();
+		currentState->update(*this);
 		currentState->draw(window);
 	}
 }

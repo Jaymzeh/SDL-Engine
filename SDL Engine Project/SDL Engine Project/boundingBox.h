@@ -1,5 +1,5 @@
-#ifndef BOUNDING_BOX
-#define BOUNDING_BOX
+#ifndef BOUNDING_BOX_H
+#define BOUNDING_BOX_H
 
 #include "freeglut\glut.h"
 #include <iostream>
@@ -21,10 +21,10 @@ public:
 	}
 
 	bool intersects(BoundingBox &b){
-		return !(left > b.right ||
-			right < b.left ||
-			top>b.bottom ||
-			bottom < b.top);
+		return !(left >= b.right ||
+			right <= b.left ||
+			top >= b.bottom ||
+			bottom <= b.top);
 
 		return true;
 	}

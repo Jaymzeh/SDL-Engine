@@ -30,7 +30,7 @@ void StateLevelTwo::draw(SDL_Window* window) {
 	glVertex2f(1024, 768);
 	glEnd();
 
-	player->draw();
+	player->render();
 
 	SDL_GL_SwapWindow(window);
 }//draw
@@ -58,7 +58,8 @@ void StateLevelTwo::enter() {
 
 }//enter
 void StateLevelTwo::exit() {
-	
+	delete player;
+	delete map;
 }//exit
 
 void StateLevelTwo::handleSDLEvent(SDL_Event const& sdlEvent, Game& context) {
@@ -67,22 +68,22 @@ void StateLevelTwo::handleSDLEvent(SDL_Event const& sdlEvent, Game& context) {
 		switch (sdlEvent.key.keysym.sym) {
 
 		case SDLK_a:
-			player->move(-2, 0);
+			player->move(-1, 0);
 			//glTranslatef(2, 0, 0);
 			break;
 
 		case SDLK_d:
-			player->move(2, 0);
+			player->move(1, 0);
 			//glTranslatef(-2, 0, 0);
 			break;
 
 		case SDLK_w:
-			player->move(0, 2);
+			player->move(0, 1);
 			//glTranslatef(0, -2, 0);
 			break;
 
 		case SDLK_s:
-			player->move(0, -2);
+			player->move(0, -1);
 			//glTranslatef(0, 2, 0);
 			break;
 

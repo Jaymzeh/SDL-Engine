@@ -4,6 +4,9 @@
 #include "gamestate.h"
 #include "map.h"
 #include "player.h"
+#include "character.h"
+#include "door.h"
+#include "key.h"
 
 class StateLevelTwo : public GameState {
 public:
@@ -18,9 +21,15 @@ public:
 	void exit();
 
 private:
+
+	const Uint8* keystate = SDL_GetKeyboardState(NULL);
+
 	Map* map = NULL;
 	Player* player;
+	vector<BaseCharacter*> character;
 	vector<BoundingBox> mapBoxes;
+	Key key;
+	Door door;
 };
 
 #endif

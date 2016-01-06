@@ -92,12 +92,24 @@
     <ClInclude Include="character.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="key.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="door.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="projectile.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="map.txt">
       <Filter>Resource Files</Filter>
     </Text>
     <Text Include="map2.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="mapOne.txt">
       <Filter>Resource Files</Filter>
     </Text>
   </ItemGroup>

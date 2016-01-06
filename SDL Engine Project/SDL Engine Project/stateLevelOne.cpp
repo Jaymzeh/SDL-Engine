@@ -16,7 +16,6 @@ void StateLevelOne::draw(SDL_Window* window) {
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT);
 	
-
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 	int left = (player->getPosition().x + 32) - (VIEWWIDTH / 2);
@@ -28,26 +27,18 @@ void StateLevelOne::draw(SDL_Window* window) {
 
 	map->render();
 
-	glColor3f(1, 0, 0);
-	glBegin(GL_LINE_LOOP);
-	glVertex2f(0, 0);
-	glVertex2f(1024, 0);
-	glVertex2f(1024, 768);
-	glVertex2f(0, 768);
-	glEnd();
-	glPointSize(10);
-	glBegin(GL_POINTS);
-	glVertex2f(0, 0);
-	glEnd();
-	glBegin(GL_POINTS);
-	glVertex2f(1024, 768);
-	glEnd();
-
 	player->render();
 
 	for (int i = 0; i < character.size(); i++) {
 		character[i]->render();
+		if (character[i]->getHealth() <= 0)
+			character.erase(character.begin() + i);
 	}
+
+	door.render();
+
+	if(!door.unlocked)
+		key.render();
 
 	SDL_GL_SwapWindow(window);
 }//draw
@@ -55,10 +46,6 @@ void StateLevelOne::init(Game& context) {
 	
 }//init
 void StateLevelOne::update(Game& context) {
-	//int playerSpeed = 1;
-
-	
-
 	player->handleInputX(keystate);
 
 	for (int i = 0; i < mapBoxes.size(); i++) {
@@ -74,31 +61,58 @@ void StateLevelOne::update(Game& context) {
 		}
 	}
 
+	if (player->getBox().intersects(key.getBox()))
+		door.unlocked = true;
+
+	if (door.unlocked && player->getBox().intersects(door.getBox()))
+		context.setState(context.getLevelTwo());
+
 }//update
 void StateLevelOne::enter() {
-	map = new Map("\map.txt", 0, 768);
+
+	map = new Map("\mapOne.txt", 0, 0);
 	map->setBitmap("BlockSpriteBitmap2.bmp");
 	map->setTileSize(32);
 	map->loadMapTiles();
 	mapBoxes = map->getBoxes();
 
-	player = new Player(64,670,64);
+	player = new Player(32,-96,64);
 
 	player->setSprite(0, new AniSprite(player->getPosition().x,
-		player->getPosition().y, "BlackMage_up.bmp", 3, 1));
+		player->getPosition().y, "playerUp.bmp", 1, 1));
 	player->setSprite(1, new AniSprite(player->getPosition().x,
-		player->getPosition().y, "Character movement 2 with head 64x64.bmp", 1, 1));
+		player->getPosition().y, "playerSide.bmp", 3, 1));
 	player->setSprite(2, new AniSprite(player->getPosition().x,
-		player->getPosition().y, "BlackMage_down.bmp", 3, 1));
+		player->getPosition().y, "playerDown.bmp", 3, 1));
 
+	key.createKey(32, -512, new Bitmap("key.bmp", true));
+	door.createDoor(832, -224, new Bitmap("door.bmp", false));	
+
+	/*character.push_back(new Enemy(new Character(192, 400, 64)));
+	character[0]->setHealth(1);
+	character[0]->setSprite(0, new AniSprite(character[0]->getPosition().x,
+		character[0]->getPosition().y, "playerUp.bmp", 1, 1));
+	character[0]->setSprite(1, new AniSprite(character[0]->getPosition().x,
+		character[0]->getPosition().y, "playerSide.bmp", 3, 1));
+	character[0]->setSprite(2, new AniSprite(character[0]->getPosition().x,
+		character[0]->getPosition().y, "playerDown.bmp", 3, 1));*/
 }//enter
 void StateLevelOne::exit() {
 	cout << "Exiting Level One State" << endl;
+
+	for (int i = 0; i < character.size(); i++) {
+		delete character[i];
+	}
+	character.clear();
 }//exit
 
 void StateLevelOne::handleSDLEvent(SDL_Event const& sdlEvent, Game& context) {
 	if (sdlEvent.type == SDL_KEYDOWN) {
 		switch (sdlEvent.key.keysym.sym) {
+
+		case SDLK_e:
+			context.setState(context.getLevelTwo());
+			break;
 
 		case SDLK_RETURN: case SDLK_RETURN2:
 			context.setState(context.getLevelTwo());

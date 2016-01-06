@@ -21,6 +21,8 @@ public:
 
 	void setShowDebug(bool show) { showDebug = true; }
 
+	HCHANNEL getMusicChannel() { return musicChannel; }
+
 	void setState(GameState* newState);
 	GameState* getMainMenuState();
 	GameState* getLevelOne();

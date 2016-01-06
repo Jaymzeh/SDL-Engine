@@ -42,14 +42,16 @@ void Game::setupRC(){
 
 	//Audio
 	BASS_Init(-1, 44100, 0, 0, NULL);
-	musicSample = BASS_SampleLoad(false, "Build_That_Wall.mp3",0,0,1, BASS_SAMPLE_MONO);
+	musicSample = BASS_SampleLoad(false, "musicTrack.wav",0,0,1, BASS_SAMPLE_MONO| BASS_SAMPLE_LOOP);
 	sample = BASS_SampleLoad(false, "edubble.mp3", 0, 0, 1, BASS_SAMPLE_MONO);
-	musicChannel = BASS_SampleGetChannel(musicSample, FALSE);
+	
+	musicChannel = BASS_SampleGetChannel(musicSample, TRUE);
 	sfxChannel = BASS_SampleGetChannel(sample, FALSE);
 }
 
 void Game::init(){
-	//BASS_ChannelPlay(musicChannel, FALSE);
+	BASS_ChannelPlay(musicChannel, TRUE);
+	
 	//BASS_ChannelPlay(sfxChannel, FALSE);
 
 	levelOneState = new StateLevelOne();
@@ -98,5 +100,5 @@ GameState* Game::getLevelOne() {
 	return levelOneState;
 }
 GameState* Game::getLevelTwo() {
-	return levelOneState;
+	return levelTwoState;
 }

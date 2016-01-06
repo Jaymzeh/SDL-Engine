@@ -23,6 +23,10 @@ public:
 	float distance(float dx, float dy) {
 		return sqrt((x - dx) * (x - dx) + (y - dy) * (y - dy));
 	}
+	void add(Vector2 point) {
+		x += point.x;
+		y += point.y;
+	}
 
 	void setPoint(float dx, float dy){
 		x = dx;

@@ -21,6 +21,8 @@ public:
 	virtual BoundingBox getBox() = 0;
 	virtual Vector2 getPosition() = 0;
 	virtual Vector2 getOldPosition() = 0;
+	virtual int getHealth() = 0;
+	virtual void setHealth(int _health) = 0;
 	virtual ~BaseCharacter() {};
 };
 
@@ -110,11 +112,13 @@ public:
 	BoundingBox getBox() { return bBox; }
 	Vector2 getPosition() { return position; }
 	Vector2 getOldPosition() { return oldPosition; }
+	int getHealth() { return health; }
+	void setHealth(int _health) { health = _health; }
 
 	~Character() {
 		for (int i = 0; i < ARRAYSIZE(sprite); i++)
 			delete sprite[i];
-		delete currentSprite;
+		//delete currentSprite;
 	}
 
 protected:
@@ -140,6 +144,8 @@ public:
 	BoundingBox getBox() { return character->getBox(); }
 	Vector2 getPosition() { return character->getPosition(); }
 	Vector2 getOldPosition() { return character->getOldPosition(); }
+	int getHealth() { return character->getHealth(); }
+	void setHealth(int _health) { character->setHealth(_health); }
 	~CharacterDecorator() { delete character; }
 };
 
@@ -152,7 +158,7 @@ public:
 	void move(float dx, float dy) { CharacterDecorator::move(dx, dy); }
 	void moveBack() { CharacterDecorator::moveBack(); }
 	void setPosition(Vector2 newPos) { CharacterDecorator::setPosition(newPos); }
- void setPosition(float dx, float dy) { CharacterDecorator::setPosition(dx,dy); }
+	void setPosition(float dx, float dy) { CharacterDecorator::setPosition(dx,dy); }
 	void render() { CharacterDecorator::render(); }
 	BoundingBox getBox() { return CharacterDecorator::getBox(); }
 	Vector2 getPosition() { return CharacterDecorator::getPosition(); }

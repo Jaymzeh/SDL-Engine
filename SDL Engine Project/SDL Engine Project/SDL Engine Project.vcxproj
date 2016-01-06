@@ -97,10 +97,13 @@
     <ClInclude Include="bitmap.h" />
     <ClInclude Include="boundingBox.h" />
     <ClInclude Include="character.h" />
+    <ClInclude Include="door.h" />
     <ClInclude Include="game.h" />
     <ClInclude Include="gamestate.h" />
+    <ClInclude Include="key.h" />
     <ClInclude Include="map.h" />
     <ClInclude Include="player.h" />
+    <ClInclude Include="projectile.h" />
     <ClInclude Include="stateLevelTwo.h" />
     <ClInclude Include="stateMainMenu.h" />
     <ClInclude Include="stateLevelOne.h" />
@@ -110,6 +113,7 @@
   <ItemGroup>
     <Text Include="map.txt" />
     <Text Include="map2.txt" />
+    <Text Include="mapOne.txt" />
   </ItemGroup>
   <ItemGroup>
     <Media Include="Build_That_Wall.mp3" />

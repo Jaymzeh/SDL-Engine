@@ -20,6 +20,8 @@ public:
 	void setPosition(Vector2 newPos);
 	void setPosition(float dx, float dy);
 
+	void attack();
+
 	void render();
 
 	BoundingBox getBox() { return bBox; }

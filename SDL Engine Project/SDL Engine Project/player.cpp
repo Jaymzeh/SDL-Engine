@@ -1,4 +1,5 @@
 #include "player.h"
+#include "character.h"
 
 	Player::Player(float dx, float dy, float charSize) {
 		position.setPoint(dx, dy);
@@ -63,6 +64,10 @@
 		bBox.setBox(position.x, position.y, 32, 32);
 	}
 
+	void Player::attack() {
+
+	}
+
 	void Player::render() {
 		switch (direction) {
 		case 0:
@@ -88,7 +93,7 @@
 
 		currentSprite->draw();
 
-		bBox.render();
+		//bBox.render();
 	}
 
 	Player::~Player() {

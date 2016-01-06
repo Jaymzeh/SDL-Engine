@@ -105,7 +105,7 @@ void Map::render(){
 	for (int i = 0; i < tile.size(); i++){
 		tile[i]->render(bitmap);
 	}
-	renderDebug();
+	//renderDebug();
 }
 /*
 Draw all the bounding boxes for each tile that has one

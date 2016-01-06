@@ -5,6 +5,9 @@
 #include "map.h"
 #include "character.h"
 #include "player.h"
+#include "door.h"
+#include "key.h"
+#include "bass.h"
 
 class StateLevelOne : public GameState {
 public:
@@ -26,6 +29,9 @@ private:
 	Player* player;
 	vector<BaseCharacter*> character;
 	vector<BoundingBox> mapBoxes;
+	Key key;
+	Door door;
+	HSAMPLE sample;
 };
 
 #endif

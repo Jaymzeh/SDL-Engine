@@ -18,12 +18,11 @@ void StateLevelOne::draw(SDL_Window* window) {
 	
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-	int left = (player->getPosition().x + 32) - (VIEWWIDTH / 2);
+	int left = (player->getPosition().x + 16) - (VIEWWIDTH / 2);
 	int right = left + VIEWWIDTH;
-	int top = (player->getPosition().y + 32) + (VIEWHEIGHT / 2);
+	int top = (player->getPosition().y + 16) + (VIEWHEIGHT / 2);
 	int bottom = top - VIEWHEIGHT;
 	gluOrtho2D(left, right, bottom, top);
-
 
 	map->render();
 
@@ -76,26 +75,43 @@ void StateLevelOne::enter() {
 	map->loadMapTiles();
 	mapBoxes = map->getBoxes();
 
-	player = new Player(32,-96,64);
+	player = new Player(32,-96,32);
 
 	player->setSprite(0, new AniSprite(player->getPosition().x,
-		player->getPosition().y, "playerUp.bmp", 1, 1));
+		player->getPosition().y, "rearViewWalk.bmp", 3, 1));
 	player->setSprite(1, new AniSprite(player->getPosition().x,
-		player->getPosition().y, "playerSide.bmp", 3, 1));
+		player->getPosition().y, "sideViewWalk.bmp", 4, 1));
 	player->setSprite(2, new AniSprite(player->getPosition().x,
-		player->getPosition().y, "playerDown.bmp", 3, 1));
+		player->getPosition().y, "frontViewWalk.bmp", 3, 1));
+
+	player->setSprite(3, new AniSprite(player->getPosition().x,
+		player->getPosition().y, "frontStickStab.bmp", 2, 1));
+	player->setSprite(4, new AniSprite(player->getPosition().x,
+		player->getPosition().y, "sideStickStab.bmp", 2, 1));
 
 	key.createKey(32, -512, new Bitmap("key.bmp", true));
 	door.createDoor(832, -224, new Bitmap("door.bmp", false));	
 
-	/*character.push_back(new Enemy(new Character(192, 400, 64)));
+	
+	character.push_back(new Orc(new Character(32, -128, 64)));
 	character[0]->setHealth(1);
 	character[0]->setSprite(0, new AniSprite(character[0]->getPosition().x,
 		character[0]->getPosition().y, "playerUp.bmp", 1, 1));
 	character[0]->setSprite(1, new AniSprite(character[0]->getPosition().x,
 		character[0]->getPosition().y, "playerSide.bmp", 3, 1));
 	character[0]->setSprite(2, new AniSprite(character[0]->getPosition().x,
-		character[0]->getPosition().y, "playerDown.bmp", 3, 1));*/
+		character[0]->getPosition().y, "playerDown.bmp", 3, 1));
+
+
+	character.push_back(new Orc(new Character(192, -192, 64)));
+	character[1]->setHealth(1);
+	character[1]->setSprite(0, new AniSprite(character[1]->getPosition().x,
+		character[1]->getPosition().y, "playerUp.bmp", 1, 1));
+	character[1]->setSprite(1, new AniSprite(character[1]->getPosition().x,
+		character[1]->getPosition().y, "playerSide.bmp", 3, 1));
+	character[1]->setSprite(2, new AniSprite(character[1]->getPosition().x,
+		character[1]->getPosition().y, "playerDown.bmp", 3, 1));
+		
 }//enter
 void StateLevelOne::exit() {
 	cout << "Exiting Level One State" << endl;
@@ -111,7 +127,7 @@ void StateLevelOne::handleSDLEvent(SDL_Event const& sdlEvent, Game& context) {
 		switch (sdlEvent.key.keysym.sym) {
 
 		case SDLK_e:
-			context.setState(context.getLevelTwo());
+			player->attack(character);
 			break;
 
 		case SDLK_RETURN: case SDLK_RETURN2:

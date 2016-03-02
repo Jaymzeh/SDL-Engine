@@ -151,10 +151,10 @@ public:
 
 
 
-class Enemy : public CharacterDecorator {
+class Slime : public CharacterDecorator {
 public:
-	Enemy(BaseCharacter* c) :CharacterDecorator(c) {};
-	void setSprite(int i, AniSprite* newSprite) { CharacterDecorator::setSprite(i, newSprite); };
+	Slime(BaseCharacter* c) : CharacterDecorator(c) { }
+	void setSprite(int i, AniSprite* newSprite) { CharacterDecorator::setSprite(i, newSprite); }
 	void move(float dx, float dy) { CharacterDecorator::move(dx, dy); }
 	void moveBack() { CharacterDecorator::moveBack(); }
 	void setPosition(Vector2 newPos) { CharacterDecorator::setPosition(newPos); }
@@ -163,7 +163,24 @@ public:
 	BoundingBox getBox() { return CharacterDecorator::getBox(); }
 	Vector2 getPosition() { return CharacterDecorator::getPosition(); }
 	Vector2 getOldPosition() { return CharacterDecorator::getOldPosition(); }
-	~Enemy() {};
+	~Slime() {};
+};
+
+class Orc : public CharacterDecorator {
+public:
+	Orc(BaseCharacter* c) : CharacterDecorator(c) { }
+	void setSprite(int i, AniSprite* newSprite) { CharacterDecorator::setSprite(i, newSprite); }
+	void move(float dx, float dy) { CharacterDecorator::move(dx, dy); }
+	void moveBack() { CharacterDecorator::moveBack(); }
+	void setPosition(Vector2 newPos) { CharacterDecorator::setPosition(newPos); }
+	void setPosition(float dx, float dy) { CharacterDecorator::setPosition(dx, dy); }
+	void render() { CharacterDecorator::render(); }
+	BoundingBox getBox() { return CharacterDecorator::getBox(); }
+	Vector2 getPosition() { return CharacterDecorator::getPosition(); }
+	Vector2 getOldPosition() { return CharacterDecorator::getOldPosition(); }
+	~Orc() {};
+private:
+
 };
 
 

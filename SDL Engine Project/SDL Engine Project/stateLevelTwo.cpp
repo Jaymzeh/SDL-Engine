@@ -88,14 +88,7 @@ void StateLevelTwo::enter() {
 	door.createDoor(192, 500, new Bitmap("door.bmp", false));
 	door.unlocked = false;
 
-	character.push_back(new Enemy(new Character(192, 400, 64)));
-	character[0]->setHealth(1);
-	character[0]->setSprite(0, new AniSprite(character[0]->getPosition().x,
-		character[0]->getPosition().y, "playerUp.bmp", 1, 1));
-	character[0]->setSprite(1, new AniSprite(character[0]->getPosition().x,
-		character[0]->getPosition().y, "playerSide.bmp", 3, 1));
-	character[0]->setSprite(2, new AniSprite(character[0]->getPosition().x,
-		character[0]->getPosition().y, "playerDown.bmp", 3, 1));
+
 }//enter
 void StateLevelTwo::exit() {
 	cout << "Exiting Level Two State" << endl;

@@ -50,7 +50,7 @@ void Game::setupRC(){
 }
 
 void Game::init(){
-	BASS_ChannelPlay(musicChannel, TRUE);
+	//BASS_ChannelPlay(musicChannel, TRUE);
 	
 	//BASS_ChannelPlay(sfxChannel, FALSE);
 

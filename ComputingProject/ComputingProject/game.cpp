@@ -66,7 +66,7 @@ void Game::init() {
 	levelThreeState = new StateLevelThree();
 	levelThreeState->init(*this);
 
-	currentState = levelOneState;
+	currentState = levelTwoState;
 	currentState->enter();
 
 	glClearColor(0, 0, 0, 0);

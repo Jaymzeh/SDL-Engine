@@ -25,7 +25,10 @@ public:
 	virtual Vector2 getPosition() = 0;
 	virtual Vector2 getOldPosition() = 0;
 	virtual int getHealth() = 0;
+	virtual void resetAttackCooldown() = 0;
 	virtual void setHealth(int _health) = 0;
+	virtual void updateAttackCooldown() = 0;
+	virtual int getAttackCooldown() = 0;
 	virtual ~BaseCharacter() {};
 };
 
@@ -141,15 +144,25 @@ public:
 	Vector2 getOldPosition() { return oldPosition; }
 	int getHealth() { return health; }
 	void setHealth(int _health) { health = _health; }
-
+	void resetAttackCooldown() {
+		attackCooldown = 0;
+	}
+	void updateAttackCooldown() {
+		attackCooldown++;
+	}
+	int getAttackCooldown() {
+		return attackCooldown;
+	}
 	~Character() {
 		for (int i = 0; i < ARRAYSIZE(sprite); i++)
 			delete sprite[i];
 		//delete currentSprite;
 	}
-
+	
 protected:
 	int health;
+	int attackCooldown;
+	int baseAttackCooldown = 120;
 	float width, height;
 	Vector2 target;
 	BoundingBox bBox;
@@ -175,6 +188,9 @@ public:
 	Vector2 getOldPosition() { return character->getOldPosition(); }
 	int getHealth() { return character->getHealth(); }
 	void setHealth(int _health) { character->setHealth(_health); }
+	void resetAttackCooldown() { character->resetAttackCooldown(); }
+	void updateAttackCooldown() { character->updateAttackCooldown(); }
+	int getAttackCooldown() { return character->getAttackCooldown(); }
 	~CharacterDecorator() { delete character; }
 };
 
@@ -195,6 +211,9 @@ public:
 	Vector2 getOldPosition() { return CharacterDecorator::getOldPosition(); }
 	int getHealth() { return CharacterDecorator::getHealth(); }
 	void setHealth(int _health) { CharacterDecorator::setHealth(_health); }
+	void resetAttackCooldown() { CharacterDecorator::resetAttackCooldown(); }
+	void updateAttackCooldown() { CharacterDecorator::updateAttackCooldown(); }
+	int getAttackCooldown() { return CharacterDecorator::getAttackCooldown(); }
 	~Slime() {};
 };
 
@@ -215,6 +234,9 @@ public:
 	Vector2 getOldPosition() { return CharacterDecorator::getOldPosition(); }
 	int getHealth() { return CharacterDecorator::getHealth(); }
 	void setHealth(int _health) { CharacterDecorator::setHealth(_health); }
+	void resetAttackCooldown() { CharacterDecorator::resetAttackCooldown(); }
+	void updateAttackCooldown() { CharacterDecorator::updateAttackCooldown(); }
+	int getAttackCooldown() { return CharacterDecorator::getAttackCooldown(); }
 	~Rat() {};
 private:
 

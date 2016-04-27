@@ -32,6 +32,7 @@ void StateLevelThree::draw(SDL_Window* window) {
 	map->render();
 
 	player->render();
+	player->showHealth(left, top - 32);
 
 	for (int i = 0; i < character.size(); i++) {
 		character[i]->render();
@@ -52,21 +53,19 @@ void StateLevelThree::init(Game& context) {
 }//init
 void StateLevelThree::update(Game& context) {
 	player->handleInputX(keystate);
-
 	for (int i = 0; i < mapBoxes.size(); i++) {
 		if (player->getBox().intersects(mapBoxes[i])) {
 			player->moveBack();
 		}
 	}
 	player->handleInputY(keystate);
-
 	for (int i = 0; i < mapBoxes.size(); i++) {
 		if (player->getBox().intersects(mapBoxes[i])) {
 			player->moveBack();
 		}
 	}
-
 	for (int i = 0; i < character.size(); i++) {
+		character[i]->updateAttackCooldown();
 		if (i != character.size() - 1) {
 			if (character[i]->getBox().intersects(character[i + 1]->getBox())) {
 				character[i]->moveBack();
@@ -76,6 +75,12 @@ void StateLevelThree::update(Game& context) {
 			character[i]->setTarget(player->getPosition());
 			if (player->getBox().intersects(character[i]->getBox()))
 				character[i]->moveBack();
+
+			if (character[i]->getPosition().distance(player->getPosition()) < 64 && character[i]->getAttackCooldown()>120) {
+				player->health--;
+				character[i]->resetAttackCooldown();
+			}
+
 			character[i]->update();
 			for (int j = 0; j < mapBoxes.size(); j++) {
 				if (character[i]->getBox().intersects(mapBoxes[j])) {
@@ -83,13 +88,10 @@ void StateLevelThree::update(Game& context) {
 				}
 			}
 		}
-
-
 		if (player->getBox().intersects(key.getBox()))
 			door.unlocked = true;
-
 		if (door.unlocked && player->getBox().intersects(door.getBox()))
-			context.setState(context.getLevelOne());
+			context.setState(context.getLevelTwo());
 	}
 }//update
 void StateLevelThree::enter() {
@@ -113,6 +115,8 @@ void StateLevelThree::enter() {
 		player->getPosition().y, "frontStickStab.bmp", 2, 1));
 	player->setSprite(4, new AniSprite(player->getPosition().x,
 		player->getPosition().y, "sideSwordStab.bmp", 2, 1));
+
+	player->setHeartSprite(new Bitmap("heart.bmp", true));
 
 	key.createKey(53 * 32, 24 * -32, new Bitmap("Key.bmp", true));
 

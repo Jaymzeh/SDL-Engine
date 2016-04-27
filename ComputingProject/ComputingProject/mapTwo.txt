@@ -10,11 +10,11 @@
 ---------------------abba----------------c--------------------abbabbbbbbbbbbabbbbbba
 ---------------------abba--------------aa-aa------------------abbabbbbbbbbbbabbbbbba
 ---------------------abba--------------abbba-------------aaaaaabbaaaaaaaacccccccccca
--aaaaaaaaaaaaaaaaaaaaabbaa-------------abbba-------------abbbbbbbbbbbbbaa-----------
--abbbbbbbbbbbbbbbabbbbbbba--------------abbba------------abbbbbbbbbbbbbba-----------
--abbbbbbbbbbbbbbbbbbbbbbba--------------abbba------------cccccccccccccbba-----------
--ccccccccccccccccabbaccccc--------------abbba------------------------abba-----------
------------------abba-------------------abbba------------------------abba-----------
+-aaaaaaaaaaaaaaaaaaaaabbaa-------------abbbaaaaaaaaa-----abbbbbbbbbbbbbaa-----------
+-abbbbbbbbbbbbbbbabbbbbbba--------------abbbbbbbbbba-----abbbbbbbbbbbbbba-----------
+-abbbbbbbbbbbbbbbbbbbbbbba--------------abbbbbbbbbba-----cccccccccccccbba-----------
+-ccccccccccccccccabbaccccc--------------abbbbbbbbbba-----------------abba-----------
+-----------------abba-------------------abbbbbbbbbba-----------------abba-----------
 -----------------abba------aaaaaaaaaaaaaabbbaaaaaaaaaaaaaaaaa--------abba-----------
 -----------------abba------abbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbba--------abba-----------
 -----------------abba------abbaaaaaaaaaaaaabaaaccccccccccabba--------abba-----------

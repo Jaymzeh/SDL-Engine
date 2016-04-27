@@ -11,6 +11,10 @@ Player::Player(float dx, float dy, float _width, float _height) {
 void Player::setSprite(int i, AniSprite* newSprite) {
 	sprite[i] = newSprite;
 }
+void Player::setHeartSprite(Bitmap* newSprite) {
+	heartImage = newSprite;
+}
+
 
 void Player::move(float dx, float dy) {
 	if (dx > 0)
@@ -136,6 +140,12 @@ void Player::render() {
 	currentSprite->draw();
 
 	//bBox.render();
+}
+
+void Player::showHealth(int dx, int dy) {
+	for (int i = 0; i < health;i++) {
+		heartImage->drawAt(dx + (i * heartImage->getWidth()), dy);
+	}
 }
 
 Player::~Player() {

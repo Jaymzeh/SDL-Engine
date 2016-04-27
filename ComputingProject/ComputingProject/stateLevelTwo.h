@@ -8,6 +8,7 @@
 #include "door.h"
 #include "key.h"
 #include "bass.h"
+#include "shop.h"
 
 class StateLevelTwo : public GameState {
 public:
@@ -27,6 +28,7 @@ private:
 
 	Map* map = NULL;
 	Player* player;
+	Shop shop;
 	vector<BaseCharacter*> character;
 	vector<BoundingBox> mapBoxes;
 	Key key;

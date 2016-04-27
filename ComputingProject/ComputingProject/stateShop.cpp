@@ -112,8 +112,6 @@ void StateShop::update(Game& context) {
 	if (shop.inShopSelection != 1) {
 		shop.inShop = false;
 	}
-
-	glDepthMask(TRUE);
 }//update
 void StateShop::enter() {
 	cout << "Entering Shop State" << endl;
@@ -137,6 +135,8 @@ void StateShop::enter() {
 		player->getPosition().y, "frontStickStab.bmp", 2, 1));
 	player->setSprite(4, new AniSprite(player->getPosition().x,
 		player->getPosition().y, "sideSwordStab.bmp", 2, 1));
+
+	player->setHeartSprite(new Bitmap("heart.bmp", true));
 
 	key.createKey(1952, -320, new Bitmap("Key.bmp", true));
 

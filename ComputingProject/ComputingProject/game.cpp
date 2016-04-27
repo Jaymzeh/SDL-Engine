@@ -1,5 +1,8 @@
 #include "game.h"
+#include "stateShop.h"
 #include "stateLevelOne.h"
+#include "stateLevelTwo.h"
+#include "stateLevelThree.h"
 
 void exitFatalError(char *message) {
 	std::cout << message << " " << SDL_GetError();
@@ -51,11 +54,17 @@ void Game::init() {
 
 	//BASS_ChannelPlay(sfxChannel, FALSE);
 
+	shopLevel = new StateShop();
+	shopLevel->init(*this);
+
 	levelOneState = new StateLevelOne();
 	levelOneState->init(*this);
 
-	/*levelTwoState = new StateLevelTwo();
-	levelTwoState->init(*this);*/
+	levelTwoState = new StateLevelTwo();
+	levelTwoState->init(*this);
+
+	levelThreeState = new StateLevelThree();
+	levelThreeState->init(*this);
 
 	currentState = levelOneState;
 	currentState->enter();
@@ -91,10 +100,15 @@ void Game::setState(GameState* newState) {
 GameState* Game::getMainMenuState() {
 	return mainMenuState;
 }
-
+GameState* Game::getLevelShop() {
+	return shopLevel;
+}
 GameState* Game::getLevelOne() {
 	return levelOneState;
 }
 GameState* Game::getLevelTwo() {
 	return levelTwoState;
+}
+GameState* Game::getLevelThree() {
+	return levelThreeState;
 }

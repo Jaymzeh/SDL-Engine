@@ -36,7 +36,7 @@ public:
 	vector<BoundingBox> getBoxes() {
 		vector<BoundingBox> boxes;
 		for (int i = 0; i < tile.size(); i++) {
-			if (tile[i]->getID() == 0)
+			if (tile[i]->getID() == 0 || tile[i]->getID() == 2)
 				boxes.push_back(tile[i]->getBox());
 		}
 		return boxes;

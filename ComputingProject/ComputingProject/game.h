@@ -8,8 +8,6 @@
 
 #include "gamestate.h"
 #include "bass.h"
-//#include <SDL.h>
-//#include <SDL_opengl.h>
 #include "SDL2-2.0.3-15\include\SDL.h"
 #include "SDL2-2.0.3-15\include\SDL_opengl.h"
 
@@ -27,8 +25,10 @@ public:
 
 	void setState(GameState* newState);
 	GameState* getMainMenuState();
+	GameState* getLevelShop();
 	GameState* getLevelOne();
 	GameState* getLevelTwo();
+	GameState* getLevelThree();
 
 private:
 	SDL_Window* window;
@@ -45,7 +45,9 @@ private:
 
 	GameState* currentState;
 	GameState* mainMenuState;
+	GameState* shopLevel;
 	GameState* levelOneState;
 	GameState* levelTwoState;
+	GameState* levelThreeState;
 };
 #endif

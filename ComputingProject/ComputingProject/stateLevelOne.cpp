@@ -1,7 +1,5 @@
 #include "stateLevelOne.h"
 #include "game.h"
-#define GL_CLAMP_TO_EDGE 0x812F
-//#include "player.h"
 
 StateLevelOne::StateLevelOne() {
 
@@ -37,76 +35,66 @@ void StateLevelOne::draw(SDL_Window* window) {
 		character[i]->render();
 		if (character[i]->getHealth() <= 0)
 			character.erase(character.begin() + i);
-
 	}
 
 	door.render();
-
 	if (!door.unlocked)
 		key.render();
 
 	SDL_GL_SwapWindow(window);
 }//draw
 void StateLevelOne::init(Game& context) {
-	//label = context.textToTexture("I am text", label);
+
 }//init
 void StateLevelOne::update(Game& context) {
 	player->handleInputX(keystate);
-
 	for (int i = 0; i < mapBoxes.size(); i++) {
 		if (player->getBox().intersects(mapBoxes[i])) {
 			player->moveBack();
 		}
 	}
 	player->handleInputY(keystate);
-
 	for (int i = 0; i < mapBoxes.size(); i++) {
 		if (player->getBox().intersects(mapBoxes[i])) {
 			player->moveBack();
 		}
 	}
-
 	for (int i = 0; i < character.size(); i++) {
-		
 		if (i != character.size() - 1) {
-			if (character[i]->getBox().intersects(character[i+1]->getBox())) {
+			if (character[i]->getBox().intersects(character[i + 1]->getBox())) {
 				character[i]->moveBack();
 			}
 		}
-
 		if (character[i]->getPosition().distance(player->getPosition()) < 128) {
 			character[i]->setTarget(player->getPosition());
+			if (player->getBox().intersects(character[i]->getBox()))
+				character[i]->moveBack();
 			character[i]->update();
 			for (int j = 0; j < mapBoxes.size(); j++) {
 				if (character[i]->getBox().intersects(mapBoxes[j])) {
 					character[i]->moveBack();
 				}
 			}
+
 		}
+
+		if (player->getBox().intersects(key.getBox()))
+			door.unlocked = true;
+
+		if (door.unlocked && player->getBox().intersects(door.getBox()))
+			context.setState(context.getLevelTwo());
 	}
-
-	if (player->getBox().intersects(key.getBox()))
-		door.unlocked = true;
-
-	if (door.unlocked && player->getBox().intersects(door.getBox()))
-		context.setState(context.getLevelOne());
-
-	glDepthMask(FALSE);
-
-	//label = context.textToTexture(" HUD label ", label);
-	//glBindTexture(GL_TEXTURE_2D, label);
-
-	glDepthMask(TRUE);
 }//update
 void StateLevelOne::enter() {
-
+	cout << "Loading Level One State \n";
 	map = new Map("\mapOne.txt", 0, 0);
 	map->setBitmap("BlockSpriteBitmap2.bmp");
 	map->setTileSize(32);
 	map->loadMapTiles();
 	mapBoxes = map->getBoxes();
 
-	player = new Player(512, -32, 32, 16);
+	player = new Player(512, -64, 32, 16);
+	//player = new Player(1952, -320, 32, 16);
 
 	player->setSprite(0, new AniSprite(player->getPosition().x,
 		player->getPosition().y, "rearViewWalk.bmp", 3, 1));
@@ -126,7 +114,7 @@ void StateLevelOne::enter() {
 
 
 	character.push_back(new Slime(new Character(704, -96, 32)));
-	character[character.size() - 1]->setHealth(15);
+	character[character.size() - 1]->setHealth(5);
 	character[character.size() - 1]->setSprite(0, new AniSprite(character[character.size() - 1]->getPosition().x,
 		character[character.size() - 1]->getPosition().y, "BabySlimeGreenRearWalk.bmp", 2, 1));
 	character[character.size() - 1]->setSprite(1, new AniSprite(character[character.size() - 1]->getPosition().x,
@@ -135,9 +123,118 @@ void StateLevelOne::enter() {
 		character[character.size() - 1]->getPosition().y, "BabySlimeGreenSideFrontWalk.bmp", 2, 1));
 	character[character.size() - 1]->setTarget(player->getPosition());
 
+	character.push_back(new Slime(new Character(256, -64, 32)));
+	character[character.size() - 1]->setHealth(5);
+	character[character.size() - 1]->setSprite(0, new AniSprite(character[character.size() - 1]->getPosition().x,
+		character[character.size() - 1]->getPosition().y, "BabySlimeGreenRearWalk.bmp", 2, 1));
+	character[character.size() - 1]->setSprite(1, new AniSprite(character[character.size() - 1]->getPosition().x,
+		character[character.size() - 1]->getPosition().y, "BabySlimeGreenSideFrontWalk.bmp", 2, 1));
+	character[character.size() - 1]->setSprite(2, new AniSprite(character[character.size() - 1]->getPosition().x,
+		character[character.size() - 1]->getPosition().y, "BabySlimeGreenSideFrontWalk.bmp", 2, 1));
+	character[character.size() - 1]->setTarget(player->getPosition());
+
+	character.push_back(new Rat(new Character(256, -224, 32)));
+	character[character.size() - 1]->setHealth(5);
+	character[character.size() - 1]->setSprite(0, new AniSprite(character[character.size() - 1]->getPosition().x,
+		character[character.size() - 1]->getPosition().y, "RatRearWalk.bmp", 2, 1));
+	character[character.size() - 1]->setSprite(1, new AniSprite(character[character.size() - 1]->getPosition().x,
+		character[character.size() - 1]->getPosition().y, "RatSideWalk.bmp", 2, 1));
+	character[character.size() - 1]->setSprite(2, new AniSprite(character[character.size() - 1]->getPosition().x,
+		character[character.size() - 1]->getPosition().y, "RatFrontWalk.bmp", 2, 1));
+	character[character.size() - 1]->setTarget(player->getPosition());
+
+	character.push_back(new Slime(new Character(64, -320, 32)));
+	character[character.size() - 1]->setHealth(5);
+	character[character.size() - 1]->setSprite(0, new AniSprite(character[character.size() - 1]->getPosition().x,
+		character[character.size() - 1]->getPosition().y, "BabySlimeGreenRearWalk.bmp", 2, 1));
+	character[character.size() - 1]->setSprite(1, new AniSprite(character[character.size() - 1]->getPosition().x,
+		character[character.size() - 1]->getPosition().y, "BabySlimeGreenSideFrontWalk.bmp", 2, 1));
+	character[character.size() - 1]->setSprite(2, new AniSprite(character[character.size() - 1]->getPosition().x,
+		character[character.size() - 1]->getPosition().y, "BabySlimeGreenSideFrontWalk.bmp", 2, 1));
+	character[character.size() - 1]->setTarget(player->getPosition());
 
 	character.push_back(new Rat(new Character(128, -448, 32)));
-	character[character.size() - 1]->setHealth(15);
+	character[character.size() - 1]->setHealth(5);
+	character[character.size() - 1]->setSprite(0, new AniSprite(character[character.size() - 1]->getPosition().x,
+		character[character.size() - 1]->getPosition().y, "RatRearWalk.bmp", 2, 1));
+	character[character.size() - 1]->setSprite(1, new AniSprite(character[character.size() - 1]->getPosition().x,
+		character[character.size() - 1]->getPosition().y, "RatSideWalk.bmp", 2, 1));
+	character[character.size() - 1]->setSprite(2, new AniSprite(character[character.size() - 1]->getPosition().x,
+		character[character.size() - 1]->getPosition().y, "RatFrontWalk.bmp", 2, 1));
+	character[character.size() - 1]->setTarget(player->getPosition());
+
+	character.push_back(new Slime(new Character(512, -256, 32)));
+	character[character.size() - 1]->setHealth(5);
+	character[character.size() - 1]->setSprite(0, new AniSprite(character[character.size() - 1]->getPosition().x,
+		character[character.size() - 1]->getPosition().y, "BabySlimeGreenRearWalk.bmp", 2, 1));
+	character[character.size() - 1]->setSprite(1, new AniSprite(character[character.size() - 1]->getPosition().x,
+		character[character.size() - 1]->getPosition().y, "BabySlimeGreenSideFrontWalk.bmp", 2, 1));
+	character[character.size() - 1]->setSprite(2, new AniSprite(character[character.size() - 1]->getPosition().x,
+		character[character.size() - 1]->getPosition().y, "BabySlimeGreenSideFrontWalk.bmp", 2, 1));
+	character[character.size() - 1]->setTarget(player->getPosition());
+
+	character.push_back(new Rat(new Character(576, -256, 32)));
+	character[character.size() - 1]->setHealth(5);
+	character[character.size() - 1]->setSprite(0, new AniSprite(character[character.size() - 1]->getPosition().x,
+		character[character.size() - 1]->getPosition().y, "RatRearWalk.bmp", 2, 1));
+	character[character.size() - 1]->setSprite(1, new AniSprite(character[character.size() - 1]->getPosition().x,
+		character[character.size() - 1]->getPosition().y, "RatSideWalk.bmp", 2, 1));
+	character[character.size() - 1]->setSprite(2, new AniSprite(character[character.size() - 1]->getPosition().x,
+		character[character.size() - 1]->getPosition().y, "RatFrontWalk.bmp", 2, 1));
+	character[character.size() - 1]->setTarget(player->getPosition());
+
+	character.push_back(new Slime(new Character(512, -352, 32)));
+	character[character.size() - 1]->setHealth(5);
+	character[character.size() - 1]->setSprite(0, new AniSprite(character[character.size() - 1]->getPosition().x,
+		character[character.size() - 1]->getPosition().y, "BabySlimeGreenRearWalk.bmp", 2, 1));
+	character[character.size() - 1]->setSprite(1, new AniSprite(character[character.size() - 1]->getPosition().x,
+		character[character.size() - 1]->getPosition().y, "BabySlimeGreenSideFrontWalk.bmp", 2, 1));
+	character[character.size() - 1]->setSprite(2, new AniSprite(character[character.size() - 1]->getPosition().x,
+		character[character.size() - 1]->getPosition().y, "BabySlimeGreenSideFrontWalk.bmp", 2, 1));
+	character[character.size() - 1]->setTarget(player->getPosition());
+
+	character.push_back(new Rat(new Character(576, -352, 32)));
+	character[character.size() - 1]->setHealth(5);
+	character[character.size() - 1]->setSprite(0, new AniSprite(character[character.size() - 1]->getPosition().x,
+		character[character.size() - 1]->getPosition().y, "RatRearWalk.bmp", 2, 1));
+	character[character.size() - 1]->setSprite(1, new AniSprite(character[character.size() - 1]->getPosition().x,
+		character[character.size() - 1]->getPosition().y, "RatSideWalk.bmp", 2, 1));
+	character[character.size() - 1]->setSprite(2, new AniSprite(character[character.size() - 1]->getPosition().x,
+		character[character.size() - 1]->getPosition().y, "RatFrontWalk.bmp", 2, 1));
+	character[character.size() - 1]->setTarget(player->getPosition());
+
+	character.push_back(new Slime(new Character(256, -512, 32)));
+	character[character.size() - 1]->setHealth(5);
+	character[character.size() - 1]->setSprite(0, new AniSprite(character[character.size() - 1]->getPosition().x,
+		character[character.size() - 1]->getPosition().y, "BabySlimeGreenRearWalk.bmp", 2, 1));
+	character[character.size() - 1]->setSprite(1, new AniSprite(character[character.size() - 1]->getPosition().x,
+		character[character.size() - 1]->getPosition().y, "BabySlimeGreenSideFrontWalk.bmp", 2, 1));
+	character[character.size() - 1]->setSprite(2, new AniSprite(character[character.size() - 1]->getPosition().x,
+		character[character.size() - 1]->getPosition().y, "BabySlimeGreenSideFrontWalk.bmp", 2, 1));
+	character[character.size() - 1]->setTarget(player->getPosition());
+
+	character.push_back(new Rat(new Character(320, -512, 32)));
+	character[character.size() - 1]->setHealth(5);
+	character[character.size() - 1]->setSprite(0, new AniSprite(character[character.size() - 1]->getPosition().x,
+		character[character.size() - 1]->getPosition().y, "RatRearWalk.bmp", 2, 1));
+	character[character.size() - 1]->setSprite(1, new AniSprite(character[character.size() - 1]->getPosition().x,
+		character[character.size() - 1]->getPosition().y, "RatSideWalk.bmp", 2, 1));
+	character[character.size() - 1]->setSprite(2, new AniSprite(character[character.size() - 1]->getPosition().x,
+		character[character.size() - 1]->getPosition().y, "RatFrontWalk.bmp", 2, 1));
+	character[character.size() - 1]->setTarget(player->getPosition());
+
+	character.push_back(new Rat(new Character(1056, -544, 32)));
+	character[character.size() - 1]->setHealth(5);
+	character[character.size() - 1]->setSprite(0, new AniSprite(character[character.size() - 1]->getPosition().x,
+		character[character.size() - 1]->getPosition().y, "RatRearWalk.bmp", 2, 1));
+	character[character.size() - 1]->setSprite(1, new AniSprite(character[character.size() - 1]->getPosition().x,
+		character[character.size() - 1]->getPosition().y, "RatSideWalk.bmp", 2, 1));
+	character[character.size() - 1]->setSprite(2, new AniSprite(character[character.size() - 1]->getPosition().x,
+		character[character.size() - 1]->getPosition().y, "RatFrontWalk.bmp", 2, 1));
+	character[character.size() - 1]->setTarget(player->getPosition());
+
+	character.push_back(new Rat(new Character(1024, -288, 32)));
+	character[character.size() - 1]->setHealth(5);
 	character[character.size() - 1]->setSprite(0, new AniSprite(character[character.size() - 1]->getPosition().x,
 		character[character.size() - 1]->getPosition().y, "RatRearWalk.bmp", 2, 1));
 	character[character.size() - 1]->setSprite(1, new AniSprite(character[character.size() - 1]->getPosition().x,
@@ -148,7 +245,7 @@ void StateLevelOne::enter() {
 
 
 	character.push_back(new Rat(new Character(1952, -352, 32)));
-	character[character.size() - 1]->setHealth(15);
+	character[character.size() - 1]->setHealth(5);
 	character[character.size() - 1]->setSprite(0, new AniSprite(character[character.size() - 1]->getPosition().x,
 		character[character.size() - 1]->getPosition().y, "RatRearWalk.bmp", 2, 1));
 	character[character.size() - 1]->setSprite(1, new AniSprite(character[character.size() - 1]->getPosition().x,
@@ -159,7 +256,7 @@ void StateLevelOne::enter() {
 
 
 	character.push_back(new Slime(new Character(1952, -288, 32)));
-	character[character.size() - 1]->setHealth(15);
+	character[character.size() - 1]->setHealth(5);
 	character[character.size() - 1]->setSprite(0, new AniSprite(character[character.size() - 1]->getPosition().x,
 		character[character.size() - 1]->getPosition().y, "BabySlimeGreenRearWalk.bmp", 2, 1));
 	character[character.size() - 1]->setSprite(1, new AniSprite(character[character.size() - 1]->getPosition().x,
@@ -169,7 +266,7 @@ void StateLevelOne::enter() {
 	character[character.size() - 1]->setTarget(player->getPosition());
 
 	character.push_back(new Slime(new Character(1344, -64, 32)));
-	character[character.size() - 1]->setHealth(15);
+	character[character.size() - 1]->setHealth(5);
 	character[character.size() - 1]->setSprite(0, new AniSprite(character[character.size() - 1]->getPosition().x,
 		character[character.size() - 1]->getPosition().y, "BabySlimeGreenRearWalk.bmp", 2, 1));
 	character[character.size() - 1]->setSprite(1, new AniSprite(character[character.size() - 1]->getPosition().x,
@@ -180,7 +277,7 @@ void StateLevelOne::enter() {
 
 
 	character.push_back(new Rat(new Character(1472, -64, 32)));
-	character[character.size() - 1]->setHealth(15);
+	character[character.size() - 1]->setHealth(5);
 	character[character.size() - 1]->setSprite(0, new AniSprite(character[character.size() - 1]->getPosition().x,
 		character[character.size() - 1]->getPosition().y, "RatRearWalk.bmp", 2, 1));
 	character[character.size() - 1]->setSprite(1, new AniSprite(character[character.size() - 1]->getPosition().x,
@@ -189,9 +286,10 @@ void StateLevelOne::enter() {
 		character[character.size() - 1]->getPosition().y, "RatFrontWalk.bmp", 2, 1));
 	character[character.size() - 1]->setTarget(player->getPosition());
 
+	cout << "Level One Loaded \n";
 }//enter
 void StateLevelOne::exit() {
-	cout << "Exiting Level One State" << endl;
+	cout << "Exiting Level One State \n" << endl;
 
 	for (int i = 0; i < character.size(); i++) {
 		delete character[i];
@@ -208,7 +306,7 @@ void StateLevelOne::handleSDLEvent(SDL_Event const& sdlEvent, Game& context) {
 			break;
 
 		case SDLK_RETURN: case SDLK_RETURN2:
-			context.setState(context.getLevelTwo());
+			context.setState(context.getLevelOne());
 			break;
 
 		default:
@@ -217,7 +315,4 @@ void StateLevelOne::handleSDLEvent(SDL_Event const& sdlEvent, Game& context) {
 
 
 	}
-
-
-
 }//handleSDLEvent

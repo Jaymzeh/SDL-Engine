@@ -157,15 +157,14 @@
     <ClCompile Include="game.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="map.cpp" />
-    <ClCompile Include="md2model.cpp" />
     <ClCompile Include="player.cpp" />
-    <ClCompile Include="rt3d.cpp" />
-    <ClCompile Include="rt3dObjLoader.cpp" />
     <ClCompile Include="stateLevelOne.cpp" />
+    <ClCompile Include="stateLevelThree.cpp" />
+    <ClCompile Include="stateLevelTwo.cpp" />
+    <ClCompile Include="stateShop.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="aniSprite.h" />
-    <ClInclude Include="anorms.h" />
     <ClInclude Include="bass.h" />
     <ClInclude Include="bitmap.h" />
     <ClInclude Include="boundingBox.h" />
@@ -174,17 +173,22 @@
     <ClInclude Include="game.h" />
     <ClInclude Include="gamestate.h" />
     <ClInclude Include="key.h" />
+    <ClInclude Include="label.h" />
     <ClInclude Include="map.h" />
-    <ClInclude Include="md2model.h" />
     <ClInclude Include="player.h" />
-    <ClInclude Include="rt3d.h" />
-    <ClInclude Include="rt3dObjLoader.h" />
+    <ClInclude Include="shop.h" />
     <ClInclude Include="stateLevelOne.h" />
+    <ClInclude Include="stateLevelThree.h" />
+    <ClInclude Include="stateLevelTwo.h" />
+    <ClInclude Include="stateShop.h" />
     <ClInclude Include="tile.h" />
     <ClInclude Include="vector2.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="mapOne.txt" />
+    <Text Include="mapShop.txt" />
+    <Text Include="mapThree.txt" />
+    <Text Include="mapTwo.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

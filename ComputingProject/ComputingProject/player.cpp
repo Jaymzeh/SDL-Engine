@@ -74,7 +74,21 @@ void Player::attack(std::vector<BaseCharacter*>& enemies) {
 
 	for (int i = 0; i < enemies.size(); i++) {
 		if (enemies[i]->getPosition().distance(position) <= width*1.5f) {
-			enemies[i]->setHealth(enemies[i]->getHealth() - 5);
+
+			//Left
+			if (position.x < enemies[i]->getPosition().x && currentDirection == 1)
+				enemies[i]->setHealth(enemies[i]->getHealth() - 5);
+
+			//Right
+			if (position.x > enemies[i]->getPosition().x && currentDirection == 3)
+				enemies[i]->setHealth(enemies[i]->getHealth() - 5);
+			//Top
+			if (position.y > enemies[i]->getPosition().y && currentDirection == 2)
+				enemies[i]->setHealth(enemies[i]->getHealth() - 5);
+			//Bottom
+			if (position.y < enemies[i]->getPosition().y && currentDirection == 0)
+				enemies[i]->setHealth(enemies[i]->getHealth() - 5);
+
 			break;
 		}
 	}

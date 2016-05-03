@@ -52,6 +52,10 @@ void StateLevelThree::init(Game& context) {
 	//label = context.textToTexture("I am text", label);
 }//init
 void StateLevelThree::update(Game& context) {
+
+	if (player->health <= 0)
+		context.setState(context.getGameOver());
+
 	player->handleInputX(keystate);
 	for (int i = 0; i < mapBoxes.size(); i++) {
 		if (player->getBox().intersects(mapBoxes[i])) {
@@ -76,7 +80,7 @@ void StateLevelThree::update(Game& context) {
 			if (player->getBox().intersects(character[i]->getBox()))
 				character[i]->moveBack();
 
-			if (character[i]->getPosition().distance(player->getPosition()) < 64 && character[i]->getAttackCooldown()>120) {
+			if (character[i]->getPosition().distance(player->getPosition()) < 32 && character[i]->getAttackCooldown()>120) {
 				player->health--;
 				character[i]->resetAttackCooldown();
 			}
@@ -90,8 +94,11 @@ void StateLevelThree::update(Game& context) {
 		}
 		if (player->getBox().intersects(key.getBox()))
 			door.unlocked = true;
-		if (door.unlocked && player->getBox().intersects(door.getBox()))
-			context.setState(context.getLevelTwo());
+		if (door.unlocked && player->getBox().intersects(door.getBox())) {
+			player->prevLevel = 3;
+			player->savePlayerData("playerData.txt");
+			context.setState(context.getLevelShop());
+		}
 	}
 }//update
 void StateLevelThree::enter() {

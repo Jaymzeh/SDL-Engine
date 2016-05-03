@@ -37,64 +37,10 @@ void StateLevelTwo::draw(SDL_Window* window) {
 	player->render();
 	player->showHealth(left, top - 32);
 
-	
-
-	shop.render();
-
 	door.render();
 
 	if (!door.unlocked)
 		key.render();
-
-	//Checking shop collisions
-	if (player->getBox().intersects(shop.getMainbBox()))
-		shop.inShopSelection = 1;
-	if (player->getBox().intersects(shop.getbBoxOption1()))
-		shop.inShopSelection = 2;
-	if (player->getBox().intersects(shop.getbBoxOption2()))
-		shop.inShopSelection = 3;
-	if (player->getBox().intersects(shop.getbBoxOption3()))
-		shop.inShopSelection = 4;
-	if (!player->getBox().intersects(shop.getMainbBox()) && !player->getBox().intersects(shop.getbBoxOption1()) && !player->getBox().intersects(shop.getbBoxOption2())
-		&& !player->getBox().intersects(shop.getbBoxOption3()))
-		shop.inShopSelection = 5;
-
-	//Checks to see if payer has entered shop, Then respective options
-	if (shop.inShopSelection == 1 && !shop.inShop) {
-		shop.inShop = true;
-		cout << "Welome to $shopName" << endl;
-	}
-	else if (shop.inShopSelection == 2 && shop.selectionCooldown < 1) {
-		//N: Doesn't need a cooldown
-		cout << "Press 'Y' to buy health" << endl;
-		if (keystate[SDL_SCANCODE_Y]) {
-			cout << "+100 Health" << endl << "-100 coins" << endl;
-			shop.selectionCooldown = 120;
-		}
-	}
-	else if (shop.inShopSelection == 3 && shop.selectionCooldown < 1) {
-		//N: Doesn't need a cooldown
-		cout << "Press 'Y' to buy strength" << endl;
-		if (keystate[SDL_SCANCODE_Y]) {
-			cout << "+100 Strength" << endl << "-100 coins" << endl;
-			shop.selectionCooldown = 120;
-		}
-	}
-	else if (shop.inShopSelection == 4 && shop.selectionCooldown < 1) {
-		//N: Doesn't need a cooldown
-		cout << "Press 'Y' to buy option3" << endl;
-		if (keystate[SDL_SCANCODE_Y]) {
-			cout << "+100 of option3" << endl << "-100 coins" << endl;
-			shop.selectionCooldown = 120;
-		}
-	}
-	else {
-	}
-
-	//Check to see if player exits shop
-	if (shop.inShopSelection != 1) {
-		shop.inShop = false;
-	}
 
 	SDL_GL_SwapWindow(window);
 }//draw
@@ -102,6 +48,10 @@ void StateLevelTwo::init(Game& context) {
 	//label = context.textToTexture("I am text", label);
 }//init
 void StateLevelTwo::update(Game& context) {
+
+	if (player->health <= 0)
+		context.setState(context.getGameOver());
+
 	player->handleInputX(keystate);
 	for (int i = 0; i < mapBoxes.size(); i++) {
 		if (player->getBox().intersects(mapBoxes[i])) {
@@ -131,7 +81,7 @@ void StateLevelTwo::update(Game& context) {
 			if (player->getBox().intersects(character[i]->getBox()))
 				character[i]->moveBack();
 
-			if (character[i]->getPosition().distance(player->getPosition()) < 64 && character[i]->getAttackCooldown()>120) {
+			if (character[i]->getPosition().distance(player->getPosition()) < 32 && character[i]->getAttackCooldown()>120) {
 				player->health--;
 				character[i]->resetAttackCooldown();
 			}
@@ -146,8 +96,9 @@ void StateLevelTwo::update(Game& context) {
 		if (player->getBox().intersects(key.getBox()))
 			door.unlocked = true;
 		if (door.unlocked && player->getBox().intersects(door.getBox())) {
+			player->prevLevel = 2;
 			player->savePlayerData("playerData.txt");
-			context.setState(context.getLevelThree());
+			context.setState(context.getLevelShop());
 		}
 	}
 }//update
@@ -160,7 +111,6 @@ void StateLevelTwo::enter() {
 	mapBoxes = map->getBoxes();
 
 	player = new Player(1376, -704, 32, 16);
-	shop.spawnShop(1440, -544, new Bitmap("shop.bmp", true));
 	player->loadPlayerData("playerData.txt");
 	
 

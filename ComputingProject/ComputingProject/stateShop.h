@@ -30,7 +30,6 @@ private:
 	Player* player;
 	Shop shop;
 	vector<BoundingBox> mapBoxes;
-	Key key;
 	Door door;
 	HSAMPLE sample;
 };

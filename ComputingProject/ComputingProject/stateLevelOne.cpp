@@ -76,7 +76,7 @@ void StateLevelOne::update(Game& context) {
 			if (player->getBox().intersects(character[i]->getBox()))
 				character[i]->moveBack();
 
-			if (character[i]->getPosition().distance(player->getPosition()) < 64 && character[i]->getAttackCooldown()>120) {
+			if (character[i]->getPosition().distance(player->getPosition()) < 32 && character[i]->getAttackCooldown()>120) {
 				player->health--;
 				character[i]->resetAttackCooldown();
 			}
@@ -91,8 +91,9 @@ void StateLevelOne::update(Game& context) {
 		if (player->getBox().intersects(key.getBox()))
 			door.unlocked = true;
 		if (door.unlocked && player->getBox().intersects(door.getBox())) {
+			player->prevLevel = 1;
 			player->savePlayerData("playerData.txt");
-			context.setState(context.getLevelTwo());
+			context.setState(context.getLevelShop());
 		}
 	}
 }//update

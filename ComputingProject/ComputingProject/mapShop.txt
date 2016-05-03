@@ -1,7 +1,7 @@
--bbbbbbbbbbbbbbbbbbbbbb-
--baaaaaaaaaaaaaaaaaaaab-
--baaaaaaaaaaaaaaaaaaaab-
--baaaaaaaaaaaaaaaaaaaab-
--baaaaaaaaaaaaaaaaaaaab-
-baaaaaaaaaaaaaaaaaaaaaac
--ccccccccccccccccccccccc
+aaaaaaaaaa
+aabbbbbbaa
+aabbbbbbaa
+aabbbbbbaa
+aabbbbbbaa
+abbbbbbbba
+aaaaaaaaaa

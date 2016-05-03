@@ -20,9 +20,14 @@ void Player::loadPlayerData(char* filePath) {
 
 		getline(file, line);
 		health = stoi(line);
-
-		//getline(file, line);
-		//money = stoi(line);
+		getline(file, line);
+		maxHealth = stoi(line);
+		getline(file, line);
+		money = stoi(line);
+		getline(file, line);
+		strength = stoi(line);
+		getline(file, line);
+		prevLevel = stoi(line);
 
 		file.close();
 		cout << "File contents: " << line << endl;
@@ -36,7 +41,11 @@ void Player::savePlayerData(char* filePath) {
 	string line;
 	ofstream file(filePath);
 	if (file.is_open()) {
-		line = (to_string(health));
+		line = (to_string(health) + "\n" +
+			to_string(maxHealth) + "\n" +
+			to_string(money) + "\n" + 
+			to_string(strength) + "\n" + 
+			to_string(prevLevel));
 
 		file << line;
 		file.close();
@@ -111,7 +120,6 @@ void Player::attack(std::vector<BaseCharacter*>& enemies) {
 
 	attacking = true;
 
-
 	for (int i = 0; i < enemies.size(); i++) {
 		if (enemies[i]->getPosition().distance(position) <= width*1.5f) {
 
@@ -185,6 +193,10 @@ void Player::render() {
 }
 
 void Player::showHealth(int dx, int dy) {
+
+	if (health > maxHealth)
+		health = maxHealth;
+
 	for (int i = 0; i < health;i++) {
 		heartImage->drawAt(dx + (i * heartImage->getWidth()), dy);
 	}

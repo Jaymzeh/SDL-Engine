@@ -30,6 +30,13 @@ public:
 	void setPosition(Vector2 newPos);
 	void setPosition(float dx, float dy);
 
+	int getMoney() {
+		return money;
+	}
+	void addMoney(int amount) {
+		money += amount;
+	}
+
 	void attack(std::vector<BaseCharacter*>& enemies);
 
 	void render();
@@ -42,10 +49,14 @@ public:
 	~Player();
 
 	int health = 3;
+	int maxHealth = 3;
+	int prevLevel = 0;
+	int strength = 1;
 private:
+	int money = 0;
 	
-	float width, height;
-	float moveSpeed = 1;
+	int width, height;
+	int moveSpeed = 1;
 	BoundingBox bBox;
 	Vector2 position, oldPosition;
 	Bitmap* heartImage;

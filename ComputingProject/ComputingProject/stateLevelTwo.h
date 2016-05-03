@@ -28,7 +28,6 @@ private:
 
 	Map* map = NULL;
 	Player* player;
-	Shop shop;
 	vector<BaseCharacter*> character;
 	vector<BoundingBox> mapBoxes;
 	Key key;

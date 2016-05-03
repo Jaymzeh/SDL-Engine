@@ -28,13 +28,14 @@ void StateShop::draw(SDL_Window* window) {
 
 	map->render();
 
-	player->render();
+	
+	
 
 	shop.render();
 	door.render();
 
-	if (!door.unlocked)
-		key.render();
+	player->render();
+	player->showHealth(left, top - 32);
 
 	SDL_GL_SwapWindow(window);
 }//draw
@@ -57,11 +58,20 @@ void StateShop::update(Game& context) {
 		}
 	}
 
-	if (player->getBox().intersects(key.getBox()))
-		door.unlocked = true;
+	if (door.unlocked && player->getBox().intersects(door.getBox())) {
+		switch (player->prevLevel) {
+		case 1:
+			context.setState(context.getLevelTwo());
+			break;
 
-	if (door.unlocked && player->getBox().intersects(door.getBox()))
-		context.setState(context.getLevelOne());
+		case 2:
+			context.setState(context.getLevelThree());
+			break;
+		}
+		
+	}
+		
+		
 
 	//Checking shop collisions
 	if (player->getBox().intersects(shop.getMainbBox()))
@@ -83,26 +93,51 @@ void StateShop::update(Game& context) {
 	}
 	else if (shop.inShopSelection == 2 && shop.selectionCooldown < 1) {
 		//N: Doesn't need a cooldown
-		cout << "Press 'Y' to buy health" << endl;
 		if (keystate[SDL_SCANCODE_Y]) {
-			cout << "+100 Health" << endl << "-100 coins" << endl;
-			shop.selectionCooldown = 120;
+
+			if (player->getMoney() >= 30) {
+				cout << "+100 Strength" << endl << "-30 coins" << endl;
+				player->addMoney(-30);
+				player->strength++;
+				cout << "Coins: " << player->getMoney() << endl;
+				cout << "-----------------------------" << endl;
+			}
+			else
+				cout << "No enough coins" << endl;
+
+			shop.selectionCooldown = 100;
 		}
 	}
 	else if (shop.inShopSelection == 3 && shop.selectionCooldown < 1) {
 		//N: Doesn't need a cooldown
-		cout << "Press 'Y' to buy strength" << endl;
 		if (keystate[SDL_SCANCODE_Y]) {
-			cout << "+100 Strength" << endl << "-100 coins" << endl;
-			shop.selectionCooldown = 120;
+			if (player->getMoney() >= 50) {
+				cout << "+1 Extra Health" << endl << "-50 coins" << endl;
+				player->addMoney(-50);
+				player->maxHealth++;
+				cout << "Coins: " << player->getMoney() << endl;
+				cout << "-----------------------------" << endl;
+			}
+			else
+				cout << "No enough coins" << endl;
+
+			shop.selectionCooldown = 100;
 		}
 	}
 	else if (shop.inShopSelection == 4 && shop.selectionCooldown < 1) {
 		//N: Doesn't need a cooldown
-		cout << "Press 'Y' to buy option3" << endl;
 		if (keystate[SDL_SCANCODE_Y]) {
-			cout << "+100 of option3" << endl << "-100 coins" << endl;
-			shop.selectionCooldown = 120;
+
+			if (player->getMoney() >= 20) {
+				player->health++;
+				player->addMoney(-20);
+				cout << "+1 Potion" << endl << "-20 coins" << endl;
+				cout << "Coins: " << player->getMoney() << endl;
+				cout << "-----------------------------" << endl;
+			}
+			else
+				cout << "No enough coins" << endl;
+			shop.selectionCooldown = 100;
 		}
 	}
 	else {
@@ -112,17 +147,24 @@ void StateShop::update(Game& context) {
 	if (shop.inShopSelection != 1) {
 		shop.inShop = false;
 	}
+
+	//Cooldown to stop instant re-selection
+	shop.selectionCooldown--;
+
 }//update
 void StateShop::enter() {
 	cout << "Entering Shop State" << endl;
 
-	map = new Map("\mapOne.txt", 0, 0);
+	map = new Map("\mapShop.txt", 0, 0);
 	map->setBitmap("BlockSpriteBitmap2.bmp");
 	map->setTileSize(32);
 	map->loadMapTiles();
 	mapBoxes = map->getBoxes();
 
-	player = new Player(512, -32, 32, 16);
+	shop.spawnShop(64, -5*32, new Bitmap("shop.bmp", true));
+
+	player = new Player(64, -6*32, 32, 16);
+	player->loadPlayerData("playerData.txt");
 
 	player->setSprite(0, new AniSprite(player->getPosition().x,
 		player->getPosition().y, "rearViewWalk.bmp", 3, 1));
@@ -138,12 +180,8 @@ void StateShop::enter() {
 
 	player->setHeartSprite(new Bitmap("heart.bmp", true));
 
-	key.createKey(1952, -320, new Bitmap("Key.bmp", true));
-
-	door.createDoor(1408, -32, new Bitmap("Door.bmp", true));
-
-	shop.spawnShop(512, -32, new Bitmap("shop.bmp", true));
-
+	door.createDoor(8*32, -6*32, new Bitmap("Door.bmp", false));
+	door.unlocked = true;
 }//enter
 void StateShop::exit() {
 	cout << "Exiting Shop State" << endl;

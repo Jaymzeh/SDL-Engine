@@ -7,7 +7,7 @@
 
 class Door {
 public:
-	void createDoor(float dx, float dy, Bitmap* newSprite) {
+	void createDoor(int dx, int dy, Bitmap* newSprite) {
 		position.setPoint(dx, dy);
 		sprite = newSprite;
 		spriteWidth = sprite->getWidth();
@@ -28,7 +28,7 @@ private:
 	Vector2 position;
 	BoundingBox bBox;
 	Bitmap* sprite;
-	float spriteWidth, spriteHeight;
+	int spriteWidth, spriteHeight;
 
 };
 

@@ -13,10 +13,10 @@ class BaseCharacter {
 public:
 
 	virtual void setSprite(int i, AniSprite* newSprite) = 0;
-	virtual void move(float dx, float dy) = 0;
+	virtual void move(int dx, int dy) = 0;
 	virtual void moveBack() = 0;
 	virtual void setPosition(Vector2 newPos) = 0;
-	virtual void setPosition(float dx, float dy) = 0;
+	virtual void setPosition(int dx, int dy) = 0;
 	virtual void update() = 0;
 	virtual void render() = 0;
 	virtual void setTarget(Vector2 _target) = 0;
@@ -41,7 +41,7 @@ private:
 	Direction currentDirection = UP;
 	int frames = 0;
 public:
-	Character(float dx, float dy, float charSize) {
+	Character(int dx, int dy, int charSize) {
 		position.setPoint(dx, dy);
 		width = height = charSize;
 		bBox.setBox(position.x, position.y, width, height);
@@ -50,7 +50,7 @@ public:
 	void setSprite(int i, AniSprite* newSprite) {
 		sprite[i] = newSprite;
 	}
-	void move(float dx, float dy) {
+	void move(int dx, int dy) {
 		if (dx > 0)
 			currentDirection = RIGHT;
 		else
@@ -80,7 +80,7 @@ public:
 			sprite[i]->moveTo(position.x, position.y);
 		bBox.setBox(position.x, position.y, width, height);
 	}
-	void setPosition(float dx, float dy) {
+	void setPosition(int dx, int dy) {
 		position.setPoint(dx, dy);
 		for (int i = 0; i < ARRAYSIZE(sprite); i++)
 			sprite[i]->moveTo(position.x, position.y);
@@ -88,8 +88,8 @@ public:
 	}
 
 	void update() {
-		float dx = 0;
-		float dy = 0;
+		int dx = 0;
+		int dy = 0;
 
 		Vector2 pos = target;
 
@@ -163,7 +163,7 @@ protected:
 	int health;
 	int attackCooldown;
 	int baseAttackCooldown = 120;
-	float width, height;
+	int width, height;
 	Vector2 target;
 	BoundingBox bBox;
 };
@@ -175,10 +175,10 @@ private:
 public:
 	CharacterDecorator(BaseCharacter* c) { character = c; }
 	void setSprite(int i, AniSprite* newSprite) { character->setSprite(i, newSprite); }
-	void move(float dx, float dy) { character->move(dx, dy); };
+	void move(int dx, int dy) { character->move(dx, dy); };
 	void moveBack() { character->moveBack(); }
 	void setPosition(Vector2 newPos) { character->setPosition(newPos); }
-	void setPosition(float dx, float dy) { character->setPosition(dx, dy); }
+	void setPosition(int dx, int dy) { character->setPosition(dx, dy); }
 	void update() { character->update(); }
 	void render() { character->render(); }
 	void setTarget(Vector2 _target) { character->setTarget(_target); };
@@ -198,10 +198,10 @@ class Slime : public CharacterDecorator {
 public:
 	Slime(BaseCharacter* c) : CharacterDecorator(c) { setHealth(5); }
 	void setSprite(int i, AniSprite* newSprite) { CharacterDecorator::setSprite(i, newSprite); }
-	void move(float dx, float dy) { CharacterDecorator::move(dx, dy); }
+	void move(int dx, int dy) { CharacterDecorator::move(dx, dy); }
 	void moveBack() { CharacterDecorator::moveBack(); }
 	void setPosition(Vector2 newPos) { CharacterDecorator::setPosition(newPos); }
-	void setPosition(float dx, float dy) { CharacterDecorator::setPosition(dx, dy); }
+	void setPosition(int dx, int dy) { CharacterDecorator::setPosition(dx, dy); }
 	void update() { CharacterDecorator::update(); }
 	void render() { CharacterDecorator::render(); }
 	void setTarget(Vector2 _target) { CharacterDecorator::setTarget(_target); };
@@ -221,10 +221,10 @@ class Rat : public CharacterDecorator {
 public:
 	Rat(BaseCharacter* c) : CharacterDecorator(c) { setHealth(10); }
 	void setSprite(int i, AniSprite* newSprite) { CharacterDecorator::setSprite(i, newSprite); }
-	void move(float dx, float dy) { CharacterDecorator::move(dx, dy); }
+	void move(int dx, int dy) { CharacterDecorator::move(dx, dy); }
 	void moveBack() { CharacterDecorator::moveBack(); }
 	void setPosition(Vector2 newPos) { CharacterDecorator::setPosition(newPos); }
-	void setPosition(float dx, float dy) { CharacterDecorator::setPosition(dx, dy); }
+	void setPosition(int dx, int dy) { CharacterDecorator::setPosition(dx, dy); }
 	void update() { CharacterDecorator::update(); }
 	void render() { CharacterDecorator::render(); }
 	void setTarget(Vector2 _target) { CharacterDecorator::setTarget(_target); };

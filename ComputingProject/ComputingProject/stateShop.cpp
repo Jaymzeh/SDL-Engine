@@ -136,8 +136,6 @@ void StateShop::enter() {
 	player->setSprite(4, new AniSprite(player->getPosition().x,
 		player->getPosition().y, "sideSwordStab.bmp", 2, 1));
 
-	player->setHeartSprite(new Bitmap("heart.bmp", true));
-
 	key.createKey(1952, -320, new Bitmap("Key.bmp", true));
 
 	door.createDoor(1408, -32, new Bitmap("Door.bmp", true));

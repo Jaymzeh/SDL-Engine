@@ -91,7 +91,7 @@ void StateLevelThree::update(Game& context) {
 		if (player->getBox().intersects(key.getBox()))
 			door.unlocked = true;
 		if (door.unlocked && player->getBox().intersects(door.getBox()))
-			context.setState(context.getLevelTwo());
+			context.setState(context.getLevelThree());
 	}
 }//update
 void StateLevelThree::enter() {
@@ -115,8 +115,6 @@ void StateLevelThree::enter() {
 		player->getPosition().y, "frontStickStab.bmp", 2, 1));
 	player->setSprite(4, new AniSprite(player->getPosition().x,
 		player->getPosition().y, "sideSwordStab.bmp", 2, 1));
-
-	player->setHeartSprite(new Bitmap("heart.bmp", true));
 
 	key.createKey(53 * 32, 24 * -32, new Bitmap("Key.bmp", true));
 

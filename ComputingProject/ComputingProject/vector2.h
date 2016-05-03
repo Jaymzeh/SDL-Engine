@@ -5,35 +5,35 @@
 
 class Vector2 {
 public:
-	float x;
-	float y;
+	int x;
+	int y;
 
 	Vector2() {
 		x = 0; y = 0;
 	}
 
-	Vector2(float X, float Y) {
+	Vector2(int X, int Y) {
 		x = X;
 		y = Y;
 	}
 
 	float distance(Vector2 end) {
-		return sqrt((x - end.x) * (x - end.x) + (y - end.y) * (y - end.y));
+		return (float)sqrt((x - end.x) * (x - end.x) + (y - end.y) * (y - end.y));
 	}
-	float distance(float dx, float dy) {
-		return sqrt((x - dx) * (x - dx) + (y - dy) * (y - dy));
+	float distance(int dx, int dy) {
+		return (float)sqrt((x - dx) * (x - dx) + (y - dy) * (y - dy));
 	}
 	void add(Vector2 point) {
 		x += point.x;
 		y += point.y;
 	}
 
-	void add(float dx, float dy) {
+	void add(int dx, int dy) {
 		x += x;
 		y += y;
 	}
 
-	void setPoint(float dx, float dy) {
+	void setPoint(int dx, int dy) {
 		x = dx;
 		y = dy;
 	}

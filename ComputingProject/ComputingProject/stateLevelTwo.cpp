@@ -171,8 +171,6 @@ void StateLevelTwo::enter() {
 	player->setSprite(4, new AniSprite(player->getPosition().x,
 		player->getPosition().y, "sideSwordStab.bmp", 2, 1));
 
-	player->setHeartSprite(new Bitmap("heart.bmp", true));
-
 	key.createKey(2016, -64, new Bitmap("Key.bmp", true));
 	door.createDoor(1312, -352, new Bitmap("Door.bmp", true));
 

@@ -1,20 +1,54 @@
 #include "player.h"
 #include "character.h"
+#include <iostream>
+#include <fstream>
+#include <string>
+
+using namespace std;
 
 Player::Player(float dx, float dy, float _width, float _height) {
 	position.setPoint(dx, dy);
 	width = _width;
 	height = _height;
 	bBox.setBox(position.x, position.y, width, height);
+	heartImage = new Bitmap("heart.bmp", true);
+	coinImage = new Bitmap("coin.bmp", true);
+	numbers = new AniSprite(0, 0, "numbers.bmp", 10, 1);
+}
+
+void Player::loadPlayerData(char* filePath) {
+	string line;
+	ifstream file(filePath);
+	if (file.is_open()) {
+
+		getline(file, line);
+		health = stoi(line);
+		
+		getline(file, line);
+		money = stoi(line);
+
+		file.close();
+		cout << "File contents: " << line << endl;
+	}
+	else {
+		cout << "File '" << filePath << "' could not be loaded" << endl;
+	}
+}
+
+void Player::savePlayerData(char* filePath) {
+	string line;
+	ofstream file(filePath);
+	if (file.is_open()) {
+		line = (to_string(health) + "\n" + to_string(money));
+
+		file << line;
+		file.close();
+	}
 }
 
 void Player::setSprite(int i, AniSprite* newSprite) {
 	sprite[i] = newSprite;
 }
-void Player::setHeartSprite(Bitmap* newSprite) {
-	heartImage = newSprite;
-}
-
 
 void Player::move(float dx, float dy) {
 	if (dx > 0)
@@ -36,6 +70,7 @@ void Player::move(float dx, float dy) {
 	position.y += dy;
 	bBox.setBox(position.x, position.y, width, height);
 }
+
 void Player::moveBack() {
 	setPosition(oldPosition);
 }
@@ -147,6 +182,15 @@ void Player::showHealth(int dx, int dy) {
 		heartImage->drawAt(dx + (i * heartImage->getWidth()), dy);
 	}
 }
+
+void Player::showMoney(int dx, int dy) {
+	coinImage->drawAt(dx, dy);
+	if (money < 10) {
+		
+	}
+
+}
+
 
 Player::~Player() {
 	for (int i = 0; i < ARRAYSIZE(sprite); i++)

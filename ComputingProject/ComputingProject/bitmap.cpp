@@ -1,6 +1,4 @@
-/**
-Bitmap class - loads and displays Microsoft .bmp format
-============   ========================================
+/*Bitmap class - loads and displays Microsoft .bmp format
 Copyright (C) 2010  Alistair McMonnies.
 
 Bitmap transparency code adapted from code by
@@ -23,22 +21,13 @@ You should have received a copy of the GNU General Public License along
 with this program; if not, write to the Free Software Foundation, Inc.,
 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-*******************************************************
-* alistair.mcmonnies@uws.ac.uk                        *
-* daniel.livingstone@uws.ac.uk                        *
-* cjbackhouse@hotmail.com 		www.backhouse.tk       *
-*******************************************************
+alistair.mcmonnies@uws.ac.uk
+cjbackhouse@hotmail.com 		www.backhouse.tk
 
 I would appreciate it if anyone using this in something cool would tell me
 so I can see where it ends up.
 
-=================
-CLASS INFORMATION
-=================
-
--------------
 Bitmap class:
--------------
 Takes a filename and (optionally) a boolean flag for transparency.
 Creates an object that can be rendered in various ways into an OpenGL
 display:
@@ -46,102 +35,68 @@ display:
 2) render the whole bitmap at pos_x, pos_y
 3) render a rectanglar area of the bitmap at pos_x, pos_y
 
-----------------------------------
 Loads: (thanks to Chris Backhouse)
-----------------------------------
 24bit bitmaps
 256 colour bitmaps
 16 colour bitmaps
 2 colour bitmaps  (Thanks to Charles Rabier)
 
--------------
 Restrictions:
--------------
-This code is designed for use in openGL programs, so bitmaps not correctly padded will
-not load properly, I believe this only applies to:
+
+This code is designed for use in openGL programs, so bitmaps not correctly padded will not
+load properly, I believe this only applies to:
 256cols if width is not a multiple of 4
 16cols if width is not a multiple of 8
 2cols if width is not a multiple of 32
 
-OpenGL display needs to be scaled to pixel coordinates (or close) to prevent huge
-over-stretching of bitmap's pixels.  Use (e.g.):
+OpenGL display needs to be scaled to pixel coordinates (or close) to prevent huge over-stretching
+of bitmap's pixels.  Use (e.g.):
 glOrtho2D(0, pixels_across, 0, pixels_up);  for origin at bottom-left.
 
-In code that creates a mix of drawn and bitmapped graphics, if transparency is
-applied to the bitmaps, all drawn vertices must also have alpha values - i.e.
-use glColor4f() or glColor4fv() to set the colour of shapes drawn using:
-glBegin(GL_XXX)...glEnd()
-
--------------
 Sample code:
--------------
-Bitmap *bmp = new Bitmap(filename, false);	// false = does not need transparency.
-bmp->drawAt(10, 10);						// renders full bitmap at (10, 10)
-bmp->drawAt(10, 100, 0, 0, 50, 80);			// renders bottom left 50x80 pixels at (10, 100).
+
+Bitmap *bmp = new Bitmap(fname, false);	// Does not need transparency.
+bmp->drawAt(10, 10);					// renders full bitmap at (10, 10)
+bmp->drawAt(10, 100, 0, 0, 50, 80);		// renders bottom left 50x80 pixels at (10, 100).
 */
 
 #include "Bitmap.h"
 #include "freeglut\freeglut.h"
 
-Bitmap::Bitmap(const char fname[], bool transparency)
-	: error(NOERROR) {
-	bytes = 0;					// Thanks and kudos to Ian McCulloch for pointing out 
-								// that this is necessary.
-	texture = getNextTexID();
-	withAlpha = transparency;
-	loaded = false;
-	error = BMPLoadGL(fname);
-}
-
-Bitmap::Bitmap(std::string fname, bool transparency)
-	: error(NOERROR) {
+Bitmap::Bitmap(const char fname[], bool transparency) {
 	bytes = 0;
-	texture = getNextTexID();
 	withAlpha = transparency;
 	loaded = false;
-	error = BMPLoadGL(fname.c_str());
+	BMPLoadGL(fname);
 }
 
-GLuint Bitmap::getNextTexID() {
-	static int texID;
-	return ++texID;
-}
-
-Orientation Bitmap::getOrientation() {
-	return orient;
-}
-
-GLubyte* Bitmap::getBytes() {
-	return bytes;
-}
-
-int Bitmap::getHeight() {
-	return height;
-}
-
-int Bitmap::getWidth() {
-	return width;
-}
-
-BMPError Bitmap::getError() {
-	return error;
+Bitmap::Bitmap(std::string fname, bool transparency) {
+	bytes = 0;
+	withAlpha = transparency;
+	loaded = false;
+	BMPLoadGL(fname.c_str());
 }
 
 void Bitmap::setCurrentImage(const char fname[], bool transparency) {
+	if (bytes)
+		delete[] bytes;
 	bytes = 0;
 	withAlpha = transparency;
 	loaded = false;
-	error = BMPLoadGL(fname);
+	BMPLoadGL(fname);
 }
 
 void Bitmap::setCurrentImage(std::string fname, bool transparency) {
+	if (bytes)
+		delete[] bytes;
+	bytes = 0;
 	withAlpha = transparency;
 	loaded = false;
 	BMPLoadGL(fname.c_str());
 }
 
 Bitmap::~Bitmap() {
-	glDeleteTextures(1, &texture);
+	delete[] bytes;
 }
 
 GLubyte& Bitmap::pixel(int x, int y, int c) {
@@ -152,6 +107,7 @@ GLubyte& Bitmap::pixel(int x, int y, int c) {
 }
 
 void Bitmap::allocateMem() {
+	delete[] bytes;
 	// Note - only allocate 3 bytes per pixel for now - loader code is for a
 	// plain bitmap.  BMPSetTransparency() re-allocates enough memory for
 	// 4 bytes per pixel.
@@ -251,12 +207,12 @@ BMPError Bitmap::BMPLoad(const char* fname) {
 		break;
 
 	case(8) :
-		fread(cols, 256 * 4, 1, f);						//read colortable
+		fread(cols, 256 * 4, 1, f);							//read colortable
 		fseek(f, offset, SEEK_SET);
 		for (y = 0; y<height; ++y)						//(Notice 4bytes/col for some reason)
 			for (x = 0; x<width; ++x) {
 				GLubyte byte;
-				fread(&byte, 1, 1, f);					//just read byte					
+				fread(&byte, 1, 1, f);						//just read byte					
 				for (int c = 0; c<3; ++c) {
 					int cc = byte * 4 + 2 - c;
 					pixel(x, y, c) = cols[cc];	//and look up in the table

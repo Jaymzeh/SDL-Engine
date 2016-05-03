@@ -16,7 +16,7 @@ class Map {
 protected:
 	int rows = 5;
 	int columns = 5;
-	float tileSize = 32;
+	int tileSize = 32;
 	vector<char> grid;
 	vector<BaseTile*> tile;
 	Vector2 position;
@@ -25,13 +25,13 @@ protected:
 
 public:
 	Map() {};
-	Map(char* filePath, float dx, float dy) {
+	Map(char* filePath, int dx, int dy) {
 		position.x = dx; position.y = dy; loadMapFile(filePath);
 	};
 	void setBitmap(char* filePath);
 
-	void setTileSize(float size) { tileSize = size; }
-	float getTileSize() { return tileSize; }
+	void setTileSize(int size) { tileSize = size; }
+	int getTileSize() { return tileSize; }
 
 	vector<BoundingBox> getBoxes() {
 		vector<BoundingBox> boxes;

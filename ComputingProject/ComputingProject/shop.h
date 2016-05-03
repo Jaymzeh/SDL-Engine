@@ -45,7 +45,7 @@ private:
 	Vector2 position;
 	BoundingBox mainbBox, bBoxOption1, bBoxOption2, bBoxOption3, blockingBox1, blockingBox2, blockingBox3;
 	Bitmap* sprite;
-	float spriteWidth, spriteHeight;
+	int spriteWidth, spriteHeight;
 };
 
 #endif

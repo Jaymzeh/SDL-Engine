@@ -29,9 +29,6 @@ void StateLevelOne::draw(SDL_Window* window) {
 
 	map->render();
 
-	player->render();
-	player->showHealth(left, top-32);
-
 	for (int i = 0; i < character.size(); i++) {
 		character[i]->render();
 		if (character[i]->getHealth() <= 0)
@@ -41,6 +38,10 @@ void StateLevelOne::draw(SDL_Window* window) {
 	door.render();
 	if (!door.unlocked)
 		key.render();
+
+	player->render();
+	player->showHealth(left, top - 16);
+	player->showMoney(left, top - 32);
 
 	SDL_GL_SwapWindow(window);
 }//draw
@@ -60,6 +61,7 @@ void StateLevelOne::update(Game& context) {
 			player->moveBack();
 		}
 	}
+
 	for (int i = 0; i < character.size(); i++) {
 		character[i]->updateAttackCooldown();
 		if (i != character.size() - 1) {
@@ -72,7 +74,7 @@ void StateLevelOne::update(Game& context) {
 			if (player->getBox().intersects(character[i]->getBox()))
 				character[i]->moveBack();
 
-			if (character[i]->getPosition().distance(player->getPosition()) < 64 && character[i]->getAttackCooldown()>120) {
+			if (character[i]->getPosition().distance(player->getPosition()) < 35 && character[i]->getAttackCooldown()>120) {
 				player->health--;
 				character[i]->resetAttackCooldown();
 			}
@@ -86,8 +88,10 @@ void StateLevelOne::update(Game& context) {
 		}
 		if (player->getBox().intersects(key.getBox()))
 			door.unlocked = true;
-		if (door.unlocked && player->getBox().intersects(door.getBox()))
+		if (door.unlocked && player->getBox().intersects(door.getBox())) {
+			player->savePlayerData("playerData.txt");
 			context.setState(context.getLevelTwo());
+		}
 	}
 }//update
 void StateLevelOne::enter() {
@@ -99,7 +103,7 @@ void StateLevelOne::enter() {
 	mapBoxes = map->getBoxes();
 
 	player = new Player(512, -64, 32, 16);
-	//player = new Player(1952, -320, 32, 16);
+
 
 	player->setSprite(0, new AniSprite(player->getPosition().x,
 		player->getPosition().y, "rearViewWalk.bmp", 3, 1));
@@ -112,8 +116,6 @@ void StateLevelOne::enter() {
 		player->getPosition().y, "frontStickStab.bmp", 2, 1));
 	player->setSprite(4, new AniSprite(player->getPosition().x,
 		player->getPosition().y, "sideSwordStab.bmp", 2, 1));
-
-	player->setHeartSprite(new Bitmap("heart.bmp", true));
 
 	key.createKey(1952, -320, new Bitmap("Key.bmp", true));
 
@@ -295,6 +297,11 @@ void StateLevelOne::enter() {
 
 	cout << "Level One Loaded \n";
 }//enter
+
+void loadEnemies() {
+
+}
+
 void StateLevelOne::exit() {
 	cout << "Exiting Level One State \n" << endl;
 

@@ -161,6 +161,7 @@
     <ClCompile Include="stateLevelOne.cpp" />
     <ClCompile Include="stateLevelThree.cpp" />
     <ClCompile Include="stateLevelTwo.cpp" />
+    <ClCompile Include="stateMainMenu.cpp" />
     <ClCompile Include="stateShop.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -180,6 +181,7 @@
     <ClInclude Include="stateLevelOne.h" />
     <ClInclude Include="stateLevelThree.h" />
     <ClInclude Include="stateLevelTwo.h" />
+    <ClInclude Include="stateMainMenu.h" />
     <ClInclude Include="stateShop.h" />
     <ClInclude Include="tile.h" />
     <ClInclude Include="vector2.h" />

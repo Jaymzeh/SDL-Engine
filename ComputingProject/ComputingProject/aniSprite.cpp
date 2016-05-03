@@ -44,23 +44,14 @@ void AniSprite::init(int ix, int iy, int icols, int irows, int idx, int idy) {
 	drawmode = NOFLIP;
 }
 
-BMPError AniSprite::getError() {
-	if (pic != NULL) {
-		return pic->getError();
-	}
-	else {
-		return NO_ERROR;
-	}
-}
-
 AniSprite::AniSprite(int initial_x, int initial_y, const char *file, int incols, int inrows) {
 	pic = new Bitmap(file, true);
-	this->init(initial_x, initial_y, incols, inrows, 0, 0);
+	this->init(initial_x, initial_y, incols, inrows, 0.0, 0.0);
 }
 
 AniSprite::AniSprite(int initial_x, int initial_y, Bitmap *ipic, int incols, int inrows) {
 	pic = ipic;
-	this->init(initial_x, initial_y, incols, inrows, 0, 0);
+	this->init(initial_x, initial_y, incols, inrows, 0.0, 0.0);
 }
 
 AniSprite::AniSprite(int initial_x, int initial_y, int initial_dx, int initial_dy, const char *file, int incols, int inrows) {
@@ -88,32 +79,28 @@ void AniSprite::draw() {
 void AniSprite::setUpdatemode(UpdateMode um) {
 	updatemode = um;
 }
-
 void AniSprite::setDrawmode(DrawMode dm) {
 	drawmode = dm;
 }
-
 void AniSprite::nextCell() {
 	currentCell++;
 	if (currentCell == ncols*nrows)
 		currentCell = 0;
 }
-
 void AniSprite::prevCell() {
 	currentCell--;
 	if (currentCell<0)
 		currentCell = ncols*nrows - 1;
 }
-
 void AniSprite::move() {
 	x += dx;
 	y += dy;
-	if (updatemode == UPDATEONMOVE && dx != 0 || dy != 0) {
+	if (updatemode == UPDATEONMOVE) {
 		nextCell();
 	}
 }
 
-void AniSprite::move(float by_x, float by_y) {
+void AniSprite::move(int by_x, int by_y) {
 	x += by_x;
 	y += by_y;
 	if (updatemode == UPDATEONMOVE) {

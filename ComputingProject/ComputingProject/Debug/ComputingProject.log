@@ -1,89 +1,19 @@
-﻿Build started 27/04/2016 10:14:22.
-     1>Project "C:\Users\b00270035\Desktop\SDL-Engine\ComputingProject\ComputingProject\ComputingProject.vcxproj" on node 2 (Build target(s)).
-     1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\CL.exe /c /I"C:\Dev\SDL2 plugins\include" /I"C:\Dev\glm-0.9.7.2" /I"C:\Dev\glew-1.13.0\include" /I"C:\Dev\SDL2-2.0.4\include" /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /D _CRT_SECURE_NO_WARNINGS /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"Debug\\" /Fd"Debug\vc140.pdb" /Gd /TP /analyze- /errorReport:prompt stateLevelTwo.cpp
-         stateLevelTwo.cpp
-     1>c:\users\b00270035\desktop\sdl-engine\computingproject\computingproject\anisprite.h(72): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-     1>c:\users\b00270035\desktop\sdl-engine\computingproject\computingproject\tile.h(72): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-     1>c:\users\b00270035\desktop\sdl-engine\computingproject\computingproject\tile.h(77): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-     1>c:\users\b00270035\desktop\sdl-engine\computingproject\computingproject\tile.h(78): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-     1>c:\users\b00270035\desktop\sdl-engine\computingproject\computingproject\tile.h(79): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-     1>c:\users\b00270035\desktop\sdl-engine\computingproject\computingproject\map.h(38): warning C4018: '<': signed/unsigned mismatch
-     1>c:\users\b00270035\desktop\sdl-engine\computingproject\computingproject\door.h(13): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-     1>c:\users\b00270035\desktop\sdl-engine\computingproject\computingproject\door.h(14): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-     1>c:\users\b00270035\desktop\sdl-engine\computingproject\computingproject\door.h(21): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-     1>c:\users\b00270035\desktop\sdl-engine\computingproject\computingproject\key.h(14): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-     1>c:\users\b00270035\desktop\sdl-engine\computingproject\computingproject\key.h(15): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-     1>c:\users\b00270035\desktop\sdl-engine\computingproject\computingproject\key.h(26): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-     1>c:\users\b00270035\desktop\sdl-engine\computingproject\computingproject\shop.h(11): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-     1>c:\users\b00270035\desktop\sdl-engine\computingproject\computingproject\shop.h(14): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-     1>c:\users\b00270035\desktop\sdl-engine\computingproject\computingproject\shop.h(15): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-     1>c:\users\b00270035\desktop\sdl-engine\computingproject\computingproject\shop.h(34): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-     1>c:\users\b00270035\desktop\sdl-engine\computingproject\computingproject\stateleveltwo.cpp(13): warning C4018: '<': signed/unsigned mismatch
-     1>c:\users\b00270035\desktop\sdl-engine\computingproject\computingproject\stateleveltwo.cpp(26): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-     1>c:\users\b00270035\desktop\sdl-engine\computingproject\computingproject\stateleveltwo.cpp(28): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-     1>c:\users\b00270035\desktop\sdl-engine\computingproject\computingproject\stateleveltwo.cpp(37): warning C4018: '<': signed/unsigned mismatch
-     1>c:\users\b00270035\desktop\sdl-engine\computingproject\computingproject\stateleveltwo.cpp(108): warning C4018: '<': signed/unsigned mismatch
-     1>c:\users\b00270035\desktop\sdl-engine\computingproject\computingproject\stateleveltwo.cpp(115): warning C4018: '<': signed/unsigned mismatch
-     1>c:\users\b00270035\desktop\sdl-engine\computingproject\computingproject\stateleveltwo.cpp(120): warning C4018: '<': signed/unsigned mismatch
-     1>c:\users\b00270035\desktop\sdl-engine\computingproject\computingproject\stateleveltwo.cpp(138): warning C4018: '<': signed/unsigned mismatch
-     1>c:\users\b00270035\desktop\sdl-engine\computingproject\computingproject\stateleveltwo.cpp(152): warning C4129: 'm': unrecognized character escape sequence
-     1>c:\users\b00270035\desktop\sdl-engine\computingproject\computingproject\stateleveltwo.cpp(163): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-     1>c:\users\b00270035\desktop\sdl-engine\computingproject\computingproject\stateleveltwo.cpp(165): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-     1>c:\users\b00270035\desktop\sdl-engine\computingproject\computingproject\stateleveltwo.cpp(167): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-     1>c:\users\b00270035\desktop\sdl-engine\computingproject\computingproject\stateleveltwo.cpp(170): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-     1>c:\users\b00270035\desktop\sdl-engine\computingproject\computingproject\stateleveltwo.cpp(172): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-     1>c:\users\b00270035\desktop\sdl-engine\computingproject\computingproject\stateleveltwo.cpp(182): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-     1>c:\users\b00270035\desktop\sdl-engine\computingproject\computingproject\stateleveltwo.cpp(184): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-     1>c:\users\b00270035\desktop\sdl-engine\computingproject\computingproject\stateleveltwo.cpp(186): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-     1>c:\users\b00270035\desktop\sdl-engine\computingproject\computingproject\stateleveltwo.cpp(192): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-     1>c:\users\b00270035\desktop\sdl-engine\computingproject\computingproject\stateleveltwo.cpp(194): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-     1>c:\users\b00270035\desktop\sdl-engine\computingproject\computingproject\stateleveltwo.cpp(196): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-     1>c:\users\b00270035\desktop\sdl-engine\computingproject\computingproject\stateleveltwo.cpp(202): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-     1>c:\users\b00270035\desktop\sdl-engine\computingproject\computingproject\stateleveltwo.cpp(204): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-     1>c:\users\b00270035\desktop\sdl-engine\computingproject\computingproject\stateleveltwo.cpp(206): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-     1>c:\users\b00270035\desktop\sdl-engine\computingproject\computingproject\stateleveltwo.cpp(213): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-     1>c:\users\b00270035\desktop\sdl-engine\computingproject\computingproject\stateleveltwo.cpp(215): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-     1>c:\users\b00270035\desktop\sdl-engine\computingproject\computingproject\stateleveltwo.cpp(217): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-     1>c:\users\b00270035\desktop\sdl-engine\computingproject\computingproject\stateleveltwo.cpp(223): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-     1>c:\users\b00270035\desktop\sdl-engine\computingproject\computingproject\stateleveltwo.cpp(225): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-     1>c:\users\b00270035\desktop\sdl-engine\computingproject\computingproject\stateleveltwo.cpp(227): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-     1>c:\users\b00270035\desktop\sdl-engine\computingproject\computingproject\stateleveltwo.cpp(233): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-     1>c:\users\b00270035\desktop\sdl-engine\computingproject\computingproject\stateleveltwo.cpp(235): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-     1>c:\users\b00270035\desktop\sdl-engine\computingproject\computingproject\stateleveltwo.cpp(237): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-     1>c:\users\b00270035\desktop\sdl-engine\computingproject\computingproject\stateleveltwo.cpp(243): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-     1>c:\users\b00270035\desktop\sdl-engine\computingproject\computingproject\stateleveltwo.cpp(245): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-     1>c:\users\b00270035\desktop\sdl-engine\computingproject\computingproject\stateleveltwo.cpp(247): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-     1>c:\users\b00270035\desktop\sdl-engine\computingproject\computingproject\stateleveltwo.cpp(254): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-     1>c:\users\b00270035\desktop\sdl-engine\computingproject\computingproject\stateleveltwo.cpp(256): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-     1>c:\users\b00270035\desktop\sdl-engine\computingproject\computingproject\stateleveltwo.cpp(258): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-     1>c:\users\b00270035\desktop\sdl-engine\computingproject\computingproject\stateleveltwo.cpp(264): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-     1>c:\users\b00270035\desktop\sdl-engine\computingproject\computingproject\stateleveltwo.cpp(266): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-     1>c:\users\b00270035\desktop\sdl-engine\computingproject\computingproject\stateleveltwo.cpp(268): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-     1>c:\users\b00270035\desktop\sdl-engine\computingproject\computingproject\stateleveltwo.cpp(274): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-     1>c:\users\b00270035\desktop\sdl-engine\computingproject\computingproject\stateleveltwo.cpp(276): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-     1>c:\users\b00270035\desktop\sdl-engine\computingproject\computingproject\stateleveltwo.cpp(278): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-     1>c:\users\b00270035\desktop\sdl-engine\computingproject\computingproject\stateleveltwo.cpp(284): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-     1>c:\users\b00270035\desktop\sdl-engine\computingproject\computingproject\stateleveltwo.cpp(286): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-     1>c:\users\b00270035\desktop\sdl-engine\computingproject\computingproject\stateleveltwo.cpp(288): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-     1>c:\users\b00270035\desktop\sdl-engine\computingproject\computingproject\stateleveltwo.cpp(294): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-     1>c:\users\b00270035\desktop\sdl-engine\computingproject\computingproject\stateleveltwo.cpp(296): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-     1>c:\users\b00270035\desktop\sdl-engine\computingproject\computingproject\stateleveltwo.cpp(298): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-     1>c:\users\b00270035\desktop\sdl-engine\computingproject\computingproject\stateleveltwo.cpp(308): warning C4018: '<': signed/unsigned mismatch
-       Link:
-         C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\b00270035\Desktop\SDL-Engine\ComputingProject\Debug\ComputingProject.exe" /INCREMENTAL /NOLOGO /LIBPATH:"C:\Dev\glew-1.13.0\lib\Release\Win32" /LIBPATH:"C:\Dev\SDL2-2.0.4\lib\x86" /LIBPATH:"C:\Dev\SDL2 plugins\lib\x86" SDL2.lib SDL2main.lib SDL2_ttf.lib opengl32.lib glew32.lib Bass.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /Debug /PDB:"C:\Users\b00270035\Desktop\SDL-Engine\ComputingProject\Debug\ComputingProject.pdb" /SUBSYSTEM:WINDOWS /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\b00270035\Desktop\SDL-Engine\ComputingProject\Debug\ComputingProject.lib" /MACHINE:X86 Debug\aniSprite.obj
-         Debug\bitmap.obj
-         Debug\game.obj
-         Debug\main.obj
-         Debug\map.obj
-         Debug\player.obj
-         Debug\stateLevelOne.obj
-         Debug\stateLevelThree.obj
-         Debug\stateLevelTwo.obj
-         Debug\stateShop.obj
-         ComputingProject.vcxproj -> C:\Users\b00270035\Desktop\SDL-Engine\ComputingProject\Debug\ComputingProject.exe
-     1>Done Building Project "C:\Users\b00270035\Desktop\SDL-Engine\ComputingProject\ComputingProject\ComputingProject.vcxproj" (Build target(s)).
-
-Build succeeded.
-
-Time Elapsed 00:00:03.79
+﻿  stateLevelOne.cpp
+e:\documents\uni\3rd year\games_technology_project\sdl-engine\computingproject\computingproject\boundingbox.h(35): warning C4244: 'argument': conversion from 'int' to 'GLfloat', possible loss of data
+e:\documents\uni\3rd year\games_technology_project\sdl-engine\computingproject\computingproject\boundingbox.h(36): warning C4244: 'argument': conversion from 'int' to 'GLfloat', possible loss of data
+e:\documents\uni\3rd year\games_technology_project\sdl-engine\computingproject\computingproject\boundingbox.h(37): warning C4244: 'argument': conversion from 'int' to 'GLfloat', possible loss of data
+e:\documents\uni\3rd year\games_technology_project\sdl-engine\computingproject\computingproject\boundingbox.h(38): warning C4244: 'argument': conversion from 'int' to 'GLfloat', possible loss of data
+e:\documents\uni\3rd year\games_technology_project\sdl-engine\computingproject\computingproject\tile.h(83): warning C4244: 'argument': conversion from 'int' to 'GLfloat', possible loss of data
+e:\documents\uni\3rd year\games_technology_project\sdl-engine\computingproject\computingproject\tile.h(84): warning C4244: 'argument': conversion from 'int' to 'GLfloat', possible loss of data
+e:\documents\uni\3rd year\games_technology_project\sdl-engine\computingproject\computingproject\tile.h(85): warning C4244: 'argument': conversion from 'int' to 'GLfloat', possible loss of data
+e:\documents\uni\3rd year\games_technology_project\sdl-engine\computingproject\computingproject\tile.h(86): warning C4244: 'argument': conversion from 'int' to 'GLfloat', possible loss of data
+e:\documents\uni\3rd year\games_technology_project\sdl-engine\computingproject\computingproject\map.h(38): warning C4018: '<': signed/unsigned mismatch
+e:\documents\uni\3rd year\games_technology_project\sdl-engine\computingproject\computingproject\statelevelone.cpp(11): warning C4018: '<': signed/unsigned mismatch
+e:\documents\uni\3rd year\games_technology_project\sdl-engine\computingproject\computingproject\statelevelone.cpp(32): warning C4018: '<': signed/unsigned mismatch
+e:\documents\uni\3rd year\games_technology_project\sdl-engine\computingproject\computingproject\statelevelone.cpp(53): warning C4018: '<': signed/unsigned mismatch
+e:\documents\uni\3rd year\games_technology_project\sdl-engine\computingproject\computingproject\statelevelone.cpp(59): warning C4018: '<': signed/unsigned mismatch
+e:\documents\uni\3rd year\games_technology_project\sdl-engine\computingproject\computingproject\statelevelone.cpp(64): warning C4018: '<': signed/unsigned mismatch
+e:\documents\uni\3rd year\games_technology_project\sdl-engine\computingproject\computingproject\statelevelone.cpp(82): warning C4018: '<': signed/unsigned mismatch
+e:\documents\uni\3rd year\games_technology_project\sdl-engine\computingproject\computingproject\statelevelone.cpp(99): warning C4129: 'm': unrecognized character escape sequence
+e:\documents\uni\3rd year\games_technology_project\sdl-engine\computingproject\computingproject\statelevelone.cpp(308): warning C4018: '<': signed/unsigned mismatch
+  ComputingProject.vcxproj -> E:\Documents\Uni\3rd Year\Games_Technology_Project\SDL-Engine\ComputingProject\Debug\ComputingProject.exe

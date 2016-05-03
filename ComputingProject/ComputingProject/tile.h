@@ -13,8 +13,8 @@ using std::endl;
 class BaseTile {
 public:
 	virtual Vector2 getPosition() = 0;
-	virtual float getWidth() = 0;
-	virtual float getHeight() = 0;
+	virtual int getWidth() = 0;
+	virtual int getHeight() = 0;
 	virtual void render(Bitmap* bitmap) = 0;
 	virtual BoundingBox getBox() = 0;
 	virtual int getID() = 0;
@@ -31,7 +31,7 @@ public:
 		height = 1;
 		ID = 0;
 	}
-	Tile(float dx, float dy) {
+	Tile(int dx, int dy) {
 		position.x = dx;
 		position.y = dy;
 		width = 1;
@@ -39,7 +39,7 @@ public:
 		bBox.setBox(position.x, position.y, width, height);
 		ID = 0;
 	}
-	Tile(float dx, float dy, float dw, float dh) {
+	Tile(int dx, int dy, int dw, int dh) {
 		position.x = dx;
 		position.y = dy;
 		width = dw;
@@ -48,8 +48,8 @@ public:
 		ID = 0;
 	}
 
-	Tile(float dx, float dy,
-		float dw, float dh, int tileID) {
+	Tile(int dx, int dy,
+		int dw, int dh, int tileID) {
 		position.x = dx;
 		position.y = dy;
 		width = dw;
@@ -60,8 +60,8 @@ public:
 
 	Vector2 getPosition() { return position; }
 	BoundingBox getBox() { return bBox; }
-	float getWidth() { return width; }
-	float getHeight() { return height; }
+	int getWidth() { return width; }
+	int getHeight() { return height; }
 	int getID() { return ID; }
 	void render(Bitmap* sprite) {
 
@@ -89,7 +89,7 @@ public:
 
 	}
 
-	void move(float dx, float dy) {
+	void move(int dx, int dy) {
 
 		bBox.setBox(position.x = +dx, position.y = +dy, width, height);
 		position.x += dx;
@@ -98,8 +98,8 @@ public:
 
 	~Tile() { cout << "Deleting tile" << endl; }
 protected:
-	float width;
-	float height;
+	int width;
+	int height;
 	BoundingBox bBox;
 	int ID;
 };
@@ -111,8 +111,8 @@ private:
 public:
 	TileDecorator(BaseTile *t) { tile = t; }
 	Vector2 getPosition() { return tile->getPosition(); }
-	float getWidth() { return tile->getWidth(); }
-	float getHeight() { return tile->getHeight(); }
+	int getWidth() { return tile->getWidth(); }
+	int getHeight() { return tile->getHeight(); }
 	int getID() { return tile->getID(); }
 	void render(Bitmap *bitmap) { tile->render(bitmap); }
 	BoundingBox getBox() { return tile->getBox(); }
@@ -124,8 +124,8 @@ class GroundTile :public TileDecorator {
 public:
 	GroundTile(BaseTile *t) : TileDecorator(t) {};
 	Vector2 getPosition() { return TileDecorator::getPosition(); }
-	float getWidth() { return TileDecorator::getWidth(); }
-	float getHeight() { return TileDecorator::getHeight(); }
+	int getWidth() { return TileDecorator::getWidth(); }
+	int getHeight() { return TileDecorator::getHeight(); }
 	int getID() { return TileDecorator::getID(); }
 	void render(Bitmap *bitmap) { TileDecorator::render(bitmap); }
 	BoundingBox getBox() { return TileDecorator::getBox(); }
@@ -136,8 +136,8 @@ class WallTile :public TileDecorator {
 public:
 	WallTile(BaseTile *t) : TileDecorator(t) {};
 	Vector2 getPosition() { return TileDecorator::getPosition(); }
-	float getWidth() { return TileDecorator::getWidth(); }
-	float getHeight() { return TileDecorator::getHeight(); }
+	int getWidth() { return TileDecorator::getWidth(); }
+	int getHeight() { return TileDecorator::getHeight(); }
 	int getID() { return TileDecorator::getID(); }
 	void render(Bitmap *bitmap) { TileDecorator::render(bitmap); }
 	BoundingBox getBox() { return TileDecorator::getBox(); }
@@ -148,8 +148,8 @@ class WallBottomTile :public TileDecorator {
 public:
 	WallBottomTile(BaseTile *t) : TileDecorator(t) {};
 	Vector2 getPosition() { return TileDecorator::getPosition(); }
-	float getWidth() { return TileDecorator::getWidth(); }
-	float getHeight() { return TileDecorator::getHeight(); }
+	int getWidth() { return TileDecorator::getWidth(); }
+	int getHeight() { return TileDecorator::getHeight(); }
 	int getID() { return TileDecorator::getID(); }
 	void render(Bitmap *bitmap) { TileDecorator::render(bitmap); }
 	BoundingBox getBox() { return TileDecorator::getBox(); }
@@ -160,8 +160,8 @@ class DoorTile :public TileDecorator {
 public:
 	DoorTile(BaseTile *t) : TileDecorator(t) {};
 	Vector2 getPosition() { return TileDecorator::getPosition(); }
-	float getWidth() { return TileDecorator::getWidth(); }
-	float getHeight() { return TileDecorator::getHeight(); }
+	int getWidth() { return TileDecorator::getWidth(); }
+	int getHeight() { return TileDecorator::getHeight(); }
 	int getID() { return TileDecorator::getID(); }
 	void render(Bitmap *bitmap) { TileDecorator::render(bitmap); }
 	BoundingBox getBox() { return TileDecorator::getBox(); }

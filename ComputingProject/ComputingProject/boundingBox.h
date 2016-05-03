@@ -8,7 +8,7 @@
 class BoundingBox {
 public:
 
-	void setBox(float dx, float dy, float dw, float dh) {
+	void setBox(int dx, int dy, int dw, int dh) {
 		position.setPoint(dx, dy);
 		w = dw;
 		h = dh;
@@ -42,8 +42,8 @@ public:
 	Vector2 getPosition() { return position; }
 private:
 	Vector2 position;
-	float w, h;
-	float left, top, right, bottom;
+	int w, h;
+	int left, top, right, bottom;
 protected:
 };
 

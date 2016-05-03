@@ -59,33 +59,27 @@ public:
 		int initial_dx, int initial_dy,			// Starting velocity
 		Bitmap *ipic, 							// Image handle
 		int incols, int inrows);					// Cells x Rows of sprite sheet
-
-	virtual ~AniSprite();
-
+													// Member functions...
 	void draw();						/// Render the cell (include in the display() delegate function)
 	void setUpdatemode(UpdateMode um);	/// Specify whether cell changes happen on motion or by call
 	void setDrawmode(DrawMode dm);		/// Specify orientation
 	void nextCell();					/// Move to next cell in the sequence
 	void prevCell();					/// Move to previous cell in the sequence
 	void move();						/// Move by dx, dy
-	void move(float by_x, float by_y);		/// Move by given amounts
-	void moveTo(float newX, float newY) { x = newX - ref_x; y = newY - ref_y; }	/// Move to specified position
-
-	void setReferencePixel(int x, int y) { ref_x = x; ref_y = y; }	/// Where the sprite is positioned (relative to top-left)
-	void setVelocity(int idx, int idy) { dx = idx; dy = idy; }			/// Change dx, dy
-
+	void move(int by_x, int by_y);		/// Move by given amounts
+	void moveTo(int newX, int newY) { x = newX - ref_x; y = newY - ref_y; }	/// Move to specified position
 	int getX() { return x + ref_x; }
 	int getY() { return y + ref_y; }
+	void setReferencePixel(int x, int y) { ref_x = x; ref_y = y; }	/// Where the sprite is positioned (relative to top-left)
+	void setVelocity(int idx, int idy) { dx = idx; dy = idy; }			/// Change dx, dy
 	int getVelX() { return dx; }
 	int getVelY() { return dy; }
 	int getWidth() { return cellWidth; }
 	int getHeight() { return cellHeight; }
-
 	bool intersects(int x, int y, int width, int height);	/// Simple as it gets collision detection
 	void setSpriteSheetDimensions(int w, int h);			/// To allow a sprite-sheet that is not full-size
 	Bitmap* getPic() { return pic; }
-
-	BMPError getError();
+	~AniSprite();
 private:
 	Bitmap* pic;
 	int currentCell;

@@ -24,7 +24,7 @@ public:
 
 	void render() {
 		sprite->drawAt(position.x, position.y);
-		bBox.render();
+		//bBox.render();
 	}
 private:
 	Vector2 position;

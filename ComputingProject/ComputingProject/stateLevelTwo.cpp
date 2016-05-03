@@ -31,15 +31,13 @@ void StateLevelTwo::draw(SDL_Window* window) {
 
 	map->render();
 
+	for (int i = 0; i < character.size(); i++) 
+		character[i]->render();
+
 	player->render();
 	player->showHealth(left, top - 32);
 
-	for (int i = 0; i < character.size(); i++) {
-		character[i]->render();
-		if (character[i]->getHealth() <= 0)
-			character.erase(character.begin() + i);
-
-	}
+	
 
 	shop.render();
 
@@ -118,6 +116,10 @@ void StateLevelTwo::update(Game& context) {
 		}
 	}
 	for (int i = 0; i < character.size(); i++) {
+		if (character[i]->getHealth() <= 0)
+			character.erase(character.begin() + i);
+
+		
 		character[i]->updateAttackCooldown();
 		if (i != character.size() - 1) {
 			if (character[i]->getBox().intersects(character[i + 1]->getBox())) {
@@ -143,8 +145,10 @@ void StateLevelTwo::update(Game& context) {
 		}
 		if (player->getBox().intersects(key.getBox()))
 			door.unlocked = true;
-		if (door.unlocked && player->getBox().intersects(door.getBox()))
-			context.setState(context.getLevelTwo());
+		if (door.unlocked && player->getBox().intersects(door.getBox())) {
+			player->savePlayerData("playerData.txt");
+			context.setState(context.getLevelThree());
+		}
 	}
 }//update
 void StateLevelTwo::enter() {
@@ -157,6 +161,7 @@ void StateLevelTwo::enter() {
 
 	player = new Player(1376, -704, 32, 16);
 	shop.spawnShop(1440, -544, new Bitmap("shop.bmp", true));
+	player->loadPlayerData("playerData.txt");
 	
 
 	player->setSprite(0, new AniSprite(player->getPosition().x,

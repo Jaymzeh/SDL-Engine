@@ -1,11 +1,46 @@
 #include "player.h"
 #include "character.h"
+#include <iostream>
+#include <fstream>
+#include <string>
+
+using namespace std;
 
 Player::Player(float dx, float dy, float _width, float _height) {
 	position.setPoint(dx, dy);
 	width = _width;
 	height = _height;
 	bBox.setBox(position.x, position.y, width, height);
+}
+
+void Player::loadPlayerData(char* filePath) {
+	string line;
+	ifstream file(filePath);
+	if (file.is_open()) {
+
+		getline(file, line);
+		health = stoi(line);
+
+		//getline(file, line);
+		//money = stoi(line);
+
+		file.close();
+		cout << "File contents: " << line << endl;
+	}
+	else {
+		cout << "File '" << filePath << "' could not be loaded" << endl;
+	}
+}
+
+void Player::savePlayerData(char* filePath) {
+	string line;
+	ofstream file(filePath);
+	if (file.is_open()) {
+		line = (to_string(health));
+
+		file << line;
+		file.close();
+	}
 }
 
 void Player::setSprite(int i, AniSprite* newSprite) {
@@ -76,23 +111,30 @@ void Player::attack(std::vector<BaseCharacter*>& enemies) {
 
 	attacking = true;
 
+
 	for (int i = 0; i < enemies.size(); i++) {
 		if (enemies[i]->getPosition().distance(position) <= width*1.5f) {
 
 			//Left
-			if (position.x < enemies[i]->getPosition().x && currentDirection == 1)
+			if (position.x < enemies[i]->getPosition().x && currentDirection == 1) {
+				enemies[i]->knockBack(currentDirection);
 				enemies[i]->setHealth(enemies[i]->getHealth() - 5);
-
+			}
 			//Right
-			if (position.x > enemies[i]->getPosition().x && currentDirection == 3)
+			if (position.x > enemies[i]->getPosition().x && currentDirection == 3) {
+				enemies[i]->knockBack(currentDirection);
 				enemies[i]->setHealth(enemies[i]->getHealth() - 5);
+			}
 			//Top
-			if (position.y > enemies[i]->getPosition().y && currentDirection == 2)
+			if (position.y > enemies[i]->getPosition().y && currentDirection == 2) {
+				enemies[i]->knockBack(currentDirection);
 				enemies[i]->setHealth(enemies[i]->getHealth() - 5);
+			}
 			//Bottom
-			if (position.y < enemies[i]->getPosition().y && currentDirection == 0)
+			if (position.y < enemies[i]->getPosition().y && currentDirection == 0) {
+				enemies[i]->knockBack(currentDirection);
 				enemies[i]->setHealth(enemies[i]->getHealth() - 5);
-
+			}
 			break;
 		}
 	}

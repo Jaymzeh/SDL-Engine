@@ -15,6 +15,7 @@ public:
 	virtual void setSprite(int i, AniSprite* newSprite) = 0;
 	virtual void move(float dx, float dy) = 0;
 	virtual void moveBack() = 0;
+	virtual void knockBack(int _direction) = 0;
 	virtual void setPosition(Vector2 newPos) = 0;
 	virtual void setPosition(float dx, float dy) = 0;
 	virtual void update() = 0;
@@ -30,6 +31,7 @@ public:
 	virtual void updateAttackCooldown() = 0;
 	virtual int getAttackCooldown() = 0;
 	virtual ~BaseCharacter() {};
+
 };
 
 class Character : public BaseCharacter {
@@ -40,6 +42,7 @@ private:
 	enum Direction { UP = 0, RIGHT = 1, DOWN = 2, LEFT = 3 };
 	Direction currentDirection = UP;
 	int frames = 0;
+	int knockBackCooldown = 0;
 public:
 	Character(float dx, float dy, float charSize) {
 		position.setPoint(dx, dy);
@@ -74,6 +77,29 @@ public:
 		setPosition(oldPosition);
 	}
 
+	//new
+	void knockBack(int _direction) {
+		if (knockBackCooldown < 1) {
+			//std::cout << "knockback" << std::endl;
+			Vector2 tempPos;
+			tempPos.x = position.x;
+			tempPos.y = position.y;
+
+			if (_direction == 2)
+				tempPos.y -= 32;
+			if (_direction == 0)
+				tempPos.y += 32;
+			if (_direction == 1)
+				tempPos.x += 32;
+			if (_direction == 3)
+				tempPos.x -= 32;
+
+			std::cout << "tempPos" << tempPos.x << tempPos.y << " Direction" << _direction << std::endl;
+			setPosition(tempPos);
+
+			knockBackCooldown = 60;
+		}
+	}
 	void setPosition(Vector2 newPos) {
 		position = newPos;
 		for (int i = 0; i < ARRAYSIZE(sprite); i++)
@@ -90,6 +116,7 @@ public:
 	void update() {
 		float dx = 0;
 		float dy = 0;
+		knockBackCooldown--;
 
 		Vector2 pos = target;
 
@@ -158,7 +185,7 @@ public:
 			delete sprite[i];
 		//delete currentSprite;
 	}
-	
+
 protected:
 	int health;
 	int attackCooldown;
@@ -177,6 +204,7 @@ public:
 	void setSprite(int i, AniSprite* newSprite) { character->setSprite(i, newSprite); }
 	void move(float dx, float dy) { character->move(dx, dy); };
 	void moveBack() { character->moveBack(); }
+	void knockBack(int _direction) { character->knockBack(_direction); }
 	void setPosition(Vector2 newPos) { character->setPosition(newPos); }
 	void setPosition(float dx, float dy) { character->setPosition(dx, dy); }
 	void update() { character->update(); }
@@ -200,6 +228,7 @@ public:
 	void setSprite(int i, AniSprite* newSprite) { CharacterDecorator::setSprite(i, newSprite); }
 	void move(float dx, float dy) { CharacterDecorator::move(dx, dy); }
 	void moveBack() { CharacterDecorator::moveBack(); }
+	void knockBack(int _direction) { CharacterDecorator::knockBack(_direction); }
 	void setPosition(Vector2 newPos) { CharacterDecorator::setPosition(newPos); }
 	void setPosition(float dx, float dy) { CharacterDecorator::setPosition(dx, dy); }
 	void update() { CharacterDecorator::update(); }
@@ -223,6 +252,7 @@ public:
 	void setSprite(int i, AniSprite* newSprite) { CharacterDecorator::setSprite(i, newSprite); }
 	void move(float dx, float dy) { CharacterDecorator::move(dx, dy); }
 	void moveBack() { CharacterDecorator::moveBack(); }
+	void knockback(int _direction) { CharacterDecorator::knockBack(_direction); }
 	void setPosition(Vector2 newPos) { CharacterDecorator::setPosition(newPos); }
 	void setPosition(float dx, float dy) { CharacterDecorator::setPosition(dx, dy); }
 	void update() { CharacterDecorator::update(); }

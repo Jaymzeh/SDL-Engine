@@ -19,7 +19,7 @@ public:
 
 	void render() {
 		sprite->drawAt(position.x, position.y);
-		bBox.render();
+		//bBox.render();
 	}
 
 	bool unlocked = false;

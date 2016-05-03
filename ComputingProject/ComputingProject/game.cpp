@@ -1,4 +1,6 @@
 #include "game.h"
+#include "stateMainMenu.h"
+#include "stateGameOver.h"
 #include "stateShop.h"
 #include "stateLevelOne.h"
 #include "stateLevelTwo.h"
@@ -54,6 +56,12 @@ void Game::init() {
 
 	//BASS_ChannelPlay(sfxChannel, FALSE);
 
+	mainMenuState = new StateMainMenu();
+	mainMenuState->init(*this);
+
+	gameOverState= new StateGameOver();
+	gameOverState->init(*this);
+
 	shopLevel = new StateShop();
 	shopLevel->init(*this);
 
@@ -66,7 +74,7 @@ void Game::init() {
 	levelThreeState = new StateLevelThree();
 	levelThreeState->init(*this);
 
-	currentState = levelTwoState;
+	currentState = mainMenuState;
 	currentState->enter();
 
 	glClearColor(0, 0, 0, 0);
@@ -99,6 +107,9 @@ void Game::setState(GameState* newState) {
 
 GameState* Game::getMainMenuState() {
 	return mainMenuState;
+}
+GameState* Game::getGameOver() {
+	return gameOverState;
 }
 GameState* Game::getLevelShop() {
 	return shopLevel;

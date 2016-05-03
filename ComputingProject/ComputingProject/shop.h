@@ -31,17 +31,17 @@ public:
 	bool inShop;
 
 	void render() {
+
 		sprite->drawAt(position.x, position.y);
 
 		//bboxes render
-		mainbBox.render();
-		bBoxOption1.render();
-		bBoxOption2.render();
-		bBoxOption3.render();
+		//mainbBox.render();
+		//bBoxOption1.render();
+		//bBoxOption2.render();
+		//bBoxOption3.render();
 	}
 
 private:
-
 	Vector2 position;
 	BoundingBox mainbBox, bBoxOption1, bBoxOption2, bBoxOption3, blockingBox1, blockingBox2, blockingBox3;
 	Bitmap* sprite;

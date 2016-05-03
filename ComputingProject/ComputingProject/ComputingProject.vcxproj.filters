@@ -51,6 +51,12 @@
     <ClCompile Include="stateLevelThree.cpp">
       <Filter>Source Files\Gamestate</Filter>
     </ClCompile>
+    <ClCompile Include="stateMainMenu.cpp">
+      <Filter>Source Files\Gamestate</Filter>
+    </ClCompile>
+    <ClCompile Include="stateGameOver.cpp">
+      <Filter>Source Files\Gamestate</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="game.h">
@@ -108,6 +114,12 @@
       <Filter>Header Files\Gamestate</Filter>
     </ClInclude>
     <ClInclude Include="stateLevelThree.h">
+      <Filter>Header Files\Gamestate</Filter>
+    </ClInclude>
+    <ClInclude Include="stateMainMenu.h">
+      <Filter>Header Files\Gamestate</Filter>
+    </ClInclude>
+    <ClInclude Include="stateGameOver.h">
       <Filter>Header Files\Gamestate</Filter>
     </ClInclude>
   </ItemGroup>

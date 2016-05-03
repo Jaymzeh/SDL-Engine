@@ -48,6 +48,10 @@ void StateLevelOne::init(Game& context) {
 
 }//init
 void StateLevelOne::update(Game& context) {
+
+	if (player->health <= 0)
+		context.setState(context.getGameOver());
+
 	player->handleInputX(keystate);
 	for (int i = 0; i < mapBoxes.size(); i++) {
 		if (player->getBox().intersects(mapBoxes[i])) {
@@ -86,8 +90,10 @@ void StateLevelOne::update(Game& context) {
 		}
 		if (player->getBox().intersects(key.getBox()))
 			door.unlocked = true;
-		if (door.unlocked && player->getBox().intersects(door.getBox()))
+		if (door.unlocked && player->getBox().intersects(door.getBox())) {
+			player->savePlayerData("playerData.txt");
 			context.setState(context.getLevelTwo());
+		}
 	}
 }//update
 void StateLevelOne::enter() {
@@ -118,7 +124,6 @@ void StateLevelOne::enter() {
 	key.createKey(1952, -320, new Bitmap("Key.bmp", true));
 
 	door.createDoor(1408, -32, new Bitmap("Door.bmp", true));
-
 
 	character.push_back(new Slime(new Character(704, -96, 32)));
 	character[character.size() - 1]->setHealth(5);

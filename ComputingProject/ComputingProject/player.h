@@ -17,6 +17,10 @@ public:
 	Player() {}
 	Player(float dx, float dy, float _width, float _height);
 
+	void loadPlayerData(char* filePath);
+
+	void savePlayerData(char* filePath);
+
 	void setSprite(int i, AniSprite* newSprite);
 	void setHeartSprite(Bitmap* newSprite);
 	void move(float dx, float dy);

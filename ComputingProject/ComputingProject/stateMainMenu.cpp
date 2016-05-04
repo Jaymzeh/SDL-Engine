@@ -48,8 +48,12 @@ void StateMainMenu::handleSDLEvent(SDL_Event const& sdlEvent, Game& context) {
 	if (sdlEvent.type == SDL_KEYDOWN) {
 		switch (sdlEvent.key.keysym.sym) {
 
-		case SDLK_RETURN: case SDLK_RETURN2: case SDLK_e:
+		case SDLK_RETURN: case SDLK_RETURN2: case SDLK_p:
 			context.setState(context.getLevelOne());
+			break;
+
+		case SDLK_q:
+			SDL_Quit();
 			break;
 
 		default:

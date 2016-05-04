@@ -44,15 +44,15 @@ void Game::setupRC() {
 
 	//Audio
 	BASS_Init(-1, 44100, 0, 0, NULL);
-	musicSample = BASS_SampleLoad(false, "musicTrack.wav", 0, 0, 1, BASS_SAMPLE_MONO | BASS_SAMPLE_LOOP);
-	sample = BASS_SampleLoad(false, "edubble.mp3", 0, 0, 1, BASS_SAMPLE_MONO);
+	musicSample = BASS_SampleLoad(false, "Exploring a cave.mp3", 0, 0, 1, BASS_SAMPLE_MONO | BASS_SAMPLE_LOOP);
+	sample = BASS_SampleLoad(false, "sword_sheath_1.wav", 0, 0, 1, BASS_SAMPLE_MONO);
 
 	musicChannel = BASS_SampleGetChannel(musicSample, TRUE);
 	sfxChannel = BASS_SampleGetChannel(sample, FALSE);
 }
 
 void Game::init() {
-	//BASS_ChannelPlay(musicChannel, TRUE);
+	BASS_ChannelPlay(musicChannel, TRUE);
 
 	//BASS_ChannelPlay(sfxChannel, FALSE);
 
@@ -74,7 +74,7 @@ void Game::init() {
 	levelThreeState = new StateLevelThree();
 	levelThreeState->init(*this);
 
-	currentState = mainMenuState;
+	currentState = shopLevel;
 	currentState->enter();
 
 	glClearColor(0, 0, 0, 0);

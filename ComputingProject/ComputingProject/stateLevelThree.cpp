@@ -31,17 +31,21 @@ void StateLevelThree::draw(SDL_Window* window) {
 
 	map->render();
 
-	player->render();
-	player->showHealth(left, top - 32);
+
 
 	for (int i = 0; i < character.size(); i++) {
 		character[i]->render();
-		if (character[i]->getHealth() <= 0)
+		if (character[i]->getHealth() <= 0) {
 			character.erase(character.begin() + i);
-
+			player->addMoney(2);
+		}
 	}
 
 	door.render();
+
+	player->render();
+	player->showHealth(left, top - 16);
+	player->showMoney(left, top - 32);
 
 	if (!door.unlocked)
 		key.render();
@@ -124,10 +128,12 @@ void StateLevelThree::enter() {
 		player->getPosition().y, "sideSwordStab.bmp", 2, 1));
 
 	player->setHeartSprite(new Bitmap("heart.bmp", true));
+	player->setCoinSprite(new Bitmap("coin.bmp", true));
 
 	key.createKey(53 * 32, 24 * -32, new Bitmap("Key.bmp", true));
 
 	door.createDoor(37 * 32, -64, new Bitmap("Door.bmp", true));
+	door.unlocked = false;
 
 	character.push_back(new Slime(new Character(41 * 32, 12 * -32, 32)));
 	character[character.size() - 1]->setHealth(20);
@@ -359,6 +365,7 @@ void StateLevelThree::handleSDLEvent(SDL_Event const& sdlEvent, Game& context) {
 
 		case SDLK_e:
 			player->attack(character);
+			BASS_ChannelPlay(context.getSfxChannel(), true);
 			break;
 
 		case SDLK_RETURN: case SDLK_RETURN2:

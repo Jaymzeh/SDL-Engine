@@ -34,10 +34,14 @@ void StateLevelTwo::draw(SDL_Window* window) {
 	for (int i = 0; i < character.size(); i++) 
 		character[i]->render();
 
-	player->render();
-	player->showHealth(left, top - 32);
+	
+	
 
 	door.render();
+
+	player->render();
+	player->showHealth(left, top - 16);
+	player->showMoney(left, top - 32);
 
 	if (!door.unlocked)
 		key.render();
@@ -66,8 +70,10 @@ void StateLevelTwo::update(Game& context) {
 		}
 	}
 	for (int i = 0; i < character.size(); i++) {
-		if (character[i]->getHealth() <= 0)
+		if (character[i]->getHealth() <= 0) {
 			character.erase(character.begin() + i);
+			player->addMoney(2);
+		}
 
 		
 		character[i]->updateAttackCooldown();
@@ -127,9 +133,11 @@ void StateLevelTwo::enter() {
 		player->getPosition().y, "sideSwordStab.bmp", 2, 1));
 
 	player->setHeartSprite(new Bitmap("heart.bmp", true));
+	player->setCoinSprite(new Bitmap("coin.bmp", true));
 
 	key.createKey(2016, -64, new Bitmap("Key.bmp", true));
 	door.createDoor(1312, -352, new Bitmap("Door.bmp", true));
+	door.unlocked = false;
 
 	character.push_back(new Rat(new Character(96, -448, 32)));
 	character[character.size() - 1]->setHealth(15);
@@ -272,6 +280,7 @@ void StateLevelTwo::handleSDLEvent(SDL_Event const& sdlEvent, Game& context) {
 
 		case SDLK_e:
 			player->attack(character);
+			BASS_ChannelPlay(context.getSfxChannel(), true);
 			break;
 
 		case SDLK_RETURN: case SDLK_RETURN2:

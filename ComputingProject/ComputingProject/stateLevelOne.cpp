@@ -29,14 +29,19 @@ void StateLevelOne::draw(SDL_Window* window) {
 
 	map->render();
 
-	player->render();
-	player->showHealth(left, top-32);
+	
 
 	for (int i = 0; i < character.size(); i++) {
 		character[i]->render();
-		if (character[i]->getHealth() <= 0)
+		if (character[i]->getHealth() <= 0) {
 			character.erase(character.begin() + i);
+			player->addMoney(2);
+		}
 	}
+
+	player->render();
+	player->showHealth(left, top - 16);
+	player->showMoney(left, top - 32);
 
 	door.render();
 	if (!door.unlocked)
@@ -121,10 +126,14 @@ void StateLevelOne::enter() {
 		player->getPosition().y, "sideSwordStab.bmp", 2, 1));
 
 	player->setHeartSprite(new Bitmap("heart.bmp", true));
+	player->setCoinSprite(new Bitmap("coin.bmp", true));
 
 	key.createKey(1952, -320, new Bitmap("Key.bmp", true));
 
 	door.createDoor(1408, -32, new Bitmap("Door.bmp", true));
+	door.unlocked = false;
+
+	
 
 	character.push_back(new Slime(new Character(704, -96, 32)));
 	character[character.size() - 1]->setHealth(5);
@@ -316,6 +325,7 @@ void StateLevelOne::handleSDLEvent(SDL_Event const& sdlEvent, Game& context) {
 
 		case SDLK_e:
 			player->attack(character);
+			BASS_ChannelPlay(context.getSfxChannel(), true);
 			break;
 
 		case SDLK_RETURN: case SDLK_RETURN2:

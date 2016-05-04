@@ -58,7 +58,9 @@ void Player::setSprite(int i, AniSprite* newSprite) {
 void Player::setHeartSprite(Bitmap* newSprite) {
 	heartImage = newSprite;
 }
-
+void Player::setCoinSprite(Bitmap* newSprite) {
+	coinImage = newSprite;
+}
 
 void Player::move(float dx, float dy) {
 	if (dx > 0)
@@ -126,22 +128,22 @@ void Player::attack(std::vector<BaseCharacter*>& enemies) {
 			//Left
 			if (position.x < enemies[i]->getPosition().x && currentDirection == 1) {
 				enemies[i]->knockBack(currentDirection);
-				enemies[i]->setHealth(enemies[i]->getHealth() - 5);
+				enemies[i]->setHealth(enemies[i]->getHealth() - strength);
 			}
 			//Right
 			if (position.x > enemies[i]->getPosition().x && currentDirection == 3) {
 				enemies[i]->knockBack(currentDirection);
-				enemies[i]->setHealth(enemies[i]->getHealth() - 5);
+				enemies[i]->setHealth(enemies[i]->getHealth() - strength);
 			}
 			//Top
 			if (position.y > enemies[i]->getPosition().y && currentDirection == 2) {
 				enemies[i]->knockBack(currentDirection);
-				enemies[i]->setHealth(enemies[i]->getHealth() - 5);
+				enemies[i]->setHealth(enemies[i]->getHealth() - strength);
 			}
 			//Bottom
 			if (position.y < enemies[i]->getPosition().y && currentDirection == 0) {
 				enemies[i]->knockBack(currentDirection);
-				enemies[i]->setHealth(enemies[i]->getHealth() - 5);
+				enemies[i]->setHealth(enemies[i]->getHealth() - strength);
 			}
 			break;
 		}
@@ -199,6 +201,13 @@ void Player::showHealth(int dx, int dy) {
 
 	for (int i = 0; i < health;i++) {
 		heartImage->drawAt(dx + (i * heartImage->getWidth()), dy);
+	}
+}
+
+void Player::showMoney(int dx, int dy) {
+
+	for (int i = 0; i < money; i++) {
+		coinImage->drawAt(dx + (i * coinImage->getWidth()), dy);
 	}
 }
 

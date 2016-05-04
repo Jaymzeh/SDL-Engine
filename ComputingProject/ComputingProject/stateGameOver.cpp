@@ -35,7 +35,7 @@ void StateGameOver::update(Game& context) {
 void StateGameOver::enter() {
 	cout << "Game Over State \n";
 
-	background = new Bitmap("mainMenuBackground.bmp", true);
+	background = new Bitmap("gameOverScreen.bmp", true);
 
 	cout << "Game Over  Loaded \n";
 }//enter

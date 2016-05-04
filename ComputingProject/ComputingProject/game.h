@@ -22,6 +22,7 @@ public:
 	void setShowDebug(bool show) { showDebug = true; }
 
 	HCHANNEL getMusicChannel() { return musicChannel; }
+	HCHANNEL getSfxChannel() { return sfxChannel; }
 
 	void setState(GameState* newState);
 	GameState* getMainMenuState();

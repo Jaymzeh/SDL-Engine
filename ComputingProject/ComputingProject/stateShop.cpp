@@ -28,14 +28,12 @@ void StateShop::draw(SDL_Window* window) {
 
 	map->render();
 
-	
-	
-
 	shop.render();
 	door.render();
 
 	player->render();
-	player->showHealth(left, top - 32);
+	player->showHealth(left, top - 16);
+	player->showMoney(left, top - 32);
 
 	SDL_GL_SwapWindow(window);
 }//draw
@@ -93,12 +91,13 @@ void StateShop::update(Game& context) {
 	}
 	else if (shop.inShopSelection == 2 && shop.selectionCooldown < 1) {
 		//N: Doesn't need a cooldown
-		if (keystate[SDL_SCANCODE_Y]) {
+		if (keystate[SDL_SCANCODE_E]) {
 
-			if (player->getMoney() >= 30) {
-				cout << "+100 Strength" << endl << "-30 coins" << endl;
-				player->addMoney(-30);
+			if (player->getMoney() >= 5) {
+				cout << "+1 Strength" << endl << "-5 coins" << endl;
+				player->addMoney(-5);
 				player->strength++;
+				BASS_ChannelPlay(context.getSfxChannel(), true);
 				cout << "Coins: " << player->getMoney() << endl;
 				cout << "-----------------------------" << endl;
 			}
@@ -110,11 +109,12 @@ void StateShop::update(Game& context) {
 	}
 	else if (shop.inShopSelection == 3 && shop.selectionCooldown < 1) {
 		//N: Doesn't need a cooldown
-		if (keystate[SDL_SCANCODE_Y]) {
-			if (player->getMoney() >= 50) {
-				cout << "+1 Extra Health" << endl << "-50 coins" << endl;
-				player->addMoney(-50);
+		if (keystate[SDL_SCANCODE_E]) {
+			if (player->getMoney() >= 15) {
+				cout << "+1 Extra Health" << endl << "-15 coins" << endl;
+				player->addMoney(-15);
 				player->maxHealth++;
+				BASS_ChannelPlay(context.getSfxChannel(), true);
 				cout << "Coins: " << player->getMoney() << endl;
 				cout << "-----------------------------" << endl;
 			}
@@ -126,12 +126,13 @@ void StateShop::update(Game& context) {
 	}
 	else if (shop.inShopSelection == 4 && shop.selectionCooldown < 1) {
 		//N: Doesn't need a cooldown
-		if (keystate[SDL_SCANCODE_Y]) {
+		if (keystate[SDL_SCANCODE_E]) {
 
-			if (player->getMoney() >= 20) {
+			if (player->getMoney() >= 10) {
 				player->health++;
-				player->addMoney(-20);
-				cout << "+1 Potion" << endl << "-20 coins" << endl;
+				player->addMoney(-10);
+				BASS_ChannelPlay(context.getSfxChannel(), true);
+				cout << "+1 Potion" << endl << "-10 coins" << endl;
 				cout << "Coins: " << player->getMoney() << endl;
 				cout << "-----------------------------" << endl;
 			}
@@ -179,9 +180,12 @@ void StateShop::enter() {
 		player->getPosition().y, "sideSwordStab.bmp", 2, 1));
 
 	player->setHeartSprite(new Bitmap("heart.bmp", true));
+	player->setCoinSprite(new Bitmap("coin.bmp", true));
 
 	door.createDoor(8*32, -6*32, new Bitmap("Door.bmp", false));
 	door.unlocked = true;
+
+
 }//enter
 void StateShop::exit() {
 	cout << "Exiting Shop State" << endl;
@@ -192,9 +196,7 @@ void StateShop::handleSDLEvent(SDL_Event const& sdlEvent, Game& context) {
 	if (sdlEvent.type == SDL_KEYDOWN) {
 		switch (sdlEvent.key.keysym.sym) {
 
-		case SDLK_e:
-
-			break;
+		
 
 		case SDLK_RETURN: case SDLK_RETURN2:
 			context.setState(context.getLevelTwo());

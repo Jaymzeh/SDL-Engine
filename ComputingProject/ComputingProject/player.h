@@ -23,6 +23,7 @@ public:
 
 	void setSprite(int i, AniSprite* newSprite);
 	void setHeartSprite(Bitmap* newSprite);
+	void setCoinSprite(Bitmap* newSprite);
 	void move(float dx, float dy);
 	void moveBack();
 	void handleInputX(const Uint8* keystate);
@@ -41,6 +42,7 @@ public:
 
 	void render();
 	void showHealth(int dx, int dy);
+	void showMoney(int dx, int dy);
 
 	BoundingBox getBox() { return bBox; }
 	Vector2 getPosition() { return position; }
@@ -51,7 +53,7 @@ public:
 	int health = 3;
 	int maxHealth = 3;
 	int prevLevel = 0;
-	int strength = 1;
+	int strength = 5;
 private:
 	int money = 0;
 	
@@ -60,6 +62,7 @@ private:
 	BoundingBox bBox;
 	Vector2 position, oldPosition;
 	Bitmap* heartImage;
+	Bitmap* coinImage;
 	AniSprite* sprite[5];
 	AniSprite* currentSprite;
 	enum Direction { UP = 0, RIGHT = 1, DOWN = 2, LEFT = 3 };

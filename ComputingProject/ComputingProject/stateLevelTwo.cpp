@@ -70,10 +70,7 @@ void StateLevelTwo::update(Game& context) {
 		}
 	}
 	for (int i = 0; i < character.size(); i++) {
-		if (character[i]->getHealth() <= 0) {
-			character.erase(character.begin() + i);
-			player->addMoney(2);
-		}
+		
 
 		
 		character[i]->updateAttackCooldown();
@@ -97,6 +94,11 @@ void StateLevelTwo::update(Game& context) {
 				if (character[i]->getBox().intersects(mapBoxes[j])) {
 					character[i]->moveBack();
 				}
+			}
+
+			if (character[i]->getHealth() <= 0) {
+				character.erase(character.begin() + i);
+				player->addMoney(2);
 			}
 		}
 		if (player->getBox().intersects(key.getBox()))

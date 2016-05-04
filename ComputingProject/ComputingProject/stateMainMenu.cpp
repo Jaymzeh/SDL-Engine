@@ -53,7 +53,7 @@ void StateMainMenu::handleSDLEvent(SDL_Event const& sdlEvent, Game& context) {
 			break;
 
 		case SDLK_q:
-			SDL_Quit();
+			SDL_Quit;
 			break;
 
 		default:

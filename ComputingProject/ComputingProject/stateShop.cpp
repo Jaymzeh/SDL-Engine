@@ -59,10 +59,12 @@ void StateShop::update(Game& context) {
 	if (door.unlocked && player->getBox().intersects(door.getBox())) {
 		switch (player->prevLevel) {
 		case 1:
+			player->savePlayerData("playerData.txt");
 			context.setState(context.getLevelTwo());
 			break;
 
 		case 2:
+			player->savePlayerData("playerData.txt");
 			context.setState(context.getLevelThree());
 			break;
 		}
@@ -129,7 +131,7 @@ void StateShop::update(Game& context) {
 		if (keystate[SDL_SCANCODE_E]) {
 
 			if (player->getMoney() >= 10) {
-				player->health++;
+				player->health = player->maxHealth;
 				player->addMoney(-10);
 				BASS_ChannelPlay(context.getSfxChannel(), true);
 				cout << "+1 Potion" << endl << "-10 coins" << endl;

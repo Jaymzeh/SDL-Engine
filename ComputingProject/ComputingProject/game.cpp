@@ -74,7 +74,7 @@ void Game::init() {
 	levelThreeState = new StateLevelThree();
 	levelThreeState->init(*this);
 
-	currentState = shopLevel;
+	currentState = mainMenuState;
 	currentState->enter();
 
 	glClearColor(0, 0, 0, 0);

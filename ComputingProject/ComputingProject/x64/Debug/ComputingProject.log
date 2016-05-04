@@ -1,0 +1,46 @@
+﻿game.obj : error LNK2019: unresolved external symbol SDL_GetError referenced in function "void __cdecl exitFatalError(char *)" (?exitFatalError@@YAXPEAD@Z)
+game.obj : error LNK2019: unresolved external symbol SDL_CreateWindow referenced in function "private: void __cdecl Game::setupRC(void)" (?setupRC@Game@@AEAAXXZ)
+game.obj : error LNK2019: unresolved external symbol SDL_GL_SetAttribute referenced in function "private: void __cdecl Game::setupRC(void)" (?setupRC@Game@@AEAAXXZ)
+game.obj : error LNK2019: unresolved external symbol SDL_GL_CreateContext referenced in function "private: void __cdecl Game::setupRC(void)" (?setupRC@Game@@AEAAXXZ)
+game.obj : error LNK2019: unresolved external symbol SDL_GL_SetSwapInterval referenced in function "private: void __cdecl Game::setupRC(void)" (?setupRC@Game@@AEAAXXZ)
+game.obj : error LNK2019: unresolved external symbol SDL_PollEvent referenced in function "public: void __cdecl Game::run(void)" (?run@Game@@QEAAXXZ)
+game.obj : error LNK2019: unresolved external symbol SDL_Init referenced in function "private: void __cdecl Game::setupRC(void)" (?setupRC@Game@@AEAAXXZ)
+game.obj : error LNK2019: unresolved external symbol SDL_Quit referenced in function "void __cdecl exitFatalError(char *)" (?exitFatalError@@YAXPEAD@Z)
+game.obj : error LNK2019: unresolved external symbol BASS_Init referenced in function "private: void __cdecl Game::setupRC(void)" (?setupRC@Game@@AEAAXXZ)
+game.obj : error LNK2019: unresolved external symbol BASS_SampleLoad referenced in function "private: void __cdecl Game::setupRC(void)" (?setupRC@Game@@AEAAXXZ)
+game.obj : error LNK2019: unresolved external symbol BASS_SampleGetChannel referenced in function "private: void __cdecl Game::setupRC(void)" (?setupRC@Game@@AEAAXXZ)
+rt3d.obj : error LNK2001: unresolved external symbol __imp___glewBindBuffer
+rt3d.obj : error LNK2001: unresolved external symbol __imp___glewBufferData
+rt3d.obj : error LNK2001: unresolved external symbol __imp___glewDeleteBuffers
+rt3d.obj : error LNK2001: unresolved external symbol __imp___glewGenBuffers
+rt3d.obj : error LNK2001: unresolved external symbol __imp___glewAttachShader
+rt3d.obj : error LNK2001: unresolved external symbol __imp___glewBindAttribLocation
+rt3d.obj : error LNK2001: unresolved external symbol __imp___glewCompileShader
+rt3d.obj : error LNK2001: unresolved external symbol __imp___glewCreateProgram
+rt3d.obj : error LNK2001: unresolved external symbol __imp___glewCreateShader
+rt3d.obj : error LNK2001: unresolved external symbol __imp___glewEnableVertexAttribArray
+rt3d.obj : error LNK2001: unresolved external symbol __imp___glewGetProgramInfoLog
+rt3d.obj : error LNK2001: unresolved external symbol __imp___glewGetProgramiv
+rt3d.obj : error LNK2001: unresolved external symbol __imp___glewGetShaderInfoLog
+rt3d.obj : error LNK2001: unresolved external symbol __imp___glewGetShaderiv
+rt3d.obj : error LNK2001: unresolved external symbol __imp___glewGetUniformLocation
+rt3d.obj : error LNK2001: unresolved external symbol __imp___glewIsShader
+rt3d.obj : error LNK2001: unresolved external symbol __imp___glewLinkProgram
+rt3d.obj : error LNK2001: unresolved external symbol __imp___glewShaderSource
+rt3d.obj : error LNK2001: unresolved external symbol __imp___glewUniform1f
+rt3d.obj : error LNK2001: unresolved external symbol __imp___glewUniform4fv
+rt3d.obj : error LNK2001: unresolved external symbol __imp___glewUniformMatrix4fv
+rt3d.obj : error LNK2001: unresolved external symbol __imp___glewUseProgram
+rt3d.obj : error LNK2001: unresolved external symbol __imp___glewVertexAttribPointer
+rt3d.obj : error LNK2001: unresolved external symbol __imp___glewBindVertexArray
+rt3d.obj : error LNK2001: unresolved external symbol __imp___glewGenVertexArrays
+stateLevelOne.obj : error LNK2019: unresolved external symbol SDL_GL_SwapWindow referenced in function "public: virtual void __cdecl StateLevelOne::draw(struct SDL_Window *)" (?draw@StateLevelOne@@UEAAXPEAUSDL_Window@@@Z)
+stateLevelOne.obj : error LNK2019: unresolved external symbol SDL_GetKeyboardState referenced in function "public: __cdecl StateLevelOne::StateLevelOne(void)" (??0StateLevelOne@@QEAA@XZ)
+MSVCRTD.lib(exe_winmain.obj) : error LNK2019: unresolved external symbol WinMain referenced in function "int __cdecl invoke_main(void)" (?invoke_main@@YAHXZ)
+C:\Dev\SDL2-2.0.4\lib\x86\SDL2.lib : warning LNK4272: library machine type 'X86' conflicts with target machine type 'x64'
+C:\Dev\SDL2-2.0.4\lib\x86\SDL2main.lib : warning LNK4272: library machine type 'X86' conflicts with target machine type 'x64'
+C:\Dev\SDL2 plugins\lib\x86\SDL2_ttf.lib : warning LNK4272: library machine type 'X86' conflicts with target machine type 'x64'
+C:\Dev\glew-1.13.0\lib\Release\Win32\glew32.lib : warning LNK4272: library machine type 'X86' conflicts with target machine type 'x64'
+Bass.lib : warning LNK4272: library machine type 'X86' conflicts with target machine type 'x64'
+freeglut.lib : warning LNK4272: library machine type 'X86' conflicts with target machine type 'x64'
+E:\Documents\Uni\3rd Year\Games_Technology_Project\SDL-Engine\ComputingProject\x64\Debug\ComputingProject.exe : fatal error LNK1120: 39 unresolved externals

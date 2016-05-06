@@ -16,8 +16,8 @@ public:
 		bBox.setBox(position.x, position.y, spriteWidth, spriteHeight);
 	}
 
-	void unlockDoor(Door door) {
-		door.unlocked = true;
+	void deleteKey() {
+		delete sprite;
 	}
 
 	BoundingBox getBox() { return bBox; }

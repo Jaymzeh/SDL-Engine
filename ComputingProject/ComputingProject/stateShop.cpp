@@ -116,6 +116,7 @@ void StateShop::update(Game& context) {
 				cout << "+1 Extra Health" << endl << "-15 coins" << endl;
 				player->addMoney(-15);
 				player->maxHealth++;
+				player->health = player->maxHealth;
 				BASS_ChannelPlay(context.getSfxChannel(), true);
 				cout << "Coins: " << player->getMoney() << endl;
 				cout << "-----------------------------" << endl;
@@ -182,7 +183,7 @@ void StateShop::enter() {
 		player->getPosition().y, "sideSwordStab.bmp", 2, 1));
 
 	player->setHeartSprite(new Bitmap("heart.bmp", true));
-	player->setCoinSprite(new Bitmap("coin.bmp", true));
+	player->setCoinSprites(new Bitmap("silverCoin.bmp", true), new Bitmap("goldCoin.bmp", true));
 
 	door.createDoor(8*32, -6*32, new Bitmap("Door.bmp", false));
 	door.unlocked = true;

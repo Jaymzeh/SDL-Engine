@@ -97,7 +97,7 @@ public:
 			std::cout << "tempPos" << tempPos.x << tempPos.y << " Direction" << _direction << std::endl;
 			setPosition(tempPos);
 
-			knockBackCooldown = 60;
+			knockBackCooldown = 40;
 		}
 	}
 	void setPosition(Vector2 newPos) {

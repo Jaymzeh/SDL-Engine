@@ -13,6 +13,8 @@ public:
 		spriteWidth = sprite->getWidth();
 		spriteHeight = sprite->getHeight();
 		bBox.setBox(position.x, position.y, spriteWidth, spriteHeight);
+
+		unlocked = false;
 	}
 
 	BoundingBox getBox() { return bBox; }
@@ -20,6 +22,10 @@ public:
 	void render() {
 		sprite->drawAt(position.x, position.y);
 		//bBox.render();
+	}
+
+	void deleteDoor() {
+		delete sprite;
 	}
 
 	bool unlocked = false;

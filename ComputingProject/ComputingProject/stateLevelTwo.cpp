@@ -1,7 +1,5 @@
 #include "stateLevelTwo.h"
 #include "game.h"
-#define GL_CLAMP_TO_EDGE 0x812F
-//#include "player.h"
 
 StateLevelTwo::StateLevelTwo() {
 
@@ -10,6 +8,8 @@ StateLevelTwo::~StateLevelTwo() {
 	delete player;
 	delete map;
 	delete keystate;
+	door.deleteDoor();
+	key.deleteKey();
 	for (int i = 0; i < character.size(); i++) {
 		delete character[i];
 		character[i] = nullptr;
@@ -33,9 +33,6 @@ void StateLevelTwo::draw(SDL_Window* window) {
 
 	for (int i = 0; i < character.size(); i++) 
 		character[i]->render();
-
-	
-	
 
 	door.render();
 
@@ -70,9 +67,6 @@ void StateLevelTwo::update(Game& context) {
 		}
 	}
 	for (int i = 0; i < character.size(); i++) {
-		
-
-		
 		character[i]->updateAttackCooldown();
 		if (i != character.size() - 1) {
 			if (character[i]->getBox().intersects(character[i + 1]->getBox())) {
@@ -135,11 +129,10 @@ void StateLevelTwo::enter() {
 		player->getPosition().y, "sideSwordStab.bmp", 2, 1));
 
 	player->setHeartSprite(new Bitmap("heart.bmp", true));
-	player->setCoinSprite(new Bitmap("coin.bmp", true));
+	player->setCoinSprites(new Bitmap("silverCoin.bmp", true), new Bitmap("goldCoin.bmp", true));
 
 	key.createKey(2016, -64, new Bitmap("Key.bmp", true));
 	door.createDoor(1312, -352, new Bitmap("Door.bmp", true));
-	door.unlocked = false;
 
 	character.push_back(new Rat(new Character(96, -448, 32)));
 	character[character.size() - 1]->setHealth(15);
@@ -283,10 +276,6 @@ void StateLevelTwo::handleSDLEvent(SDL_Event const& sdlEvent, Game& context) {
 		case SDLK_e:
 			player->attack(character);
 			BASS_ChannelPlay(context.getSfxChannel(), true);
-			break;
-
-		case SDLK_RETURN: case SDLK_RETURN2:
-			context.setState(context.getLevelTwo());
 			break;
 
 		default:

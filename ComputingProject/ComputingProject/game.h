@@ -27,6 +27,7 @@ public:
 	void setState(GameState* newState);
 	GameState* getMainMenuState();
 	GameState* getGameOver();
+	GameState* getGameEnd();
 	GameState* getLevelShop();
 	GameState* getLevelOne();
 	GameState* getLevelTwo();
@@ -48,6 +49,7 @@ private:
 	GameState* currentState;
 	GameState* mainMenuState;
 	GameState* gameOverState;
+	GameState* gameEndState;
 	GameState* shopLevel;
 	GameState* levelOneState;
 	GameState* levelTwoState;

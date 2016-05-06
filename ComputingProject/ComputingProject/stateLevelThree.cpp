@@ -1,7 +1,5 @@
 #include "stateLevelThree.h"
 #include "game.h"
-#define GL_CLAMP_TO_EDGE 0x812F
-//#include "player.h"
 
 StateLevelThree::StateLevelThree() {
 
@@ -10,6 +8,8 @@ StateLevelThree::~StateLevelThree() {
 	delete player;
 	delete map;
 	delete keystate;
+	door.deleteDoor();
+	key.deleteKey();
 	for (int i = 0; i < character.size(); i++) {
 		delete character[i];
 		character[i] = nullptr;
@@ -30,8 +30,6 @@ void StateLevelThree::draw(SDL_Window* window) {
 	gluOrtho2D(left, right, bottom, top);
 
 	map->render();
-
-
 
 	for (int i = 0; i < character.size(); i++) {
 		character[i]->render();
@@ -101,7 +99,7 @@ void StateLevelThree::update(Game& context) {
 		if (door.unlocked && player->getBox().intersects(door.getBox())) {
 			player->prevLevel = 3;
 			player->savePlayerData("playerData.txt");
-			context.setState(context.getLevelShop());
+			context.setState(context.getGameEnd());
 		}
 	}
 }//update
@@ -128,12 +126,11 @@ void StateLevelThree::enter() {
 		player->getPosition().y, "sideSwordStab.bmp", 2, 1));
 
 	player->setHeartSprite(new Bitmap("heart.bmp", true));
-	player->setCoinSprite(new Bitmap("coin.bmp", true));
+	player->setCoinSprites(new Bitmap("silverCoin.bmp", true), new Bitmap("goldCoin.bmp", true));
 
 	key.createKey(53 * 32, 24 * -32, new Bitmap("Key.bmp", true));
 
 	door.createDoor(37 * 32, -64, new Bitmap("Door.bmp", true));
-	door.unlocked = false;
 
 	character.push_back(new Slime(new Character(41 * 32, 12 * -32, 32)));
 	character[character.size() - 1]->setHealth(20);
@@ -366,10 +363,6 @@ void StateLevelThree::handleSDLEvent(SDL_Event const& sdlEvent, Game& context) {
 		case SDLK_e:
 			player->attack(character);
 			BASS_ChannelPlay(context.getSfxChannel(), true);
-			break;
-
-		case SDLK_RETURN: case SDLK_RETURN2:
-			context.setState(context.getLevelOne());
 			break;
 
 		default:

@@ -8,6 +8,8 @@ StateLevelOne::~StateLevelOne() {
 	delete player;
 	delete map;
 	delete keystate;
+	door.deleteDoor();
+	key.deleteKey();
 	for (int i = 0; i < character.size(); i++) {
 		delete character[i];
 		character[i] = nullptr;
@@ -28,8 +30,6 @@ void StateLevelOne::draw(SDL_Window* window) {
 	gluOrtho2D(left, right, bottom, top);
 
 	map->render();
-
-	
 
 	for (int i = 0; i < character.size(); i++) {
 		character[i]->render();
@@ -125,13 +125,11 @@ void StateLevelOne::enter() {
 	player->setSprite(4, new AniSprite(player->getPosition().x,
 		player->getPosition().y, "sideSwordStab.bmp", 2, 1));
 
-	player->setHeartSprite(new Bitmap("heart.bmp", true));
-	player->setCoinSprite(new Bitmap("coin.bmp", true));
+	
 
 	key.createKey(1952, -320, new Bitmap("Key.bmp", true));
 
 	door.createDoor(1408, -32, new Bitmap("Door.bmp", true));
-	door.unlocked = false;
 
 	
 
@@ -326,10 +324,6 @@ void StateLevelOne::handleSDLEvent(SDL_Event const& sdlEvent, Game& context) {
 		case SDLK_e:
 			player->attack(character);
 			BASS_ChannelPlay(context.getSfxChannel(), true);
-			break;
-
-		case SDLK_RETURN: case SDLK_RETURN2:
-			context.setState(context.getLevelOne());
 			break;
 
 		default:

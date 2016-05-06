@@ -9,7 +9,6 @@
 #include <vector>
 #include "boundingBox.h"
 #include "character.h"
-//#include <SDL.h>
 #include "SDL2-2.0.3-15\include\SDL.h"
 
 class Player {
@@ -23,7 +22,7 @@ public:
 
 	void setSprite(int i, AniSprite* newSprite);
 	void setHeartSprite(Bitmap* newSprite);
-	void setCoinSprite(Bitmap* newSprite);
+	void setCoinSprites(Bitmap* newSprite1, Bitmap* newSprite2);
 	void move(float dx, float dy);
 	void moveBack();
 	void handleInputX(const Uint8* keystate);
@@ -50,8 +49,8 @@ public:
 
 	~Player();
 
-	int health = 3;
-	int maxHealth = 3;
+	int health = 5;
+	int maxHealth = 5;
 	int prevLevel = 0;
 	int strength = 5;
 private:
@@ -62,7 +61,7 @@ private:
 	BoundingBox bBox;
 	Vector2 position, oldPosition;
 	Bitmap* heartImage;
-	Bitmap* coinImage;
+	Bitmap* coinImage[2];
 	AniSprite* sprite[5];
 	AniSprite* currentSprite;
 	enum Direction { UP = 0, RIGHT = 1, DOWN = 2, LEFT = 3 };

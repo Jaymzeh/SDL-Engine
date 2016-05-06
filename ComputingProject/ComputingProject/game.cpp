@@ -1,6 +1,7 @@
 #include "game.h"
 #include "stateMainMenu.h"
 #include "stateGameOver.h"
+#include "stateGameEnd.h"
 #include "stateShop.h"
 #include "stateLevelOne.h"
 #include "stateLevelTwo.h"
@@ -32,7 +33,7 @@ void Game::setupRC() {
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 2);
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 1);
 
-	window = SDL_CreateWindow("Group 3 Engine Prototype",
+	window = SDL_CreateWindow("Group 3: Dungeon Peril",
 		SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
 		WINDOWWIDTH, WINDOWHEIGHT, SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE);
 	if (!window)
@@ -50,17 +51,20 @@ void Game::setupRC() {
 	musicChannel = BASS_SampleGetChannel(musicSample, TRUE);
 	sfxChannel = BASS_SampleGetChannel(sample, FALSE);
 }
-
+/*
+Initialise all the game states
+*/
 void Game::init() {
 	BASS_ChannelPlay(musicChannel, TRUE);
-
-	//BASS_ChannelPlay(sfxChannel, FALSE);
 
 	mainMenuState = new StateMainMenu();
 	mainMenuState->init(*this);
 
 	gameOverState= new StateGameOver();
 	gameOverState->init(*this);
+
+	gameEndState = new StateGameEnd();
+	gameEndState->init(*this);
 
 	shopLevel = new StateShop();
 	shopLevel->init(*this);
@@ -74,6 +78,7 @@ void Game::init() {
 	levelThreeState = new StateLevelThree();
 	levelThreeState->init(*this);
 
+	//Set the first game state to the main menu
 	currentState = mainMenuState;
 	currentState->enter();
 
@@ -97,7 +102,9 @@ void Game::run() {
 		currentState->draw(window);
 	}
 }
-
+/*
+Exit the current game state and enter the new game state
+*/
 void Game::setState(GameState* newState) {
 	currentState->exit();
 	currentState = newState;
@@ -105,11 +112,18 @@ void Game::setState(GameState* newState) {
 	glPushMatrix();
 }
 
+/*
+Return specific game states in the game.
+Can be called within a gamestate to set the current game state of the game
+*/
 GameState* Game::getMainMenuState() {
 	return mainMenuState;
 }
 GameState* Game::getGameOver() {
 	return gameOverState;
+}
+GameState* Game::getGameEnd() {
+	return gameEndState;
 }
 GameState* Game::getLevelShop() {
 	return shopLevel;

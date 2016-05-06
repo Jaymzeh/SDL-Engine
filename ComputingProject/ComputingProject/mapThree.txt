@@ -28,8 +28,8 @@ cccccabbacccccccccccccbbbbbbba--------------abbbbbbbbbbbbba-
 -----abba---------------aba-----------------cccabbacccccccc-
 -----abba---------------aba--------------------abba---------
 -----abbaaaaaaaaaaaaaaaaabaaaaaaaaaaaaaaaaaaaaaabbaa--------
------abbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb--------
------abbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb--------
+-----abbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbba--------
+-----abbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbba--------
 -----ccccccccccccccccccccccccccccccccccccccccccccccc--------
 ------------------------------------------------------------
 ------------------------------------------------------------

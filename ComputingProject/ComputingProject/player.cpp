@@ -11,12 +11,26 @@ Player::Player(float dx, float dy, float _width, float _height) {
 	width = _width;
 	height = _height;
 	bBox.setBox(position.x, position.y, width, height);
-}
 
+	setHeartSprite(new Bitmap("heart.bmp", true));
+	setCoinSprites(new Bitmap("silverCoin.bmp", true), new Bitmap("goldCoin.bmp", true));
+}
+/*
+Load in the player's data from a txt file
+*/
 void Player::loadPlayerData(char* filePath) {
 	string line;
 	ifstream file(filePath);
 	if (file.is_open()) {
+
+		/*
+		TXT File Formatting
+		health
+		maxhealth
+		money
+		strength
+		previous level
+		*/
 
 		getline(file, line);
 		health = stoi(line);
@@ -37,6 +51,9 @@ void Player::loadPlayerData(char* filePath) {
 	}
 }
 
+/*
+Save the player's data from a txt file
+*/
 void Player::savePlayerData(char* filePath) {
 	string line;
 	ofstream file(filePath);
@@ -51,15 +68,26 @@ void Player::savePlayerData(char* filePath) {
 		file.close();
 	}
 }
-
+/*
+Load in animation for the player to use
+*/
 void Player::setSprite(int i, AniSprite* newSprite) {
 	sprite[i] = newSprite;
 }
+/*
+Load in the heart image to represent the player's health
+*/
 void Player::setHeartSprite(Bitmap* newSprite) {
 	heartImage = newSprite;
 }
-void Player::setCoinSprite(Bitmap* newSprite) {
-	coinImage = newSprite;
+/*
+Load int he images to represent the player's money.
+coinImage1 = silver coin
+coinImage2 = gold coin
+*/
+void Player::setCoinSprites(Bitmap* newSprite1, Bitmap* newSprite2) {
+	coinImage[0] = newSprite1;
+	coinImage[1] = newSprite2;
 }
 
 void Player::move(float dx, float dy) {
@@ -194,6 +222,9 @@ void Player::render() {
 	//bBox.render();
 }
 
+/*
+Show the player's health.
+*/
 void Player::showHealth(int dx, int dy) {
 
 	if (health > maxHealth)
@@ -203,11 +234,23 @@ void Player::showHealth(int dx, int dy) {
 		heartImage->drawAt(dx + (i * heartImage->getWidth()), dy);
 	}
 }
-
+/*
+Show the player's money.
+*/
 void Player::showMoney(int dx, int dy) {
+	int silverCoins = 0;
 
-	for (int i = 0; i < money; i++) {
-		coinImage->drawAt(dx + (i * coinImage->getWidth()), dy);
+	//For every 5 coins, draw 1 gold coin
+	for (int i = 0; i < money / 5; i++) {
+		coinImage[1]->drawAt(dx + (i * coinImage[1]->getWidth()), dy);
+		silverCoins++;
+	}
+
+	//Draw the rest of the coins to the right of the gold coins
+	int offset = silverCoins * coinImage[1]->getWidth();
+	for (int i = 0; i < money % 5; i++) {
+		
+		coinImage[0]->drawAt((dx + (i * coinImage[0]->getWidth()) + offset), dy);
 	}
 }
 
@@ -215,4 +258,7 @@ Player::~Player() {
 	for (int i = 0; i < ARRAYSIZE(sprite); i++)
 		delete sprite[i];
 	delete currentSprite;
+	delete heartImage;
+	delete coinImage[0];
+	delete coinImage[1];
 }
